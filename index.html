@@ -511,7 +511,7 @@
             font-size: 14px;
             color: var(--gray);
         }
-        /* ========== MDF ========== */
+        /* ========== MDF (без эмодзи) ========== */
         
         .mdf-grid {
             display: grid;
@@ -533,11 +533,6 @@
             transform: translateY(-4px);
             border-color: var(--accent);
             box-shadow: var(--shadow);
-        }
-        
-        .mdf-item-icon {
-            font-size: 40px;
-            margin-bottom: 16px;
         }
         
         .mdf-item h4 {
@@ -631,17 +626,17 @@
             font-size: 13px;
             color: #ccc;
         }
-        /* ========== ABOUT ========== */
+        /* ========== ABOUT (5 пунктов) ========== */
         
         .about-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 25px;
         }
         
         .about-card {
             background: var(--card-bg);
-            padding: 35px 25px;
+            padding: 35px 20px;
             border-radius: 10px;
             text-align: center;
             transition: var(--transition);
@@ -661,7 +656,7 @@
         
         .about-title {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--accent);
             margin-bottom: 4px;
@@ -674,10 +669,10 @@
             text-transform: uppercase;
             color: var(--gray);
         }
-        /* ========== CONTACT ========== */
+        /* ========== CONTACT (уменьшенный блок) ========== */
         
         .contact-section {
-            padding: 100px 60px;
+            padding: 60px 40px;
             background: var(--secondary);
             color: var(--white);
             text-align: center;
@@ -691,16 +686,18 @@
         .contact-section .section-title {
             color: var(--white);
             margin-bottom: 15px;
+            font-size: 40px;
+            /* чуть меньше */
         }
         
         .contact-phone {
             font-family: 'Playfair Display', serif;
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 700;
             color: var(--accent);
             text-decoration: none;
             display: inline-block;
-            margin: 20px 0 30px;
+            margin: 15px 0 20px;
             transition: var(--transition);
         }
         
@@ -720,7 +717,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 16px 36px;
+            padding: 14px 30px;
             border-radius: 50px;
             font-size: 14px;
             font-weight: 600;
@@ -756,7 +753,7 @@
             background: #0a0a0a;
             color: rgba(255, 255, 255, 0.3);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             font-size: 11px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -791,19 +788,22 @@
                 padding: 80px 40px;
             }
             .contact-section {
-                padding: 80px 40px;
+                padding: 50px 30px;
             }
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .about-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
         @media (max-width: 1024px) {
             .services-grid,
             .mdf-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .about-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .hero-features {
@@ -816,7 +816,7 @@
                 gap: 35px;
             }
             .contact-phone {
-                font-size: 44px;
+                font-size: 38px;
             }
         }
         
@@ -880,15 +880,17 @@
             }
             .services-grid,
             .mdf-grid,
-            .gallery-grid,
-            .about-grid {
+            .gallery-grid {
                 grid-template-columns: 1fr;
+            }
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
             }
             .gallery-item {
                 height: 280px;
             }
             .contact-section {
-                padding: 50px 20px;
+                padding: 40px 20px;
             }
             .contact-phone {
                 font-size: 30px;
@@ -1051,7 +1053,7 @@
     <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="divider"></div>
 
-    <!-- MDF -->
+    <!-- MDF (без эмодзи) -->
     <section class="section-bg" id="mdf" style="background-image: url('image/slide-2.jpg');">
         <div class="section-label">Спецпредложение</div>
         <h2 class="section-title">Покраска фасадов из МДФ</h2>
@@ -1060,17 +1062,14 @@
         </div>
         <div class="mdf-grid">
             <div class="mdf-item">
-                <div class="mdf-item-icon">✨</div>
                 <h4>Глянцевое покрытие</h4>
                 <p>Зеркальный блеск, глубокий цвет</p>
             </div>
             <div class="mdf-item">
-                <div class="mdf-item-icon">🔮</div>
                 <h4>Матовое покрытие</h4>
                 <p>Благородная текстура, мягкое свечение</p>
             </div>
             <div class="mdf-item">
-                <div class="mdf-item-icon">🎭</div>
                 <h4>Патина и софт-тач</h4>
                 <p>Изысканное состаривание и бархат</p>
             </div>
@@ -1139,7 +1138,7 @@
     <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="divider"></div>
 
-    <!-- ABOUT -->
+    <!-- ABOUT (5 пунктов) -->
     <section class="section-bg" id="about" style="background-image: url('image/slide-3.jpg');">
         <div class="section-label">О нас</div>
         <h2 class="section-title">Почему выбирают нас</h2>
@@ -1164,22 +1163,27 @@
                 <div class="about-title">Индивидуальность</div>
                 <div class="about-label">Внимание к деталям</div>
             </div>
+            <div class="about-card">
+                <div class="about-icon">💰</div>
+                <div class="about-title">Доступность</div>
+                <div class="about-label">Лучшее соотношение цены и качества</div>
+            </div>
         </div>
     </section>
 
     <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="divider"></div>
 
-    <!-- CONTACT -->
+    <!-- CONTACT (уменьшен) -->
     <section class="contact-section" id="contact">
         <div class="section-label">Контакты</div>
         <h2 class="section-title">Свяжитесь с нами</h2>
         <p style="color:rgba(255,255,255,0.6); font-size:16px; max-width:500px; margin:0 auto 15px;">
-            Ответим в течение 5 минут
+            Индивидуальный подход и безупречное качество
         </p>
         <a href="tel:+375259929001" class="contact-phone">+375 (25) 992-90-01</a>
-        <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:25px;">
-            Пн–Сб: 9:00 – 20:00
+        <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:20px;">
+            Пн–Пт: 9:00 – 20:00
         </p>
         <div class="contact-messengers">
             <a href="https://t.me/+375259929001" class="messenger-btn btn-telegram" target="_blank">
@@ -1194,8 +1198,6 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div>© 2025 Vintazh100</div>
-        <div><a href="#">Политика конфиденциальности</a></div>
-        <div>ИП Иванов И.И. УНП 123456789</div>
     </footer>
 
     <script>
