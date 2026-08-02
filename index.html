@@ -4,24 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Покраска мебели и фасадов в Минске | MebelPaint</title>
+    <title>Покраска фасадов МДФ в Минске | Vintazh100</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
          :root {
-            --primary: #1a1a1a;
-            --accent: #c9a87c;
-            --accent-dark: #b8946a;
+            --primary: #0d0d0d;
+            --secondary: #1a1a1a;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(212, 175, 55, 0.15);
+            --accent: #d4af37;
             --white: #ffffff;
-            --light-bg: #f8f6f3;
-            --gray: #666666;
-            --light-gray: #e8e5e0;
+            --gray: #cccccc;
             --telegram: #0088cc;
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            --instagram: #E4405F;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
         
         * {
@@ -36,20 +37,9 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: var(--white);
-            color: var(--primary);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        a,
-        button,
-        .clickable,
-        .service-card,
-        .gallery-item,
-        .advantage-card,
-        .process-step {
-            cursor: pointer;
+            background: var(--primary);
+            color: var(--white);
+            line-height: 1.5;
         }
         /* ========== HEADER ========== */
         
@@ -62,24 +52,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.97);
+            background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
-        /* Логотип — кликабельный, возвращает наверх */
         
         .header-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             text-decoration: none;
-            color: var(--primary);
-            cursor: pointer;
-            transition: var(--transition);
+            color: var(--white);
         }
         
-        .header-logo:hover {
+        .header-logo span {
             color: var(--accent);
         }
         
@@ -90,14 +77,13 @@
         
         .header-nav a {
             text-decoration: none;
-            color: var(--primary);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             transition: var(--transition);
             position: relative;
-            cursor: pointer;
         }
         
         .header-nav a::after {
@@ -106,7 +92,7 @@
             bottom: -4px;
             left: 0;
             width: 0;
-            height: 1px;
+            height: 2px;
             background: var(--accent);
             transition: var(--transition);
         }
@@ -116,27 +102,26 @@
         }
         
         .header-nav a:hover {
-            color: var(--accent);
+            color: var(--white);
         }
         
         .header-phone {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
-            color: var(--primary);
-            font-size: 14px;
-            font-weight: 600;
-            padding: 12px 24px;
-            border: 1px solid var(--light-gray);
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 700;
+            padding: 10px 24px;
+            border: 2px solid var(--accent);
             border-radius: 50px;
             transition: var(--transition);
-            cursor: pointer;
         }
         
         .header-phone:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            background: var(--accent);
+            color: var(--primary);
         }
         
         .header-phone-dot {
@@ -162,37 +147,54 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 100px 60px 60px;
-            background: var(--white);
+            padding: 100px 60px 50px;
             gap: 80px;
+            max-width: 100%;
+            margin: 0 auto;
+            background: radial-gradient(ellipse at 30% 50%, #1a1a1a 0%, #0d0d0d 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
         
         .hero-content {
-            flex: 1;
-            max-width: 600px;
+            flex: 1.2;
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
         }
         
         .hero-badge {
             display: inline-block;
-            background: var(--primary);
-            color: var(--white);
-            padding: 8px 20px;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 8px 24px;
             border-radius: 50px;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
             margin-bottom: 25px;
-            cursor: default;
         }
         
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 64px;
+            font-size: 72px;
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.05;
             margin-bottom: 15px;
-            letter-spacing: -1px;
+            color: var(--white);
         }
         
         .hero-title-accent {
@@ -201,67 +203,150 @@
         
         .hero-stats {
             display: flex;
-            gap: 40px;
-            margin: 25px 0;
-            padding: 20px 0;
-            border-top: 1px solid var(--light-gray);
-            border-bottom: 1px solid var(--light-gray);
+            gap: 60px;
+            margin: 30px 0;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .hero-stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
             color: var(--accent);
-            cursor: default;
         }
         
         .hero-stat-label {
-            font-size: 11px;
-            letter-spacing: 1px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: var(--gray);
-            cursor: default;
-        }
-        
-        .hero-text {
-            font-size: 15px;
-            color: var(--gray);
-            margin: 20px 0 35px;
-            line-height: 1.8;
-            cursor: default;
-        }
-        
-        .hero-text strong {
-            color: var(--primary);
+            color: rgba(255, 255, 255, 0.5);
             font-weight: 600;
+        }
+        
+        .hero-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 40px;
+            margin: 25px 0 35px;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .hero-features li {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 6px 0 6px 28px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%23d4af37" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>') left center no-repeat;
+            background-size: 18px;
+        }
+        
+        .hero-features li strong {
+            color: var(--white);
+            font-weight: 700;
         }
         
         .hero-buttons {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 5px;
         }
+        /* ========== HERO SLIDER ========== */
         
-        .hero-image {
+        .hero-slider-wrapper {
             flex: 1;
-            height: 600px;
-            background: linear-gradient(135deg, #f5f0eb 0%, #e8d5c8 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            border-radius: 12px;
             overflow: hidden;
+            height: 620px;
+            background: #1a1a1a;
+            min-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.1);
         }
         
-        .hero-image img {
+        .hero-slider {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: transform;
+        }
+        
+        .hero-slider-slide {
+            flex: 0 0 100%;
+            height: 100%;
+        }
+        
+        .hero-slider-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
         
-        .hero-image-placeholder {
-            text-align: center;
-            color: #b8946a;
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(13, 13, 13, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--white);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+        
+        .slider-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        .slider-btn-prev {
+            left: 18px;
+        }
+        
+        .slider-btn-next {
+            right: 18px;
+        }
+        
+        .slider-dots {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 5;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0;
+        }
+        
+        .slider-dot.active {
+            background: var(--accent);
+            transform: scale(1.25);
+        }
+        
+        .slider-dot:hover {
+            background: var(--white);
         }
         /* ========== КНОПКИ ========== */
         
@@ -269,9 +354,9 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 16px 32px;
+            padding: 18px 38px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             border-radius: 50px;
@@ -280,233 +365,219 @@
             text-decoration: none;
             border: none;
             font-family: 'Montserrat', sans-serif;
-            white-space: nowrap;
         }
         
         .btn-primary {
-            background: var(--primary);
-            color: var(--white);
+            background: var(--accent);
+            color: var(--primary);
         }
         
         .btn-primary:hover {
-            background: var(--accent);
+            background: var(--white);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201, 168, 124, 0.3);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
         }
         
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--light-gray);
-            color: var(--primary);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
         }
         
         .btn-outline:hover {
-            border-color: var(--primary);
+            border-color: var(--accent);
+            color: var(--accent);
             transform: translateY(-2px);
         }
+        /* ========== ОБЩИЕ СТИЛИ ДЛЯ СЕКЦИЙ С ФОНОМ ========== */
         
-        .btn-telegram {
-            background: var(--telegram);
-            color: white;
-            font-size: 14px;
+        .section-bg {
+            position: relative;
+            padding: 100px 60px;
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
         }
         
-        .btn-telegram:hover {
-            background: #0077b3;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.3);
+        .section-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 13, 13, 0.78);
+            backdrop-filter: blur(4px);
+            z-index: 1;
+        }
+        
+        .section-bg .section-label,
+        .section-bg .section-title,
+        .section-bg .services-grid,
+        .section-bg .mdf-grid,
+        .section-bg .about-grid,
+        .section-bg .gallery-grid,
+        .section-bg .mdf-highlight {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-bg .section-title {
+            color: var(--white);
+        }
+        /* ========== РАЗДЕЛИТЕЛЬ ========== */
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            opacity: 0.4;
+            margin: 0;
+            position: relative;
+            z-index: 2;
         }
         /* ========== СЕКЦИИ ========== */
         
         .section {
             padding: 100px 60px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .section-dark {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        .section-darker {
+            background: var(--primary);
+            color: var(--white);
         }
         
         .section-label {
-            font-size: 10px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 15px;
-            cursor: default;
+            margin-bottom: 10px;
         }
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 700;
-            margin-bottom: 50px;
-            letter-spacing: -0.5px;
-            cursor: default;
-        }
-        /* ========== ADVANTAGES ========== */
-        
-        .advantages {
-            background: var(--light-bg);
-        }
-        
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 25px;
-        }
-        
-        .advantage-card {
-            background: var(--white);
-            padding: 35px 25px;
-            border-radius: 6px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        
-        .advantage-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
-        }
-        
-        .advantage-icon {
-            font-size: 32px;
-            margin-bottom: 18px;
-        }
-        
-        .advantage-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 38px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-        
-        .advantage-title {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            margin-bottom: 45px;
+            color: var(--white);
         }
         /* ========== SERVICES ========== */
         
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 25px;
         }
         
         .service-card {
-            background: var(--light-bg);
-            padding: 40px 30px;
-            border-radius: 6px;
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            padding: 40px 35px;
+            border-radius: 10px;
             transition: var(--transition);
-            cursor: pointer;
-            border-left: 3px solid transparent;
+            border: 1px solid var(--card-border);
         }
         
         .service-card:hover {
-            border-left-color: var(--accent);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            border-color: var(--accent);
             box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.12);
         }
         
         .service-card-number {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            color: var(--light-gray);
-            margin-bottom: 15px;
+            font-size: 44px;
+            color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 12px;
         }
         
         .service-card h3 {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .service-card-price {
-            font-size: 14px;
-            color: var(--accent);
-            font-weight: 600;
-        }
-        /* ========== PROCESS ========== */
-        
-        .process {
-            background: var(--light-bg);
-        }
-        
-        .process-grid {
-            display: flex;
-            gap: 30px;
-            position: relative;
-        }
-        
-        .process-grid::before {
-            content: '';
-            position: absolute;
-            top: 45px;
-            left: 8%;
-            right: 8%;
-            height: 1px;
-            background: #d0ccc6;
-            z-index: 1;
-        }
-        
-        .process-step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            cursor: pointer;
-        }
-        
-        .process-circle {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background: var(--white);
-            border: 2px solid var(--light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            color: var(--accent);
-            transition: var(--transition);
-        }
-        
-        .process-step:hover .process-circle {
-            background: var(--accent);
+            margin-bottom: 6px;
             color: var(--white);
-            border-color: var(--accent);
         }
         
-        .process-step h4 {
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        
-        .process-step p {
-            font-size: 12px;
+        .service-card-desc {
+            font-size: 14px;
             color: var(--gray);
-            line-height: 1.6;
+        }
+        /* ========== MDF ========== */
+        
+        .mdf-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 35px;
+        }
+        
+        .mdf-item {
+            background: var(--card-bg);
+            padding: 40px 35px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--card-border);
+        }
+        
+        .mdf-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
+        .mdf-item-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+        
+        .mdf-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--white);
+        }
+        
+        .mdf-item p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .mdf-highlight {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-align: center;
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        .mdf-highlight strong {
+            color: var(--white);
         }
         /* ========== GALLERY ========== */
         
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
         
         .gallery-item {
             position: relative;
-            height: 450px;
+            height: 350px;
             overflow: hidden;
-            border-radius: 6px;
-            cursor: pointer;
-            background: #2a2a2a;
+            border-radius: 10px;
+            background: #1a1a1a;
         }
         
         .gallery-item img {
@@ -517,7 +588,7 @@
         }
         
         .gallery-item:hover img {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
         
         .gallery-item-overlay {
@@ -537,14 +608,14 @@
         
         .gallery-badge {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             background: var(--accent);
-            color: white;
-            padding: 8px 16px;
+            color: var(--primary);
+            padding: 5px 16px;
             border-radius: 50px;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -553,20 +624,64 @@
             font-family: 'Playfair Display', serif;
             font-size: 20px;
             color: white;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         
         .gallery-item-desc {
             font-size: 13px;
             color: #ccc;
         }
+        /* ========== ABOUT ========== */
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        
+        .about-card {
+            background: var(--card-bg);
+            padding: 35px 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--card-border);
+        }
+        
+        .about-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
+        .about-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+        
+        .about-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        
+        .about-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
         /* ========== CONTACT ========== */
         
         .contact-section {
-            padding: 80px 60px;
-            background: var(--primary);
+            padding: 100px 60px;
+            background: var(--secondary);
             color: var(--white);
             text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
         }
         
         .contact-section .section-label {
@@ -575,24 +690,23 @@
         
         .contact-section .section-title {
             color: var(--white);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .contact-phone {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 700;
             color: var(--accent);
             text-decoration: none;
             display: inline-block;
             margin: 20px 0 30px;
             transition: var(--transition);
-            cursor: pointer;
         }
         
         .contact-phone:hover {
             color: var(--white);
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         
         .contact-messengers {
@@ -606,207 +720,389 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 16px 32px;
+            padding: 16px 36px;
             border-radius: 50px;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
-            cursor: pointer;
         }
         
         .messenger-btn:hover {
             transform: translateY(-2px);
         }
         
-        .messenger-btn img {
-            width: 22px;
-            height: 22px;
+        .btn-telegram {
+            background: var(--telegram);
+            color: white;
+        }
+        
+        .btn-telegram:hover {
+            background: #0077b3;
+        }
+        
+        .btn-instagram {
+            background: var(--instagram);
+            color: white;
+        }
+        
+        .btn-instagram:hover {
+            background: #d6304f;
         }
         /* ========== FOOTER ========== */
         
         .footer {
             padding: 30px 60px;
-            background: #111;
-            color: #666;
+            background: #0a0a0a;
+            color: rgba(255, 255, 255, 0.3);
             display: flex;
             justify-content: space-between;
             font-size: 11px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .footer a {
-            color: #666;
+            color: rgba(255, 255, 255, 0.3);
             text-decoration: none;
-            cursor: pointer;
             transition: var(--transition);
         }
         
         .footer a:hover {
             color: var(--accent);
         }
-        
-         ::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 3px;
-        }
-        
-         ::-webkit-scrollbar-thumb:hover {
-            background: #aaa;
-        }
+        /* ========== RESPONSIVE ========== */
         
         @media (max-width: 1200px) {
-            .advantages-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .hero-title {
+                font-size: 56px;
             }
-            .services-grid {
+            .hero-slider-wrapper {
+                height: 480px;
+                min-width: 350px;
+            }
+            .hero {
+                gap: 50px;
+                padding: 100px 40px 40px;
+            }
+            .section {
+                padding: 80px 40px;
+            }
+            .section-bg {
+                padding: 80px 40px;
+            }
+            .contact-section {
+                padding: 80px 40px;
+            }
+            .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .about-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .services-grid,
+            .mdf-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-features {
+                grid-template-columns: 1fr;
             }
             .header-nav {
                 gap: 25px;
             }
+            .hero-stats {
+                gap: 35px;
+            }
+            .contact-phone {
+                font-size: 44px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 20px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .header-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+            .header-nav a {
+                font-size: 10px;
+            }
+            .header-phone {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            .header-logo {
+                font-size: 18px;
+            }
+            .hero {
+                flex-direction: column;
+                padding: 110px 20px 30px;
+                gap: 30px;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
             .hero-title {
-                font-size: 48px;
+                font-size: 38px;
+            }
+            .hero-slider-wrapper {
+                height: 280px;
+                width: 100%;
+                min-width: unset;
+            }
+            .hero-stats {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .hero-stat-number {
+                font-size: 32px;
+            }
+            .hero-features {
+                gap: 6px;
+            }
+            .hero-features li {
+                font-size: 14px;
+            }
+            .section {
+                padding: 50px 20px;
+            }
+            .section-bg {
+                padding: 50px 20px;
+            }
+            .services-grid,
+            .mdf-grid,
+            .gallery-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item {
+                height: 280px;
+            }
+            .contact-section {
+                padding: 50px 20px;
+            }
+            .contact-phone {
+                font-size: 30px;
+            }
+            .footer {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                padding: 20px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-buttons .btn {
+                justify-content: center;
+                width: 100%;
+            }
+            .slider-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+            .slider-btn-prev {
+                left: 8px;
+            }
+            .slider-btn-next {
+                right: 8px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .divider {
+                margin: 0 20px;
             }
         }
     </style>
 </head>
 
-<body id="top">
+<body>
 
     <!-- HEADER -->
     <header class="header">
-        <!-- Клик по логотипу → возврат наверх -->
-        <a href="#top" class="header-logo" title="Наверх">MEBELPAINT</a>
+        <a href="#top" class="header-logo">Vintazh<span>100</span></a>
         <nav class="header-nav">
             <a href="#services">Услуги</a>
+            <a href="#mdf">Фасады МДФ</a>
             <a href="#gallery">Работы</a>
-            <a href="#process">Процесс</a>
-            <a href="#advantages">О нас</a>
+            <a href="#about">О нас</a>
             <a href="#contact">Контакты</a>
         </nav>
-        <a href="tel:+375291234567" class="header-phone">
-            <span class="header-phone-dot"></span> +375 (29) 123-45-67
+        <a href="tel:+375259929001" class="header-phone">
+            <span class="header-phone-dot"></span> +375 (25) 992-90-01
         </a>
     </header>
 
     <!-- HERO -->
-    <section class="hero" id="hero">
+    <section class="hero" id="top">
         <div class="hero-content">
-            <div class="hero-badge">● Профессиональная покраска</div>
+            <div class="hero-badge">Покраска фасадов из МДФ</div>
             <h1 class="hero-title">
                 Новая жизнь<br>
                 <span class="hero-title-accent">вашей мебели</span>
             </h1>
+
             <div class="hero-stats">
                 <div>
                     <div class="hero-stat-number">500+</div>
                     <div class="hero-stat-label">проектов</div>
                 </div>
                 <div>
-                    <div class="hero-stat-number">5 лет</div>
-                    <div class="hero-stat-label">гарантии</div>
-                </div>
-                <div>
-                    <div class="hero-stat-number">3–7</div>
+                    <div class="hero-stat-number">10–15</div>
                     <div class="hero-stat-label">дней срок</div>
                 </div>
+                <div>
+                    <div class="hero-stat-number">100%</div>
+                    <div class="hero-stat-label">качество</div>
+                </div>
             </div>
-            <p class="hero-text">
-                <strong>Итальянские краски</strong> · Выезд на замер <strong>бесплатно</strong> · Работаем <strong>по договору</strong> · Красим <strong>в цеху и на объекте</strong>
-            </p>
+
+            <ul class="hero-features">
+                <li><strong>Минск</strong> · Высокое качество крашенных фасадов</li>
+                <li><strong>Различные типы</strong> фрезеровки</li>
+                <li>Глянцевое, матовое покрытие, <strong>патина и софт-тач</strong></li>
+            </ul>
+
             <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Связаться с нами</a>
-                <a href="tel:+375291234567" class="btn btn-outline">Позвонить</a>
+                <a href="#contact" class="btn btn-primary">Связаться</a>
+                <a href="tel:+375259929001" class="btn btn-outline">Позвонить</a>
             </div>
         </div>
-        <div class="hero-image">
-            <!-- ЗАМЕНИТЬ НА: hero-main.jpg -->
-            <div class="hero-image-placeholder">
-                <div style="font-size:80px;">🎨</div>
-                <div style="font-size:18px; letter-spacing:3px;">hero-main.jpg</div>
-                <div style="font-size:12px; margin-top:10px;">Главное фото покрашенной мебели</div>
+
+        <!-- Слайдер -->
+        <div class="hero-slider-wrapper">
+            <div class="hero-slider" id="heroSlider">
+                <div class="hero-slider-slide">
+                    <img src="image/slide-1.jpg" alt="Покрашенная мебель">
+                </div>
+                <div class="hero-slider-slide">
+                    <img src="image/slide-2.jpg" alt="Кухонный фасад">
+                </div>
+                <div class="hero-slider-slide">
+                    <img src="image/slide-3.jpg" alt="Шкаф-купе">
+                </div>
+                <div class="hero-slider-slide">
+                    <img src="image/slide-4.jpg" alt="Двери">
+                </div>
+                <div class="hero-slider-slide">
+                    <img src="image/slide-5.jpg" alt="Мягкая мебель">
+                </div>
             </div>
+
+            <button class="slider-btn slider-btn-prev" id="sliderPrev">‹</button>
+            <button class="slider-btn slider-btn-next" id="sliderNext">›</button>
+            <div class="slider-dots" id="sliderDots"></div>
         </div>
     </section>
 
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <div class="divider"></div>
+
     <!-- SERVICES -->
-    <section class="section" id="services">
+    <section class="section-bg" id="services" style="background-image: url('image/slide-1.jpg');">
         <div class="section-label">Услуги</div>
         <h2 class="section-title">Что мы красим</h2>
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-card-number">01</div>
                 <h3>Кухонные фасады</h3>
-                <div class="service-card-price">от 250 BYN</div>
+                <div class="service-card-desc">Любые размеры и формы</div>
             </div>
             <div class="service-card">
                 <div class="service-card-number">02</div>
                 <h3>Шкафы-купе</h3>
-                <div class="service-card-price">от 300 BYN</div>
+                <div class="service-card-desc">Встроенные и отдельно стоящие</div>
             </div>
             <div class="service-card">
                 <div class="service-card-number">03</div>
                 <h3>Межкомнатные двери</h3>
-                <div class="service-card-price">от 150 BYN/шт</div>
+                <div class="service-card-desc">Глянцевые и матовые</div>
             </div>
             <div class="service-card">
                 <div class="service-card-number">04</div>
                 <h3>Мягкая мебель</h3>
-                <div class="service-card-price">от 400 BYN</div>
+                <div class="service-card-desc">Диваны, кресла, пуфы</div>
             </div>
             <div class="service-card">
                 <div class="service-card-number">05</div>
                 <h3>Столы и стулья</h3>
-                <div class="service-card-price">от 120 BYN</div>
+                <div class="service-card-desc">Обеденные и рабочие</div>
             </div>
             <div class="service-card">
                 <div class="service-card-number">06</div>
                 <h3>Детская мебель</h3>
-                <div class="service-card-price">от 200 BYN</div>
+                <div class="service-card-desc">Безопасные материалы</div>
             </div>
         </div>
     </section>
 
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <div class="divider"></div>
+
+    <!-- MDF -->
+    <section class="section-bg" id="mdf" style="background-image: url('image/slide-2.jpg');">
+        <div class="section-label">Спецпредложение</div>
+        <h2 class="section-title">Покраска фасадов из МДФ</h2>
+        <div class="mdf-highlight">
+            <strong>Высокое качество</strong> крашенных фасадов.<br> Различные типы фрезеровки.
+        </div>
+        <div class="mdf-grid">
+            <div class="mdf-item">
+                <div class="mdf-item-icon">✨</div>
+                <h4>Глянцевое покрытие</h4>
+                <p>Зеркальный блеск, глубокий цвет</p>
+            </div>
+            <div class="mdf-item">
+                <div class="mdf-item-icon">🔮</div>
+                <h4>Матовое покрытие</h4>
+                <p>Благородная текстура, мягкое свечение</p>
+            </div>
+            <div class="mdf-item">
+                <div class="mdf-item-icon">🎭</div>
+                <h4>Патина и софт-тач</h4>
+                <p>Изысканное состаривание и бархат</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <div class="divider"></div>
+
     <!-- GALLERY -->
-    <section class="section" id="gallery">
+    <section class="section-bg" id="gallery" style="background-image: url('image/slide-4.jpg');">
         <div class="section-label">Портфолио</div>
         <h2 class="section-title">Наши работы</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <!-- ЗАМЕНИТЬ НА: gallery-kitchen.jpg -->
-                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
-                    gallery-kitchen.jpg
-                </div>
+                <img src="image/gallery-1.jpg" alt="Кухня">
                 <div class="gallery-badge">Кухня</div>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Кухонный гарнитур</div>
-                    <div class="gallery-item-desc">Покраска в цвет «графит» · 5 дней</div>
+                    <div class="gallery-item-desc">Цвет «графит» · 5 дней</div>
                 </div>
             </div>
             <div class="gallery-item">
-                <!-- ЗАМЕНИТЬ НА: gallery-wardrobe.jpg -->
-                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
-                    gallery-wardrobe.jpg
-                </div>
+                <img src="image/gallery-2.jpg" alt="Шкаф">
                 <div class="gallery-badge">Шкаф</div>
                 <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Шкаф-купе в спальню</div>
+                    <div class="gallery-item-title">Шкаф-купе</div>
                     <div class="gallery-item-desc">Матовая покраска · 4 дня</div>
                 </div>
             </div>
             <div class="gallery-item">
-                <!-- ЗАМЕНИТЬ НА: gallery-doors.jpg -->
-                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
-                    gallery-doors.jpg
-                </div>
+                <img src="image/gallery-3.jpg" alt="Двери">
                 <div class="gallery-badge">Двери</div>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Межкомнатные двери</div>
@@ -814,116 +1110,158 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <!-- ЗАМЕНИТЬ НА: gallery-sofa.jpg -->
-                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
-                    gallery-sofa.jpg
-                </div>
+                <img src="image/gallery-4.jpg" alt="Диван">
                 <div class="gallery-badge">Диван</div>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Мягкая мебель</div>
                     <div class="gallery-item-desc">Покраска ткани · 5 дней</div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section class="section process" id="process">
-        <div class="section-label">Процесс</div>
-        <h2 class="section-title">5 шагов — и мебель как новая</h2>
-        <div class="process-grid">
-            <div class="process-step">
-                <div class="process-circle">01</div>
-                <h4>Звонок</h4>
-                <p>Звоните или пишите. Консультация — бесплатно</p>
+            <div class="gallery-item">
+                <img src="image/gallery-5.jpg" alt="Мебель">
+                <div class="gallery-badge">Премиум</div>
+                <div class="gallery-item-overlay">
+                    <div class="gallery-item-title">Эксклюзивный проект</div>
+                    <div class="gallery-item-desc">Софт-тач покрытие · 7 дней</div>
+                </div>
             </div>
-            <div class="process-step">
-                <div class="process-circle">02</div>
-                <h4>Замер</h4>
-                <p>Выезжаем на объект, делаем замеры, подбираем цвет</p>
-            </div>
-            <div class="process-step">
-                <div class="process-circle">03</div>
-                <h4>Договор</h4>
-                <p>Фиксируем сроки и точную стоимость работ</p>
-            </div>
-            <div class="process-step">
-                <div class="process-circle">04</div>
-                <h4>Покраска</h4>
-                <p>Выполняем в цеху или на объекте. От 3 дней</p>
-            </div>
-            <div class="process-step">
-                <div class="process-circle">05</div>
-                <h4>Сдача</h4>
-                <p>Монтаж, уборка, приёмка. Гарантия 5 лет</p>
+            <div class="gallery-item">
+                <img src="image/gallery-6.jpg" alt="Кухня 2">
+                <div class="gallery-badge">Кухня</div>
+                <div class="gallery-item-overlay">
+                    <div class="gallery-item-title">Кухня в стиле лофт</div>
+                    <div class="gallery-item-desc">Матовое покрытие · 6 дней</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ADVANTAGES -->
-    <section class="section advantages" id="advantages">
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <div class="divider"></div>
+
+    <!-- ABOUT -->
+    <section class="section-bg" id="about" style="background-image: url('image/slide-3.jpg');">
         <div class="section-label">О нас</div>
         <h2 class="section-title">Почему выбирают нас</h2>
-        <div class="advantages-grid">
-            <div class="advantage-card">
-                <div class="advantage-icon">🎨</div>
-                <div class="advantage-number">500+</div>
-                <div class="advantage-title">Проектов</div>
+        <div class="about-grid">
+            <div class="about-card">
+                <div class="about-icon">🎨</div>
+                <div class="about-title">Мастерство</div>
+                <div class="about-label">Большой опыт</div>
             </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">⭐</div>
-                <div class="advantage-number">5 лет</div>
-                <div class="advantage-title">Гарантия</div>
+            <div class="about-card">
+                <div class="about-icon">⭐</div>
+                <div class="about-title">Надёжность</div>
+                <div class="about-label">Гарантия качества</div>
             </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">🇮🇹</div>
-                <div class="advantage-number">100%</div>
-                <div class="advantage-title">Италия</div>
+            <div class="about-card">
+                <div class="about-icon">⚡</div>
+                <div class="about-title">Оперативность</div>
+                <div class="about-label">Соблюдение сроков</div>
             </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">⚡</div>
-                <div class="advantage-number">3 дня</div>
-                <div class="advantage-title">Минимум</div>
-            </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">🛡️</div>
-                <div class="advantage-number">Договор</div>
-                <div class="advantage-title">Официально</div>
+            <div class="about-card">
+                <div class="about-icon">🎯</div>
+                <div class="about-title">Индивидуальность</div>
+                <div class="about-label">Внимание к деталям</div>
             </div>
         </div>
     </section>
+
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <div class="divider"></div>
 
     <!-- CONTACT -->
     <section class="contact-section" id="contact">
         <div class="section-label">Контакты</div>
         <h2 class="section-title">Свяжитесь с нами</h2>
-        <p style="color:#ccc; font-size:15px; max-width:500px; margin:0 auto 20px;">
-            Позвоните или напишите в Telegram. Ответим в течение 5 минут.
+        <p style="color:rgba(255,255,255,0.6); font-size:16px; max-width:500px; margin:0 auto 15px;">
+            Ответим в течение 5 минут
         </p>
-        <a href="tel:+375291234567" class="contact-phone">+375 (29) 123-45-67</a>
-        <p style="color:#888; font-size:13px; margin-bottom:25px;">
-            📍 Минск, пр-т Независимости, 00 · Пн–Сб: 9:00 – 20:00
+        <a href="tel:+375259929001" class="contact-phone">+375 (25) 992-90-01</a>
+        <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:25px;">
+            Пн–Сб: 9:00 – 20:00
         </p>
         <div class="contact-messengers">
-            <!-- Только Telegram -->
-            <a href="https://t.me/yourusername" class="messenger-btn btn-telegram" target="_blank">
-                <!-- Иконка Telegram: telegram-icon.svg (или telegram-icon.png) -->
-                <img src="telegram-icon.svg" alt="Telegram" style="width:22px; height:22px;"> Написать в Telegram
+            <a href="https://t.me/+375259929001" class="messenger-btn btn-telegram" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.5L2.5 10.5L9.5 13.5L12.5 20.5L16.5 14.5L21.5 4.5Z"/><path d="M9.5 13.5L14.5 9.5"/></svg>                Telegram
+            </a>
+            <a href="https://www.instagram.com/vintazh100?utm_source=qr&igsh=aWhkNWg1OWl0ZXRk" class="messenger-btn btn-instagram" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>                Instagram
             </a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
-        <div>© 2025 MebelPaint</div>
-        <div>
-            <a href="#">Политика конфиденциальности</a>
-        </div>
+        <div>© 2025 Vintazh100</div>
+        <div><a href="#">Политика конфиденциальности</a></div>
         <div>ИП Иванов И.И. УНП 123456789</div>
     </footer>
 
     <script>
-        // Плавный скролл для всех якорных ссылок
+        // ===== SLIDER =====
+        const slider = document.getElementById('heroSlider');
+        const slides = slider.querySelectorAll('.hero-slider-slide');
+        const totalSlides = slides.length;
+        let currentIndex = 0;
+        let isTransitioning = false;
+        let autoPlayInterval;
+
+        const dotsContainer = document.getElementById('sliderDots');
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.classList.add('slider-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.dataset.index = i;
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('.slider-dot');
+
+        function goToSlide(index) {
+            if (isTransitioning || index === currentIndex) return;
+            isTransitioning = true;
+            currentIndex = index;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 600);
+        }
+
+        function nextSlide() {
+            goToSlide((currentIndex + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+        }
+
+        document.getElementById('sliderNext').addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+        document.getElementById('sliderPrev').addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        const sliderWrapper = document.querySelector('.hero-slider-wrapper');
+        sliderWrapper.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+        sliderWrapper.addEventListener('mouseleave', startAutoPlay);
+        startAutoPlay();
+
+        // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -937,29 +1275,13 @@
             });
         });
 
-        // Клик на логотип — возврат на самый верх
-        document.querySelector('.header-logo').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Анимация хедера при скролле
+        // ===== HEADER SHADOW =====
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 2px 30px rgba(0,0,0,0.06)';
-            } else {
-                header.style.boxShadow = 'none';
-            }
+            header.style.boxShadow = window.scrollY > 50 ? '0 2px 30px rgba(0,0,0,0.3)' : 'none';
         });
-
-        console.log('✅ MebelPaint — сайт готов');
-        console.log('📞 Телефон: +375 (29) 123-45-67');
-        console.log('🖼️ Список картинок смотри ниже ↓');
     </script>
+
 </body>
 
 </html>
