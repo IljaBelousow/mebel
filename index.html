@@ -511,7 +511,7 @@
             font-size: 14px;
             color: var(--gray);
         }
-        /* ========== MDF (без эмодзи) ========== */
+        /* ========== MDF ========== */
         
         .mdf-grid {
             display: grid;
@@ -669,7 +669,7 @@
             text-transform: uppercase;
             color: var(--gray);
         }
-        /* ========== CONTACT (уменьшенный блок) ========== */
+        /* ========== CONTACT ========== */
         
         .contact-section {
             padding: 60px 40px;
@@ -687,7 +687,6 @@
             color: var(--white);
             margin-bottom: 15px;
             font-size: 40px;
-            /* чуть меньше */
         }
         
         .contact-phone {
@@ -756,16 +755,6 @@
             justify-content: center;
             font-size: 11px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .footer a {
-            color: rgba(255, 255, 255, 0.3);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer a:hover {
-            color: var(--accent);
         }
         /* ========== RESPONSIVE ========== */
         
@@ -1053,7 +1042,7 @@
     <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="divider"></div>
 
-    <!-- MDF (без эмодзи) -->
+    <!-- MDF -->
     <section class="section-bg" id="mdf" style="background-image: url('image/slide-2.jpg');">
         <div class="section-label">Спецпредложение</div>
         <h2 class="section-title">Покраска фасадов из МДФ</h2>
@@ -1138,7 +1127,7 @@
     <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="divider"></div>
 
-    <!-- ABOUT (5 пунктов) -->
+    <!-- ABOUT -->
     <section class="section-bg" id="about" style="background-image: url('image/slide-3.jpg');">
         <div class="section-label">О нас</div>
         <h2 class="section-title">Почему выбирают нас</h2>
@@ -1174,7 +1163,7 @@
     <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="divider"></div>
 
-    <!-- CONTACT (уменьшен) -->
+    <!-- CONTACT -->
     <section class="contact-section" id="contact">
         <div class="section-label">Контакты</div>
         <h2 class="section-title">Свяжитесь с нами</h2>
@@ -1201,13 +1190,12 @@
     </footer>
 
     <script>
-        // ===== SLIDER =====
+        // ===== SLIDER (без автопрокрутки) =====
         const slider = document.getElementById('heroSlider');
         const slides = slider.querySelectorAll('.hero-slider-slide');
         const totalSlides = slides.length;
         let currentIndex = 0;
         let isTransitioning = false;
-        let autoPlayInterval;
 
         const dotsContainer = document.getElementById('sliderDots');
         slides.forEach((_, i) => {
@@ -1240,28 +1228,8 @@
             goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
         }
 
-        document.getElementById('sliderNext').addEventListener('click', () => {
-            nextSlide();
-            resetAutoPlay();
-        });
-        document.getElementById('sliderPrev').addEventListener('click', () => {
-            prevSlide();
-            resetAutoPlay();
-        });
-
-        function startAutoPlay() {
-            autoPlayInterval = setInterval(nextSlide, 4000);
-        }
-
-        function resetAutoPlay() {
-            clearInterval(autoPlayInterval);
-            startAutoPlay();
-        }
-
-        const sliderWrapper = document.querySelector('.hero-slider-wrapper');
-        sliderWrapper.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-        sliderWrapper.addEventListener('mouseleave', startAutoPlay);
-        startAutoPlay();
+        document.getElementById('sliderNext').addEventListener('click', nextSlide);
+        document.getElementById('sliderPrev').addEventListener('click', prevSlide);
 
         // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
