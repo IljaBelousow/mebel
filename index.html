@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покраска мебели и фасадов в Минске | MebelPaint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --primary: #1a1a1a;
+            --accent: #c9a87c;
+            --accent-dark: #b8946a;
+            --white: #ffffff;
+            --light-bg: #f8f6f3;
+            --gray: #666666;
+            --light-gray: #e8e5e0;
+            --telegram: #0088cc;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--white);
+            color: var(--primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        a,
+        button,
+        .clickable,
+        .service-card,
+        .gallery-item,
+        .advantage-card,
+        .process-step {
+            cursor: pointer;
+        }
+        /* ========== HEADER ========== */
+        
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        /* Логотип — кликабельный, возвращает наверх */
+        
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-decoration: none;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .header-logo:hover {
+            color: var(--accent);
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .header-nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .header-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .header-nav a:hover::after {
+            width: 100%;
+        }
+        
+        .header-nav a:hover {
+            color: var(--accent);
+        }
+        
+        .header-phone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: 1px solid var(--light-gray);
+            border-radius: 50px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .header-phone:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .header-phone-dot {
+            width: 7px;
+            height: 7px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+        }
+        /* ========== HERO ========== */
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 60px 60px;
+            background: var(--white);
+            gap: 80px;
+        }
+        
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            cursor: default;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        
+        .hero-title-accent {
+            color: var(--accent);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin: 25px 0;
+            padding: 20px 0;
+            border-top: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .hero-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            cursor: default;
+        }
+        
+        .hero-stat-label {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gray);
+            cursor: default;
+        }
+        
+        .hero-text {
+            font-size: 15px;
+            color: var(--gray);
+            margin: 20px 0 35px;
+            line-height: 1.8;
+            cursor: default;
+        }
+        
+        .hero-text strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            height: 600px;
+            background: linear-gradient(135deg, #f5f0eb 0%, #e8d5c8 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-image-placeholder {
+            text-align: center;
+            color: #b8946a;
+        }
+        /* ========== КНОПКИ ========== */
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            white-space: nowrap;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 168, 124, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--light-gray);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-telegram {
+            background: var(--telegram);
+            color: white;
+            font-size: 14px;
+        }
+        
+        .btn-telegram:hover {
+            background: #0077b3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.3);
+        }
+        /* ========== СЕКЦИИ ========== */
+        
+        .section {
+            padding: 100px 60px;
+        }
+        
+        .section-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 15px;
+            cursor: default;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            letter-spacing: -0.5px;
+            cursor: default;
+        }
+        /* ========== ADVANTAGES ========== */
+        
+        .advantages {
+            background: var(--light-bg);
+        }
+        
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+        }
+        
+        .advantage-card {
+            background: var(--white);
+            padding: 35px 25px;
+            border-radius: 6px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .advantage-icon {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+        
+        .advantage-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        
+        .advantage-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        /* ========== SERVICES ========== */
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .service-card {
+            background: var(--light-bg);
+            padding: 40px 30px;
+            border-radius: 6px;
+            transition: var(--transition);
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+        
+        .service-card:hover {
+            border-left-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .service-card-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: var(--light-gray);
+            margin-bottom: 15px;
+        }
+        
+        .service-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .service-card-price {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        /* ========== PROCESS ========== */
+        
+        .process {
+            background: var(--light-bg);
+        }
+        
+        .process-grid {
+            display: flex;
+            gap: 30px;
+            position: relative;
+        }
+        
+        .process-grid::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 8%;
+            right: 8%;
+            height: 1px;
+            background: #d0ccc6;
+            z-index: 1;
+        }
+        
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+        
+        .process-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .process-step:hover .process-circle {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+        
+        .process-step h4 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .process-step p {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        /* ========== GALLERY ========== */
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #2a2a2a;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+        
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .gallery-item-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .gallery-item-desc {
+            font-size: 13px;
+            color: #ccc;
+        }
+        /* ========== CONTACT ========== */
+        
+        .contact-section {
+            padding: 80px 60px;
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .contact-section .section-label {
+            color: var(--accent);
+        }
+        
+        .contact-section .section-title {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        
+        .contact-phone {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0 30px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .contact-phone:hover {
+            color: var(--white);
+            transform: scale(1.05);
+        }
+        
+        .contact-messengers {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .messenger-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .messenger-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .messenger-btn img {
+            width: 22px;
+            height: 22px;
+        }
+        /* ========== FOOTER ========== */
+        
+        .footer {
+            padding: 30px 60px;
+            background: #111;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+        }
+        
+        .footer a {
+            color: #666;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .footer a:hover {
+            color: var(--accent);
+        }
+        
+         ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+        
+        @media (max-width: 1200px) {
+            .advantages-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .header-nav {
+                gap: 25px;
+            }
+            .hero-title {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <!-- HEADER -->
+    <header class="header">
+        <!-- Клик по логотипу → возврат наверх -->
+        <a href="#top" class="header-logo" title="Наверх">MEBELPAINT</a>
+        <nav class="header-nav">
+            <a href="#services">Услуги</a>
+            <a href="#gallery">Работы</a>
+            <a href="#process">Процесс</a>
+            <a href="#advantages">О нас</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+        <a href="tel:+375291234567" class="header-phone">
+            <span class="header-phone-dot"></span> +375 (29) 123-45-67
+        </a>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">● Профессиональная покраска</div>
+            <h1 class="hero-title">
+                Новая жизнь<br>
+                <span class="hero-title-accent">вашей мебели</span>
+            </h1>
+            <div class="hero-stats">
+                <div>
+                    <div class="hero-stat-number">500+</div>
+                    <div class="hero-stat-label">проектов</div>
+                </div>
+                <div>
+                    <div class="hero-stat-number">5 лет</div>
+                    <div class="hero-stat-label">гарантии</div>
+                </div>
+                <div>
+                    <div class="hero-stat-number">3–7</div>
+                    <div class="hero-stat-label">дней срок</div>
+                </div>
+            </div>
+            <p class="hero-text">
+                <strong>Итальянские краски</strong> · Выезд на замер <strong>бесплатно</strong> · Работаем <strong>по договору</strong> · Красим <strong>в цеху и на объекте</strong>
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Связаться с нами</a>
+                <a href="tel:+375291234567" class="btn btn-outline">Позвонить</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <!-- ЗАМЕНИТЬ НА: hero-main.jpg -->
+            <div class="hero-image-placeholder">
+                <div style="font-size:80px;">🎨</div>
+                <div style="font-size:18px; letter-spacing:3px;">hero-main.jpg</div>
+                <div style="font-size:12px; margin-top:10px;">Главное фото покрашенной мебели</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+        <div class="section-label">Услуги</div>
+        <h2 class="section-title">Что мы красим</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-card-number">01</div>
+                <h3>Кухонные фасады</h3>
+                <div class="service-card-price">от 250 BYN</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-number">02</div>
+                <h3>Шкафы-купе</h3>
+                <div class="service-card-price">от 300 BYN</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-number">03</div>
+                <h3>Межкомнатные двери</h3>
+                <div class="service-card-price">от 150 BYN/шт</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-number">04</div>
+                <h3>Мягкая мебель</h3>
+                <div class="service-card-price">от 400 BYN</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-number">05</div>
+                <h3>Столы и стулья</h3>
+                <div class="service-card-price">от 120 BYN</div>
+            </div>
+            <div class="service-card">
+                <div class="service-card-number">06</div>
+                <h3>Детская мебель</h3>
+                <div class="service-card-price">от 200 BYN</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section" id="gallery">
+        <div class="section-label">Портфолио</div>
+        <h2 class="section-title">Наши работы</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <!-- ЗАМЕНИТЬ НА: gallery-kitchen.jpg -->
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
+                    gallery-kitchen.jpg
+                </div>
+                <div class="gallery-badge">Кухня</div>
+                <div class="gallery-item-overlay">
+                    <div class="gallery-item-title">Кухонный гарнитур</div>
+                    <div class="gallery-item-desc">Покраска в цвет «графит» · 5 дней</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <!-- ЗАМЕНИТЬ НА: gallery-wardrobe.jpg -->
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
+                    gallery-wardrobe.jpg
+                </div>
+                <div class="gallery-badge">Шкаф</div>
+                <div class="gallery-item-overlay">
+                    <div class="gallery-item-title">Шкаф-купе в спальню</div>
+                    <div class="gallery-item-desc">Матовая покраска · 4 дня</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <!-- ЗАМЕНИТЬ НА: gallery-doors.jpg -->
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
+                    gallery-doors.jpg
+                </div>
+                <div class="gallery-badge">Двери</div>
+                <div class="gallery-item-overlay">
+                    <div class="gallery-item-title">Межкомнатные двери</div>
+                    <div class="gallery-item-desc">Глянцевое покрытие · 3 дня</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <!-- ЗАМЕНИТЬ НА: gallery-sofa.jpg -->
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:14px;">
+                    gallery-sofa.jpg
+                </div>
+                <div class="gallery-badge">Диван</div>
+                <div class="gallery-item-overlay">
+                    <div class="gallery-item-title">Мягкая мебель</div>
+                    <div class="gallery-item-desc">Покраска ткани · 5 дней</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section process" id="process">
+        <div class="section-label">Процесс</div>
+        <h2 class="section-title">5 шагов — и мебель как новая</h2>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="process-circle">01</div>
+                <h4>Звонок</h4>
+                <p>Звоните или пишите. Консультация — бесплатно</p>
+            </div>
+            <div class="process-step">
+                <div class="process-circle">02</div>
+                <h4>Замер</h4>
+                <p>Выезжаем на объект, делаем замеры, подбираем цвет</p>
+            </div>
+            <div class="process-step">
+                <div class="process-circle">03</div>
+                <h4>Договор</h4>
+                <p>Фиксируем сроки и точную стоимость работ</p>
+            </div>
+            <div class="process-step">
+                <div class="process-circle">04</div>
+                <h4>Покраска</h4>
+                <p>Выполняем в цеху или на объекте. От 3 дней</p>
+            </div>
+            <div class="process-step">
+                <div class="process-circle">05</div>
+                <h4>Сдача</h4>
+                <p>Монтаж, уборка, приёмка. Гарантия 5 лет</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADVANTAGES -->
+    <section class="section advantages" id="advantages">
+        <div class="section-label">О нас</div>
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <div class="advantage-icon">🎨</div>
+                <div class="advantage-number">500+</div>
+                <div class="advantage-title">Проектов</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">⭐</div>
+                <div class="advantage-number">5 лет</div>
+                <div class="advantage-title">Гарантия</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🇮🇹</div>
+                <div class="advantage-number">100%</div>
+                <div class="advantage-title">Италия</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">⚡</div>
+                <div class="advantage-number">3 дня</div>
+                <div class="advantage-title">Минимум</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🛡️</div>
+                <div class="advantage-number">Договор</div>
+                <div class="advantage-title">Официально</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <div class="section-label">Контакты</div>
+        <h2 class="section-title">Свяжитесь с нами</h2>
+        <p style="color:#ccc; font-size:15px; max-width:500px; margin:0 auto 20px;">
+            Позвоните или напишите в Telegram. Ответим в течение 5 минут.
+        </p>
+        <a href="tel:+375291234567" class="contact-phone">+375 (29) 123-45-67</a>
+        <p style="color:#888; font-size:13px; margin-bottom:25px;">
+            📍 Минск, пр-т Независимости, 00 · Пн–Сб: 9:00 – 20:00
+        </p>
+        <div class="contact-messengers">
+            <!-- Только Telegram -->
+            <a href="https://t.me/yourusername" class="messenger-btn btn-telegram" target="_blank">
+                <!-- Иконка Telegram: telegram-icon.svg (или telegram-icon.png) -->
+                <img src="telegram-icon.svg" alt="Telegram" style="width:22px; height:22px;"> Написать в Telegram
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div>© 2025 MebelPaint</div>
+        <div>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+        <div>ИП Иванов И.И. УНП 123456789</div>
+    </footer>
+
+    <script>
+        // Плавный скролл для всех якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Клик на логотип — возврат на самый верх
+        document.querySelector('.header-logo').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Анимация хедера при скролле
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 30px rgba(0,0,0,0.06)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        console.log('✅ MebelPaint — сайт готов');
+        console.log('📞 Телефон: +375 (29) 123-45-67');
+        console.log('🖼️ Список картинок смотри ниже ↓');
+    </script>
+</body>
+
+</html>
