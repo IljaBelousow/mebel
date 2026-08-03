@@ -4,26 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Покраска фасадов МДФ в Минске | Vintazh100</title>
+    <title>Главная | Vintazh100 — покраска фасадов МДФ</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-         :root {
-            --primary: #0d0d0d;
-            --secondary: #1a1a1a;
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --card-border: rgba(212, 175, 55, 0.15);
-            --accent: #d4af37;
-            --white: #ffffff;
-            --gray: #cccccc;
-            --telegram: #0088cc;
-            --instagram: #E4405F;
-            --transition: all 0.3s ease;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
+        /* ===== RESET & BASE ===== */
         
         * {
             margin: 0;
@@ -37,33 +25,59 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: var(--primary);
-            color: var(--white);
+            background: #0d0d0d;
+            color: #ffffff;
             line-height: 1.5;
         }
-        /* ========== HEADER ========== */
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* ===== VARIABLES ===== */
+        
+         :root {
+            --accent: #d4af37;
+            --dark: #0d0d0d;
+            --gray: #cccccc;
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --border: rgba(212, 175, 55, 0.15);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            --transition: 0.3s ease;
+        }
+        /* ===== HEADER ===== */
         
         .header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 18px 60px;
+            padding: 16px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(13, 13, 13, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            background: rgba(13, 13, 13, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 0.3s;
+        }
+        
+        .header.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
         }
         
         .header-logo {
             font-family: 'Playfair Display', serif;
             font-size: 24px;
             font-weight: 700;
-            letter-spacing: 5px;
-            text-decoration: none;
-            color: var(--white);
+            letter-spacing: 4px;
         }
         
         .header-logo span {
@@ -72,61 +86,47 @@
         
         .header-nav {
             display: flex;
-            gap: 40px;
+            gap: 32px;
+            align-items: center;
         }
         
         .header-nav a {
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.7);
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
-            transition: var(--transition);
-            position: relative;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s, border-bottom 0.3s;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
         }
         
-        .header-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: var(--transition);
-        }
-        
-        .header-nav a:hover::after {
-            width: 100%;
-        }
-        
-        .header-nav a:hover {
-            color: var(--white);
+        .header-nav a:hover,
+        .header-nav a.active {
+            color: #fff;
+            border-bottom-color: var(--accent);
         }
         
         .header-phone {
             display: flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none;
-            color: var(--white);
-            font-size: 15px;
             font-weight: 700;
-            padding: 10px 24px;
+            font-size: 14px;
+            padding: 8px 20px;
             border: 2px solid var(--accent);
             border-radius: 50px;
-            transition: var(--transition);
+            transition: background 0.3s, color 0.3s;
         }
         
         .header-phone:hover {
             background: var(--accent);
-            color: var(--primary);
+            color: #0d0d0d;
         }
         
         .header-phone-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             background: #4CAF50;
             border-radius: 50%;
             animation: pulse-dot 2s infinite;
@@ -141,16 +141,14 @@
                 box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
             }
         }
-        /* ========== HERO ========== */
+        /* ===== HERO ===== */
         
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 100px 60px 50px;
-            gap: 80px;
-            max-width: 100%;
-            margin: 0 auto;
+            padding: 120px 40px 60px;
+            gap: 60px;
             background: radial-gradient(ellipse at 30% 50%, #1a1a1a 0%, #0d0d0d 70%);
             position: relative;
             overflow: hidden;
@@ -159,11 +157,11 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            top: -30%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -173,19 +171,20 @@
             max-width: 700px;
             position: relative;
             z-index: 2;
+            animation: fadeUp 1s ease;
         }
         
         .hero-badge {
             display: inline-block;
             background: var(--accent);
-            color: var(--primary);
-            padding: 8px 24px;
+            color: #0d0d0d;
+            padding: 6px 22px;
             border-radius: 50px;
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 2.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .hero-title {
@@ -193,26 +192,25 @@
             font-size: 72px;
             font-weight: 700;
             line-height: 1.05;
-            margin-bottom: 15px;
-            color: var(--white);
+            margin-bottom: 16px;
         }
         
-        .hero-title-accent {
+        .hero-title span {
             color: var(--accent);
         }
         
         .hero-stats {
             display: flex;
-            gap: 60px;
+            gap: 50px;
             margin: 30px 0;
-            padding: 25px 0;
+            padding: 20px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .hero-stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 700;
             color: var(--accent);
         }
@@ -228,50 +226,95 @@
         .hero-features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px 40px;
-            margin: 25px 0 35px;
-            padding: 0;
+            gap: 8px 30px;
+            margin: 24px 0 32px;
             list-style: none;
         }
         
         .hero-features li {
-            font-size: 16px;
+            font-size: 15px;
             color: rgba(255, 255, 255, 0.8);
-            padding: 6px 0 6px 28px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%23d4af37" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>') left center no-repeat;
-            background-size: 18px;
+            padding-left: 28px;
+            position: relative;
+        }
+        
+        .hero-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            transform: rotate(45deg);
         }
         
         .hero-features li strong {
-            color: var(--white);
-            font-weight: 700;
+            color: #fff;
         }
         
         .hero-buttons {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             flex-wrap: wrap;
-            margin-top: 5px;
         }
-        /* ========== HERO SLIDER ========== */
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 36px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: #0d0d0d;
+        }
+        
+        .btn-primary:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
         
         .hero-slider-wrapper {
             flex: 1;
             position: relative;
             border-radius: 12px;
             overflow: hidden;
-            height: 620px;
-            background: #1a1a1a;
-            min-width: 450px;
+            height: 560px;
+            min-width: 400px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border);
+            animation: fadeIn 1.2s ease;
         }
         
         .hero-slider {
             display: flex;
             height: 100%;
             transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-            will-change: transform;
         }
         
         .hero-slider-slide {
@@ -289,15 +332,15 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 52px;
-            height: 52px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: rgba(13, 13, 13, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(13, 13, 13, 0.7);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--border);
+            color: #fff;
+            font-size: 22px;
             cursor: pointer;
-            font-size: 24px;
-            color: var(--white);
             transition: var(--transition);
             display: flex;
             align-items: center;
@@ -307,21 +350,20 @@
         
         .slider-btn:hover {
             background: var(--accent);
-            color: var(--primary);
-            transform: translateY(-50%) scale(1.05);
+            color: #0d0d0d;
         }
         
         .slider-btn-prev {
-            left: 18px;
+            left: 14px;
         }
         
         .slider-btn-next {
-            right: 18px;
+            right: 14px;
         }
         
         .slider-dots {
             position: absolute;
-            bottom: 24px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -330,127 +372,36 @@
         }
         
         .slider-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
             border: none;
             cursor: pointer;
             transition: var(--transition);
-            padding: 0;
         }
         
         .slider-dot.active {
             background: var(--accent);
-            transform: scale(1.25);
+            transform: scale(1.3);
         }
         
         .slider-dot:hover {
-            background: var(--white);
+            background: #fff;
         }
-        /* ========== КНОПКИ ========== */
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 18px 38px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .btn-primary {
-            background: var(--accent);
-            color: var(--primary);
-        }
-        
-        .btn-primary:hover {
-            background: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: var(--white);
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-        /* ========== ОБЩИЕ СТИЛИ ДЛЯ СЕКЦИЙ С ФОНОМ ========== */
-        
-        .section-bg {
-            position: relative;
-            padding: 100px 60px;
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-        }
-        
-        .section-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(13, 13, 13, 0.78);
-            backdrop-filter: blur(4px);
-            z-index: 1;
-        }
-        
-        .section-bg .section-label,
-        .section-bg .section-title,
-        .section-bg .services-grid,
-        .section-bg .mdf-grid,
-        .section-bg .advantages-grid,
-        .section-bg .gallery-grid,
-        .section-bg .mdf-highlight {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .section-bg .section-title {
-            color: var(--white);
-        }
-        /* ========== РАЗДЕЛИТЕЛЬ ========== */
-        
-        .divider {
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--accent), transparent);
-            opacity: 0.4;
-            margin: 0;
-            position: relative;
-            z-index: 2;
-        }
-        /* ========== СЕКЦИИ ========== */
+        /* ===== SECTION BASE ===== */
         
         .section {
-            padding: 100px 60px;
-            max-width: 100%;
-            margin: 0 auto;
+            padding: 80px 20px;
+            position: relative;
         }
         
         .section-dark {
-            background: var(--secondary);
-            color: var(--white);
+            background: #1a1a1a;
         }
         
         .section-darker {
-            background: var(--primary);
-            color: var(--white);
+            background: #0d0d0d;
         }
         
         .section-label {
@@ -459,120 +410,282 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: 44px;
             font-weight: 700;
-            margin-bottom: 45px;
-            color: var(--white);
+            margin-bottom: 40px;
         }
-        /* ========== SERVICES ========== */
         
-        .services-grid {
+        .section-sub {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+        /* ===== ABOUT ===== */
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+        
+        .about-text p strong {
+            color: #fff;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .about-stat {
+            background: var(--card-bg);
+            padding: 24px 16px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .about-stat:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .about-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .about-stat-label {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+        /* ===== ADVANTAGES ===== */
+        
+        .advantages-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            gap: 30px;
         }
         
-        .service-card {
+        .advantage-item {
             background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            padding: 40px 35px;
+            padding: 30px 24px;
             border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border);
             transition: var(--transition);
-            border: 1px solid var(--card-border);
         }
         
-        .service-card:hover {
-            transform: translateY(-4px);
+        .advantage-item:hover {
+            transform: translateY(-6px);
             border-color: var(--accent);
             box-shadow: var(--shadow);
-            background: rgba(255, 255, 255, 0.12);
         }
         
-        .service-card-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 44px;
-            color: rgba(255, 255, 255, 0.1);
-            margin-bottom: 12px;
+        .advantage-icon {
+            font-size: 0;
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            transition: background 0.3s;
         }
         
-        .service-card h3 {
+        .advantage-item:hover .advantage-icon {
+            background: var(--accent);
+        }
+        
+        .advantage-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            clip-path: var(--icon-shape, polygon(50% 0%, 0% 100%, 100% 100%));
+            transition: background 0.3s;
+        }
+        
+        .advantage-item:hover .advantage-icon::after {
+            background: #0d0d0d;
+        }
+        
+        .advantage-item:nth-child(1) .advantage-icon {
+            --icon-shape: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        
+        .advantage-item:nth-child(2) .advantage-icon {
+            --icon-shape: polygon(0% 0%, 100% 0%, 50% 100%);
+        }
+        
+        .advantage-item:nth-child(3) .advantage-icon {
+            --icon-shape: circle(50% at 50% 50%);
+        }
+        
+        .advantage-item:nth-child(4) .advantage-icon {
+            --icon-shape: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .advantage-item:nth-child(5) .advantage-icon {
+            --icon-shape: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        
+        .advantage-item:nth-child(6) .advantage-icon {
+            --icon-shape: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        
+        .advantage-title {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--white);
+            margin-bottom: 4px;
         }
         
-        .service-card-desc {
+        .advantage-desc {
             font-size: 14px;
             color: var(--gray);
         }
-        /* ========== MDF (автоплей с плавным переходом) ========== */
+        /* ===== WHY MDF ===== */
+        
+        .mdf-why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .mdf-why-item {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .mdf-why-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .mdf-why-item p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        /* ===== SERVICES FULL ===== */
+        
+        .services-full-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .service-full-card {
+            background: var(--card-bg);
+            padding: 30px 24px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .service-full-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
+        .service-full-card .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: rgba(255, 255, 255, 0.08);
+            margin-bottom: 6px;
+        }
+        
+        .service-full-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .service-full-card p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        /* ===== MDF ===== */
         
         .mdf-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin-top: 35px;
+            margin-top: 20px;
         }
         
         .mdf-item {
             position: relative;
-            overflow: hidden;
             border-radius: 10px;
-            padding: 40px 35px;
+            padding: 40px 30px;
             text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid var(--card-border);
             background-size: cover;
             background-position: center;
             background-color: #1a1a1a;
-            min-height: 220px;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            overflow: hidden;
             cursor: default;
         }
-        /* Затемняющий слой с плавным переходом */
         
         .mdf-item::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            transition: opacity 0.6s ease;
-            z-index: 1;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 0.5s ease;
             border-radius: 10px;
+            z-index: 1;
         }
-        /* При активном состоянии или наведении — затемнение исчезает */
         
         .mdf-item.active::before,
         .mdf-item:hover::before {
             opacity: 0;
         }
-        /* Текст тоже плавно исчезает */
         
         .mdf-item h4,
         .mdf-item p {
             position: relative;
             z-index: 2;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.5s ease;
             margin: 0;
         }
         
         .mdf-item h4 {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--white);
+            margin-bottom: 4px;
         }
         
         .mdf-item p {
@@ -586,186 +699,117 @@
         .mdf-item:hover p {
             opacity: 0;
         }
-        /* Эффект при наведении */
         
         .mdf-item:hover {
             transform: translateY(-4px);
             border-color: var(--accent);
             box-shadow: var(--shadow);
         }
-        
-        .mdf-highlight {
-            max-width: 800px;
-            margin: 0 auto 40px;
-            text-align: center;
-            font-size: 18px;
-            color: var(--gray);
-            line-height: 1.8;
-        }
-        
-        .mdf-highlight strong {
-            color: var(--white);
-        }
-        /* ========== ADVANTAGES (расширенные описания) ========== */
-        
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 25px;
-        }
-        
-        .advantage-card {
-            background: var(--card-bg);
-            padding: 30px 20px 25px;
-            border-radius: 10px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid var(--card-border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .advantage-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
-        }
-        
-        .advantage-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-        
-        .advantage-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 6px;
-        }
-        
-        .advantage-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--gray);
-            margin-bottom: 8px;
-        }
-        
-        .advantage-description {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.5;
-            max-width: 200px;
-        }
-        /* ========== GALLERY ========== */
+        /* ===== PORTFOLIO (исправлено) ===== */
         
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 24px;
         }
         
         .gallery-item {
             position: relative;
-            height: 350px;
-            overflow: hidden;
+            height: 300px;
             border-radius: 10px;
+            overflow: hidden;
             background: #1a1a1a;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
         }
         
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
+            transition: transform 0.4s;
         }
         
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
         
-        .gallery-item-overlay {
+        .gallery-item .badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--accent);
+            color: #0d0d0d;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        
+        .gallery-item .overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 30px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 24px 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
             opacity: 0;
-            transition: var(--transition);
+            transition: opacity 0.3s;
+            z-index: 2;
         }
         
-        .gallery-item:hover .gallery-item-overlay {
+        .gallery-item:hover .overlay {
             opacity: 1;
         }
         
-        .gallery-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--accent);
-            color: var(--primary);
-            padding: 5px 16px;
-            border-radius: 50px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        .gallery-item-title {
+        .gallery-item .title {
             font-family: 'Playfair Display', serif;
             font-size: 20px;
-            color: white;
-            margin-bottom: 3px;
         }
         
-        .gallery-item-desc {
+        .gallery-item .desc {
             font-size: 13px;
             color: #ccc;
         }
-        /* ========== CONTACT ========== */
+        /* ===== CONTACT (обновлённый блок) ===== */
         
         .contact-section {
-            padding: 60px 40px;
-            background: var(--secondary);
-            color: var(--white);
+            padding: 60px 20px;
+            background: #1a1a1a;
             text-align: center;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
-        
-        .contact-section .section-label {
-            color: var(--accent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
         
         .contact-section .section-title {
-            color: var(--white);
-            margin-bottom: 15px;
-            font-size: 40px;
+            margin-bottom: 12px;
         }
         
         .contact-phone {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: 44px;
             font-weight: 700;
             color: var(--accent);
-            text-decoration: none;
             display: inline-block;
-            margin: 15px 0 20px;
-            transition: var(--transition);
+            margin: 16px 0 20px;
+            transition: color 0.3s;
         }
         
         .contact-phone:hover {
-            color: var(--white);
-            transform: scale(1.02);
+            color: #fff;
         }
         
         .contact-messengers {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -774,110 +818,117 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 14px 30px;
+            padding: 14px 32px;
             border-radius: 50px;
             font-size: 14px;
             font-weight: 600;
-            text-decoration: none;
             transition: var(--transition);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .messenger-btn:hover {
+            background: var(--accent);
+            color: #0d0d0d;
             transform: translateY(-2px);
         }
         
-        .btn-telegram {
-            background: var(--telegram);
-            color: white;
+        .messenger-btn svg {
+            width: 20px;
+            height: 20px;
         }
         
-        .btn-telegram:hover {
+        .messenger-btn.telegram {
+            background: #0088cc;
+            color: #fff;
+            border-color: #0088cc;
+        }
+        
+        .messenger-btn.telegram:hover {
             background: #0077b3;
+            border-color: #0077b3;
         }
         
-        .btn-instagram {
-            background: var(--instagram);
-            color: white;
+        .messenger-btn.instagram {
+            background: #E4405F;
+            color: #fff;
+            border-color: #E4405F;
         }
         
-        .btn-instagram:hover {
+        .messenger-btn.instagram:hover {
             background: #d6304f;
+            border-color: #d6304f;
         }
-        /* ========== FOOTER ========== */
+        /* ===== FOOTER ===== */
         
         .footer {
-            padding: 30px 60px;
+            padding: 30px 20px;
             background: #0a0a0a;
             color: rgba(255, 255, 255, 0.3);
-            display: flex;
-            justify-content: center;
-            font-size: 11px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            font-size: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
         }
-        /* ========== RESPONSIVE ========== */
+        /* ===== ANIMATIONS ===== */
         
-        @media (max-width: 1200px) {
-            .hero-title {
-                font-size: 56px;
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            .hero-slider-wrapper {
-                height: 480px;
-                min-width: 350px;
-            }
-            .hero {
-                gap: 50px;
-                padding: 100px 40px 40px;
-            }
-            .section {
-                padding: 80px 40px;
-            }
-            .section-bg {
-                padding: 80px 40px;
-            }
-            .contact-section {
-                padding: 50px 30px;
-            }
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .advantages-grid {
-                grid-template-columns: repeat(3, 1fr);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* ===== RESPONSIVE ===== */
         
         @media (max-width: 1024px) {
-            .services-grid,
-            .mdf-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .hero {
+                flex-direction: column;
+                padding: 100px 20px 40px;
+                gap: 30px;
             }
+            .hero-slider-wrapper {
+                height: 400px;
+                min-width: unset;
+                width: 100%;
+            }
+            .services-full-grid,
+            .mdf-why-grid,
             .advantages-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr 1fr;
             }
-            .hero-features {
-                grid-template-columns: 1fr;
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
             }
             .header-nav {
-                gap: 25px;
+                gap: 20px;
             }
-            .hero-stats {
-                gap: 35px;
-            }
-            .contact-phone {
-                font-size: 38px;
+            .about-grid {
+                grid-template-columns: 1fr;
             }
         }
         
         @media (max-width: 768px) {
             .header {
-                padding: 12px 20px;
+                padding: 12px 16px;
                 flex-wrap: wrap;
-                gap: 10px;
             }
             .header-nav {
                 order: 3;
                 width: 100%;
                 justify-content: center;
-                gap: 12px;
+                gap: 10px;
                 flex-wrap: wrap;
             }
             .header-nav a {
@@ -885,93 +936,46 @@
             }
             .header-phone {
                 font-size: 12px;
-                padding: 8px 16px;
-            }
-            .header-logo {
-                font-size: 18px;
-            }
-            .hero {
-                flex-direction: column;
-                padding: 110px 20px 30px;
-                gap: 30px;
-            }
-            .hero-content {
-                max-width: 100%;
+                padding: 6px 14px;
             }
             .hero-title {
-                font-size: 38px;
-            }
-            .hero-slider-wrapper {
-                height: 280px;
-                width: 100%;
-                min-width: unset;
+                font-size: 40px;
             }
             .hero-stats {
                 gap: 20px;
                 flex-wrap: wrap;
             }
             .hero-stat-number {
-                font-size: 32px;
-            }
-            .hero-features {
-                gap: 6px;
-            }
-            .hero-features li {
-                font-size: 14px;
-            }
-            .section {
-                padding: 50px 20px;
-            }
-            .section-bg {
-                padding: 50px 20px;
-            }
-            .services-grid,
-            .mdf-grid,
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-            .advantages-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .gallery-item {
-                height: 280px;
-            }
-            .contact-section {
-                padding: 40px 20px;
-            }
-            .contact-phone {
                 font-size: 30px;
             }
-            .footer {
-                flex-direction: column;
-                gap: 8px;
-                text-align: center;
-                padding: 20px;
-            }
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-            .hero-buttons .btn {
-                justify-content: center;
-                width: 100%;
-            }
-            .slider-btn {
-                width: 38px;
-                height: 38px;
-                font-size: 18px;
-            }
-            .slider-btn-prev {
-                left: 8px;
-            }
-            .slider-btn-next {
-                right: 8px;
+            .hero-features {
+                grid-template-columns: 1fr;
             }
             .section-title {
                 font-size: 32px;
             }
-            .divider {
-                margin: 0 20px;
+            .services-full-grid,
+            .mdf-why-grid,
+            .advantages-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .mdf-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-phone {
+                font-size: 30px;
+            }
+            .contact-section .section-title {
+                font-size: 28px;
+            }
+            .slider-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -979,34 +983,35 @@
 
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
-        <a href="#top" class="header-logo">Vintazh<span>100</span></a>
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <a href="index.html" class="header-logo">Vintazh<span>100</span></a>
         <nav class="header-nav">
-            <a href="#services">Услуги</a>
-            <a href="#mdf">Фасады МДФ</a>
-            <a href="#advantages">Преимущества</a>
-            <a href="#gallery">Работы</a>
-            <a href="#contact">Контакты</a>
+            <a href="index.html" class="active">Главная</a>
+            <a href="about.html">О компании</a>
+            <a href="services.html">Услуги</a>
+            <a href="mdf.html">Фасады МДФ</a>
+            <a href="technology.html">Технологии</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contacts.html">Контакты</a>
         </nav>
         <a href="tel:+375259929001" class="header-phone">
             <span class="header-phone-dot"></span> +375 (25) 992-90-01
         </a>
     </header>
 
-    <!-- HERO -->
+    <!-- ===== HERO ===== -->
     <section class="hero" id="top">
         <div class="hero-content">
-            <div class="hero-badge">Покраска фасадов из МДФ</div>
+            <div class="hero-badge">Производство крашеных фасадов из МДФ</div>
             <h1 class="hero-title">
                 Новая жизнь<br>
-                <span class="hero-title-accent">вашей мебели</span>
+                <span>вашей мебели</span>
             </h1>
-
             <div class="hero-stats">
                 <div>
                     <div class="hero-stat-number">> 5 лет</div>
-                    <div class="hero-stat-label">в производстве</div>
+                    <div class="hero-stat-label">на рынке</div>
                 </div>
                 <div>
                     <div class="hero-stat-number">10–15</div>
@@ -1014,337 +1019,335 @@
                 </div>
                 <div>
                     <div class="hero-stat-number">100%</div>
-                    <div class="hero-stat-label">качество</div>
+                    <div class="hero-stat-label">гарантия</div>
                 </div>
             </div>
-
             <ul class="hero-features">
-                <li><strong>Минск</strong> · Высокое качество крашенных фасадов</li>
-                <li><strong>Различные типы</strong> фрезеровки</li>
-                <li>Глянцевое, матовое покрытие, <strong>патина и софт-тач</strong></li>
+                <li><strong>Минск</strong> · Собственное производство</li>
+                <li><strong>Любые типы</strong> фрезеровки</li>
+                <li>Глянец, мат, <strong>патина и софт-тач</strong></li>
             </ul>
-
             <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Связаться</a>
+                <a href="contacts.html" class="btn btn-primary">Связаться</a>
                 <a href="tel:+375259929001" class="btn btn-outline">Позвонить</a>
             </div>
         </div>
-
-        <!-- Слайдер -->
         <div class="hero-slider-wrapper">
             <div class="hero-slider" id="heroSlider">
-                <div class="hero-slider-slide">
-                    <img src="image/slide-1.jpg" alt="Покрашенная мебель">
-                </div>
-                <div class="hero-slider-slide">
-                    <img src="image/slide-2.jpg" alt="Кухонный фасад">
-                </div>
-                <div class="hero-slider-slide">
-                    <img src="image/slide-3.jpg" alt="Шкаф-купе">
-                </div>
-                <div class="hero-slider-slide">
-                    <img src="image/slide-4.jpg" alt="Двери">
-                </div>
-                <div class="hero-slider-slide">
-                    <img src="image/slide-5.jpg" alt="Мягкая мебель">
-                </div>
+                <div class="hero-slider-slide"><img src="image/slide-1.jpg" alt="Фасады"></div>
+                <div class="hero-slider-slide"><img src="image/slide-2.jpg" alt="Кухня"></div>
+                <div class="hero-slider-slide"><img src="image/slide-3.jpg" alt="Шкаф"></div>
+                <div class="hero-slider-slide"><img src="image/slide-4.jpg" alt="Двери"></div>
+                <div class="hero-slider-slide"><img src="image/slide-5.jpg" alt="Мягкая мебель"></div>
             </div>
-
             <button class="slider-btn slider-btn-prev" id="sliderPrev">‹</button>
             <button class="slider-btn slider-btn-next" id="sliderNext">›</button>
             <div class="slider-dots" id="sliderDots"></div>
         </div>
     </section>
 
-    <!-- РАЗДЕЛИТЕЛЬ -->
-    <div class="divider"></div>
-
-    <!-- SERVICES -->
-    <section class="section-bg" id="services" style="background-image: url('image/slide-1.jpg');">
-        <div class="section-label">Услуги</div>
-        <h2 class="section-title">Что мы красим</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-card-number">01</div>
-                <h3>Кухонные фасады</h3>
-                <div class="service-card-desc">Любые размеры и формы</div>
-            </div>
-            <div class="service-card">
-                <div class="service-card-number">02</div>
-                <h3>Шкафы-купе</h3>
-                <div class="service-card-desc">Встроенные и отдельно стоящие</div>
-            </div>
-            <div class="service-card">
-                <div class="service-card-number">03</div>
-                <h3>Межкомнатные двери</h3>
-                <div class="service-card-desc">Глянцевые и матовые</div>
-            </div>
-            <div class="service-card">
-                <div class="service-card-number">04</div>
-                <h3>Мягкая мебель</h3>
-                <div class="service-card-desc">Диваны, кресла, пуфы</div>
-            </div>
-            <div class="service-card">
-                <div class="service-card-number">05</div>
-                <h3>Столы и стулья</h3>
-                <div class="service-card-desc">Обеденные и рабочие</div>
-            </div>
-            <div class="service-card">
-                <div class="service-card-number">06</div>
-                <h3>Детская мебель</h3>
-                <div class="service-card-desc">Безопасные материалы</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- РАЗДЕЛИТЕЛЬ -->
-    <div class="divider"></div>
-
-    <!-- MDF (автоплей с плавным переходом) -->
-    <section class="section-bg" id="mdf" style="background-image: url('image/slide-2.jpg');">
-        <div class="section-label">Спецпредложение</div>
-        <h2 class="section-title">Покраска фасадов из МДФ</h2>
-        <div class="mdf-highlight">
-            <strong>Высокое качество</strong> крашенных фасадов.<br> Различные типы фрезеровки.
-        </div>
-        <div class="mdf-grid" id="mdfGrid">
-            <div class="mdf-item active" style="background-image: url('image/slide-1.jpg');">
-                <h4>Глянцевое покрытие</h4>
-                <p>Зеркальный блеск, глубокий цвет</p>
-            </div>
-            <div class="mdf-item" style="background-image: url('image/slide-2.jpg');">
-                <h4>Матовое покрытие</h4>
-                <p>Благородная текстура, мягкое свечение</p>
-            </div>
-            <div class="mdf-item" style="background-image: url('image/slide-3.jpg');">
-                <h4>Патина и софт-тач</h4>
-                <p>Изысканное состаривание и бархат</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- РАЗДЕЛИТЕЛЬ -->
-    <div class="divider"></div>
-
-    <!-- ADVANTAGES (расширенные описания) -->
-    <section class="section-bg" id="advantages" style="background-image: url('image/slide-3.jpg');">
-        <div class="section-label">Преимущества</div>
-        <h2 class="section-title">Почему выбирают нас</h2>
-        <div class="advantages-grid">
-            <div class="advantage-card">
-                <div class="advantage-icon">🎨</div>
-                <div class="advantage-title">Мастерство</div>
-                <div class="advantage-label">Большой опыт</div>
-                <div class="advantage-description">Работаем с 2018 года, знаем все нюансы покраски МДФ и дерева.</div>
-            </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">⭐</div>
-                <div class="advantage-title">Надёжность</div>
-                <div class="advantage-label">Гарантия качества</div>
-                <div class="advantage-description">Даём гарантию на все виды работ — вы можете быть уверены в результате.</div>
-            </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">⚡</div>
-                <div class="advantage-title">Оперативность</div>
-                <div class="advantage-label">Соблюдение сроков</div>
-                <div class="advantage-description">Чёткое планирование и контроль на каждом этапе — без задержек.</div>
-            </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">🎯</div>
-                <div class="advantage-title">Индивидуальность</div>
-                <div class="advantage-label">Внимание к деталям</div>
-                <div class="advantage-description">Учитываем все пожелания, создаём уникальный дизайн под ваш интерьер.</div>
-            </div>
-            <div class="advantage-card">
-                <div class="advantage-icon">💰</div>
-                <div class="advantage-title">Доступность</div>
-                <div class="advantage-label">Лучшее соотношение цены и качества</div>
-                <div class="advantage-description">Прозрачные цены без скрытых платежей — получаете максимум за свои деньги.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- РАЗДЕЛИТЕЛЬ -->
-    <div class="divider"></div>
-
-    <!-- GALLERY -->
-    <section class="section-bg" id="gallery" style="background-image: url('image/slide-4.jpg');">
-        <div class="section-label">Портфолио</div>
-        <h2 class="section-title">Наши работы</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="image/gallery-1.jpg" alt="Кухня">
-                <div class="gallery-badge">Кухня</div>
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Кухонный гарнитур</div>
-                    <div class="gallery-item-desc">Цвет «графит» · 5 дней</div>
+    <!-- ===== ABOUT ===== -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-label">О компании</div>
+            <h2 class="section-title">Профессиональное производство</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p><strong>Vintazh100</strong> — команда профессионалов с опытом более 5 лет в производстве и покраске мебельных фасадов из МДФ.</p>
+                    <p>Мы предлагаем полный цикл: от разработки дизайна до финишной отделки. Современное оборудование и строгий контроль качества гарантируют безупречный результат.</p>
+                    <p>Индивидуальный подход к каждому клиенту и соблюдение сроков — наши главные принципы.</p>
+                    <a href="about.html" class="btn btn-outline" style="border-color:var(--accent); color:var(--accent); margin-top:12px;">Подробнее</a>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="image/gallery-2.jpg" alt="Шкаф">
-                <div class="gallery-badge">Шкаф</div>
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Шкаф-купе</div>
-                    <div class="gallery-item-desc">Матовая покраска · 4 дня</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="image/gallery-3.jpg" alt="Двери">
-                <div class="gallery-badge">Двери</div>
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Межкомнатные двери</div>
-                    <div class="gallery-item-desc">Глянцевое покрытие · 3 дня</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="image/gallery-4.jpg" alt="Диван">
-                <div class="gallery-badge">Диван</div>
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Мягкая мебель</div>
-                    <div class="gallery-item-desc">Покраска ткани · 5 дней</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="image/gallery-5.jpg" alt="Мебель">
-                <div class="gallery-badge">Премиум</div>
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Эксклюзивный проект</div>
-                    <div class="gallery-item-desc">Софт-тач покрытие · 7 дней</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="image/gallery-6.jpg" alt="Кухня 2">
-                <div class="gallery-badge">Кухня</div>
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Кухня в стиле лофт</div>
-                    <div class="gallery-item-desc">Матовое покрытие · 6 дней</div>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <div class="about-stat-number">5+</div>
+                        <div class="about-stat-label">лет на рынке</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-number">500+</div>
+                        <div class="about-stat-label">проектов</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-number">10</div>
+                        <div class="about-stat-label">специалистов</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-number">100%</div>
+                        <div class="about-stat-label">гарантия качества</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- РАЗДЕЛИТЕЛЬ -->
-    <div class="divider"></div>
-
-    <!-- CONTACT -->
-    <section class="contact-section" id="contact">
-        <div class="section-label">Контакты</div>
-        <h2 class="section-title">Свяжитесь с нами</h2>
-        <p style="color:rgba(255,255,255,0.6); font-size:16px; max-width:500px; margin:0 auto 15px;">
-            Индивидуальный подход и безупречное качество
-        </p>
-        <a href="tel:+375259929001" class="contact-phone">+375 (25) 992-90-01</a>
-        <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:20px;">
-            Пн–Пт: 9:00 – 20:00
-        </p>
-        <div class="contact-messengers">
-            <a href="https://t.me/+375259929001" class="messenger-btn btn-telegram" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.5L2.5 10.5L9.5 13.5L12.5 20.5L16.5 14.5L21.5 4.5Z"/><path d="M9.5 13.5L14.5 9.5"/></svg>                Telegram
-            </a>
-            <a href="https://www.instagram.com/vintazh100?utm_source=qr&igsh=aWhkNWg1OWl0ZXRk" class="messenger-btn btn-instagram" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>                Instagram
-            </a>
+    <!-- ===== ADVANTAGES ===== -->
+    <section class="section section-darker">
+        <div class="container">
+            <div class="section-label">Преимущества</div>
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <div class="advantages-grid">
+                <div class="advantage-item">
+                    <div class="advantage-icon"></div>
+                    <div class="advantage-title">Мастерство</div>
+                    <div class="advantage-desc">Опыт работы с 2018 года, знание всех тонкостей покраски МДФ</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon"></div>
+                    <div class="advantage-title">Надёжность</div>
+                    <div class="advantage-desc">Гарантия на все виды работ и материалов</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon"></div>
+                    <div class="advantage-title">Оперативность</div>
+                    <div class="advantage-desc">Соблюдение сроков благодаря чёткому планированию</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon"></div>
+                    <div class="advantage-title">Индивидуальность</div>
+                    <div class="advantage-desc">Учитываем все пожелания, создаём уникальный дизайн</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon"></div>
+                    <div class="advantage-title">Доступность</div>
+                    <div class="advantage-desc">Прозрачные цены без скрытых платежей</div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon"></div>
+                    <div class="advantage-title">Экологичность</div>
+                    <div class="advantage-desc">Используем только безопасные материалы и ЛКМ</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ===== WHY MDF ===== -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-label">Материал</div>
+            <h2 class="section-title">Почему МДФ?</h2>
+            <div class="mdf-why-grid">
+                <div class="mdf-why-item">
+                    <h4>Прочность и долговечность</h4>
+                    <p>МДФ обладает высокой плотностью, не деформируется и не трескается со временем.</p>
+                </div>
+                <div class="mdf-why-item">
+                    <h4>Идеальная поверхность</h4>
+                    <p>Позволяет получить абсолютно ровное покрытие без пор и сучков.</p>
+                </div>
+                <div class="mdf-why-item">
+                    <h4>Широкие возможности дизайна</h4>
+                    <p>Легко фрезеруется, принимает любую форму и цвет.</p>
+                </div>
+                <div class="mdf-why-item">
+                    <h4>Экологичность</h4>
+                    <p>Изготавливается из натуральной древесины, безопасен для дома.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FULL SERVICES ===== -->
+    <section class="section section-darker">
+        <div class="container">
+            <div class="section-label">Услуги</div>
+            <h2 class="section-title">Полный перечень</h2>
+            <div class="services-full-grid">
+                <div class="service-full-card">
+                    <div class="num">01</div>
+                    <h3>Кухонные фасады</h3>
+                    <p>Любые размеры и формы, матовые и глянцевые</p>
+                </div>
+                <div class="service-full-card">
+                    <div class="num">02</div>
+                    <h3>Шкафы-купе</h3>
+                    <p>Встроенные и отдельно стоящие</p>
+                </div>
+                <div class="service-full-card">
+                    <div class="num">03</div>
+                    <h3>Межкомнатные двери</h3>
+                    <p>Глянцевые, матовые, с патиной</p>
+                </div>
+                <div class="service-full-card">
+                    <div class="num">04</div>
+                    <h3>Мягкая мебель</h3>
+                    <p>Диваны, кресла, пуфы</p>
+                </div>
+                <div class="service-full-card">
+                    <div class="num">05</div>
+                    <h3>Столы и стулья</h3>
+                    <p>Обеденные и рабочие группы</p>
+                </div>
+                <div class="service-full-card">
+                    <div class="num">06</div>
+                    <h3>Детская мебель</h3>
+                    <p>Безопасные материалы и яркие цвета</p>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:30px;">
+                <a href="services.html" class="btn btn-outline" style="border-color:var(--accent); color:var(--accent);">Все услуги</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MDF ===== -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-label">Спецпредложение</div>
+            <h2 class="section-title">Покраска фасадов из МДФ</h2>
+            <p class="section-sub">Высокое качество крашеных фасадов с использованием современных технологий. Различные типы фрезеровки и покрытий.</p>
+            <div class="mdf-grid" id="mdfGrid">
+                <div class="mdf-item active" style="background-image: url('image/slide-1.jpg');">
+                    <h4>Глянцевое покрытие</h4>
+                    <p>Глубокий цвет и зеркальный блеск</p>
+                </div>
+                <div class="mdf-item" style="background-image: url('image/slide-2.jpg');">
+                    <h4>Матовое покрытие</h4>
+                    <p>Благородная текстура</p>
+                </div>
+                <div class="mdf-item" style="background-image: url('image/slide-4.jpg');">
+                    <h4>Патина и софт-тач</h4>
+                    <p>Состаривание и бархатистость</p>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:30px;">
+                <a href="mdf.html" class="btn btn-outline" style="border-color:var(--accent); color:var(--accent);">Подробнее</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section class="section section-darker">
+        <div class="container">
+            <div class="section-label">Портфолио</div>
+            <h2 class="section-title">Наши работы</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="image/gallery-1.jpg" alt="Кухня">
+                    <div class="badge">Кухня</div>
+                    <div class="overlay">
+                        <div class="title">Кухонный гарнитур</div>
+                        <div class="desc">Цвет «графит» · 5 дней</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="image/gallery-2.jpg" alt="Шкаф">
+                    <div class="badge">Шкаф</div>
+                    <div class="overlay">
+                        <div class="title">Шкаф-купе</div>
+                        <div class="desc">Матовая покраска · 4 дня</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="image/gallery-3.jpg" alt="Двери">
+                    <div class="badge">Двери</div>
+                    <div class="overlay">
+                        <div class="title">Межкомнатные двери</div>
+                        <div class="desc">Глянцевое покрытие · 3 дня</div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:30px;">
+                <a href="portfolio.html" class="btn btn-outline" style="border-color:var(--accent); color:var(--accent);">Все работы</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT (обновлённый блок) ===== -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="section-label">Свяжитесь с нами</div>
+            <h2 class="section-title">Остались вопросы?</h2>
+            <p style="color:var(--gray); font-size:16px; max-width:500px; margin:0 auto 12px;">
+                Позвоните или напишите нам — мы поможем с выбором и рассчитаем стоимость
+            </p>
+            <a href="tel:+375259929001" class="contact-phone">+375 (25) 992-90-01</a>
+            <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:20px;">
+                Пн–Пт: 9:00 – 20:00
+            </p>
+            <div class="contact-messengers">
+                <a href="https://t.me/+375259929001" class="messenger-btn telegram" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.5L2.5 10.5L9.5 13.5L12.5 20.5L16.5 14.5L21.5 4.5Z"/><path d="M9.5 13.5L14.5 9.5"/></svg> Telegram
+                </a>
+                <a href="https://www.instagram.com/vintazh100" class="messenger-btn instagram" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>                    Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div>© 2025 Vintazh100</div>
     </footer>
 
     <script>
-        // ===== SLIDER (без автопрокрутки) =====
+        // ===== SLIDER =====
         const slider = document.getElementById('heroSlider');
         const slides = slider.querySelectorAll('.hero-slider-slide');
-        const totalSlides = slides.length;
-        let currentIndex = 0;
-        let isTransitioning = false;
-
+        const total = slides.length;
+        let idx = 0,
+            isMoving = false;
         const dotsContainer = document.getElementById('sliderDots');
+
         slides.forEach((_, i) => {
             const dot = document.createElement('button');
             dot.classList.add('slider-dot');
             if (i === 0) dot.classList.add('active');
             dot.dataset.index = i;
-            dot.addEventListener('click', () => goToSlide(i));
+            dot.addEventListener('click', () => goTo(i));
             dotsContainer.appendChild(dot);
         });
-
         const dots = dotsContainer.querySelectorAll('.slider-dot');
 
-        function goToSlide(index) {
-            if (isTransitioning || index === currentIndex) return;
-            isTransitioning = true;
-            currentIndex = index;
-            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 600);
+        function goTo(index) {
+            if (isMoving || index === idx) return;
+            isMoving = true;
+            idx = index;
+            slider.style.transform = `translateX(-${idx * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+            setTimeout(() => isMoving = false, 600);
         }
 
-        function nextSlide() {
-            goToSlide((currentIndex + 1) % totalSlides);
+        function next() {
+            goTo((idx + 1) % total);
         }
 
-        function prevSlide() {
-            goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+        function prev() {
+            goTo((idx - 1 + total) % total);
         }
 
-        document.getElementById('sliderNext').addEventListener('click', nextSlide);
-        document.getElementById('sliderPrev').addEventListener('click', prevSlide);
+        document.getElementById('sliderNext').addEventListener('click', next);
+        document.getElementById('sliderPrev').addEventListener('click', prev);
 
-        // ===== MDF AUTOPLAY (плавное переключение) =====
+        // ===== MDF AUTOPLAY =====
         const mdfItems = document.querySelectorAll('.mdf-item');
-        let mdfIndex = 0;
-        let mdfInterval;
+        let mdfIdx = 0,
+            mdfInterval;
 
-        function activateMdf(index) {
-            mdfItems.forEach((item, i) => {
-                item.classList.toggle('active', i === index);
-            });
+        function activateMdf(i) {
+            mdfItems.forEach((el, idx) => el.classList.toggle('active', idx === i));
         }
 
         function nextMdf() {
-            mdfIndex = (mdfIndex + 1) % mdfItems.length;
-            activateMdf(mdfIndex);
+            mdfIdx = (mdfIdx + 1) % mdfItems.length;
+            activateMdf(mdfIdx);
         }
 
-        function startMdfAutoplay() {
-            if (mdfInterval) clearInterval(mdfInterval);
+        function startMdf() {
             mdfInterval = setInterval(nextMdf, 4000);
         }
 
-        function stopMdfAutoplay() {
+        function stopMdf() {
             clearInterval(mdfInterval);
         }
-
-        // запускаем
-        startMdfAutoplay();
-
-        // останавливаем при наведении на сетку
+        startMdf();
         const mdfGrid = document.getElementById('mdfGrid');
-        mdfGrid.addEventListener('mouseenter', stopMdfAutoplay);
-        mdfGrid.addEventListener('mouseleave', startMdfAutoplay);
+        mdfGrid.addEventListener('mouseenter', stopMdf);
+        mdfGrid.addEventListener('mouseleave', startMdf);
 
-        // ===== SMOOTH SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // ===== HEADER SHADOW =====
+        // ===== HEADER SCROLL SHADOW =====
         window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            header.style.boxShadow = window.scrollY > 50 ? '0 2px 30px rgba(0,0,0,0.3)' : 'none';
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
         });
     </script>
 
