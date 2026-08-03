@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>О компании | Vintazh100</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,7 @@
             background: #0d0d0d;
             color: #ffffff;
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
         
         a {
@@ -38,7 +39,7 @@
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 16px;
         }
         /* ===== VARIABLES ===== */
         
@@ -59,14 +60,16 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 16px 40px;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(13, 13, 13, 0.92);
+            background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             transition: box-shadow 0.3s;
+            flex-wrap: wrap;
+            gap: 6px;
         }
         
         .header.scrolled {
@@ -75,9 +78,9 @@
         
         .header-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
         }
         
         .header-logo span {
@@ -86,18 +89,24 @@
         
         .header-nav {
             display: flex;
-            gap: 32px;
+            gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            order: 3;
+            justify-content: center;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .header-nav a {
-            font-size: 12px;
+            font-size: 9px;
             font-weight: 600;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.7);
             transition: color 0.3s, border-bottom 0.3s;
-            padding-bottom: 4px;
+            padding-bottom: 3px;
             border-bottom: 2px solid transparent;
         }
         
@@ -110,13 +119,14 @@
         .header-phone {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             font-weight: 700;
-            font-size: 14px;
-            padding: 8px 20px;
+            font-size: 11px;
+            padding: 5px 12px;
             border: 2px solid var(--accent);
             border-radius: 50px;
             transition: background 0.3s, color 0.3s;
+            flex-shrink: 0;
         }
         
         .header-phone:hover {
@@ -125,11 +135,12 @@
         }
         
         .header-phone-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #4CAF50;
             border-radius: 50%;
             animation: pulse-dot 2s infinite;
+            flex-shrink: 0;
         }
         
         @keyframes pulse-dot {
@@ -138,13 +149,13 @@
                 box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
             }
             50% {
-                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+                box-shadow: 0 0 0 8px rgba(76, 175, 80, 0);
             }
         }
         /* ===== SECTION ===== */
         
         .section {
-            padding: 120px 20px 80px;
+            padding: 100px 16px 50px;
             position: relative;
         }
         
@@ -157,41 +168,41 @@
         }
         
         .section-label {
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 44px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
         
         .section-sub {
-            font-size: 18px;
+            font-size: 15px;
             color: var(--gray);
             max-width: 700px;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
         /* ===== ABOUT CONTENT ===== */
         
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1fr;
+            gap: 30px;
             align-items: start;
         }
         
         .about-text p {
-            font-size: 17px;
-            line-height: 1.8;
+            font-size: 15px;
+            line-height: 1.7;
             color: var(--gray);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         
         .about-text p strong {
@@ -206,12 +217,12 @@
         .about-side {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px;
         }
         
         .about-side .stat-block {
             background: var(--card-bg);
-            padding: 30px 24px;
+            padding: 22px 18px;
             border-radius: 10px;
             border: 1px solid var(--border);
             text-align: center;
@@ -225,35 +236,35 @@
         
         .stat-block .number {
             font-family: 'Playfair Display', serif;
-            font-size: 40px;
+            font-size: 32px;
             font-weight: 700;
             color: var(--accent);
         }
         
         .stat-block .label {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gray);
-            margin-top: 4px;
+            margin-top: 2px;
         }
         
         .stat-block .desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gray);
-            margin-top: 8px;
+            margin-top: 6px;
             line-height: 1.5;
         }
         /* ===== TEAM ===== */
         
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 20px;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 16px;
         }
         
         .team-card {
             background: var(--card-bg);
-            padding: 24px;
+            padding: 20px;
             border-radius: 10px;
             border: 1px solid var(--border);
             text-align: center;
@@ -266,32 +277,32 @@
         }
         
         .team-card .avatar {
-            width: 80px;
-            height: 80px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
             background: var(--accent);
-            margin: 0 auto 12px;
+            margin: 0 auto 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 700;
             color: #0d0d0d;
         }
         
         .team-card h4 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
         }
         
         .team-card p {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gray);
         }
-        /* ===== CONTACT SECTION ===== */
+        /* ===== CONTACT ===== */
         
         .contact-section {
-            padding: 60px 20px;
+            padding: 40px 16px;
             background: #1a1a1a;
             text-align: center;
             border-top: 1px solid var(--border);
@@ -299,17 +310,17 @@
         }
         
         .contact-section .section-title {
-            margin-bottom: 12px;
-            font-size: 38px;
+            margin-bottom: 10px;
+            font-size: 26px;
         }
         
         .contact-phone {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: 28px;
             font-weight: 700;
             color: var(--accent);
             display: inline-block;
-            margin: 16px 0 20px;
+            margin: 12px 0 16px;
             transition: color 0.3s;
         }
         
@@ -319,7 +330,7 @@
         
         .contact-messengers {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -327,10 +338,10 @@
         .messenger-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 32px;
+            gap: 8px;
+            padding: 12px 22px;
             border-radius: 50px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             transition: var(--transition);
             background: rgba(255, 255, 255, 0.06);
@@ -344,8 +355,8 @@
         }
         
         .messenger-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
         }
         
         .messenger-btn.telegram {
@@ -372,61 +383,121 @@
         /* ===== FOOTER ===== */
         
         .footer {
-            padding: 30px 20px;
+            padding: 24px 16px;
             background: #0a0a0a;
             color: rgba(255, 255, 255, 0.3);
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
         }
         /* ===== RESPONSIVE ===== */
         
-        @media (max-width: 1024px) {
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            .team-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .header-nav {
-                gap: 20px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header {
-                padding: 12px 16px;
-                flex-wrap: wrap;
-            }
-            .header-nav {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-            .header-nav a {
-                font-size: 10px;
-            }
-            .header-phone {
-                font-size: 12px;
-                padding: 6px 14px;
-            }
-            .section {
-                padding: 100px 16px 60px;
-            }
+        @media (min-width: 481px) {
             .section-title {
                 font-size: 32px;
             }
             .team-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+            }
+            .about-side {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .header {
+                padding: 16px 40px;
+                flex-wrap: nowrap;
+            }
+            .header-logo {
+                font-size: 24px;
+            }
+            .header-nav {
+                width: auto;
+                order: 0;
+                border-top: none;
+                padding-top: 0;
+                gap: 32px;
+            }
+            .header-nav a {
+                font-size: 12px;
+                letter-spacing: 1.2px;
+            }
+            .header-phone {
+                font-size: 14px;
+                padding: 8px 20px;
+            }
+            .section {
+                padding: 120px 20px 80px;
+            }
+            .section-title {
+                font-size: 44px;
+            }
+            .about-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+            }
+            .about-side {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+            }
+            .about-side .stat-block {
+                padding: 30px 24px;
+            }
+            .stat-block .number {
+                font-size: 40px;
+            }
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            .team-card .avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
             }
             .contact-phone {
-                font-size: 30px;
+                font-size: 44px;
             }
-            .contact-section .section-title {
+        }
+        
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 24px;
+            }
+            .contact-phone {
+                font-size: 24px;
+            }
+            .messenger-btn {
+                font-size: 12px;
+                padding: 10px 18px;
+            }
+            .header-logo {
+                font-size: 17px;
+                letter-spacing: 2px;
+            }
+            .header-nav a {
+                font-size: 8px;
+                letter-spacing: 0.4px;
+            }
+            .header-phone {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .stat-block .number {
                 font-size: 28px;
+            }
+            .about-side {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .team-card .avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
             }
         }
     </style>
@@ -462,7 +533,8 @@
                     <p>Мы специализируемся на создании эксклюзивных изделий, которые соответствуют самым высоким стандартам качества. Наш подход — это <span class="highlight">индивидуальный проект</span> для каждого клиента, где мы учитываем все пожелания
                         и особенности интерьера.</p>
                     <p>Собственное производство оснащено современным оборудованием, что позволяет нам гарантировать точность геометрии, идеальную поверхность и соблюдение сроков. Каждый этап — от выбора материала до финишной отделки — проходит строгий контроль
-                        качества.</p>
+                        качества.
+                    </p>
                     <p>Мы гордимся тем, что наши фасады украшают дома и офисы по всей Беларуси, и стремимся к постоянному развитию, внедряя новые технологии и расширяя цветовую палитру.</p>
                 </div>
                 <div class="about-side">
@@ -516,16 +588,16 @@
         </div>
     </section>
 
-    <!-- ===== CONTACT SECTION ===== -->
+    <!-- ===== CONTACT ===== -->
     <section class="contact-section">
         <div class="container">
             <div class="section-label">Свяжитесь с нами</div>
             <h2 class="section-title">Остались вопросы?</h2>
-            <p style="color:var(--gray); font-size:16px; max-width:500px; margin:0 auto 12px;">
+            <p style="color:var(--gray); font-size:15px; max-width:500px; margin:0 auto 10px;">
                 Позвоните или напишите нам — мы поможем с выбором и рассчитаем стоимость
             </p>
             <a href="tel:+375259929001" class="contact-phone">+375 (25) 992-90-01</a>
-            <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:20px;">
+            <p style="color:rgba(255,255,255,0.3); font-size:12px; margin-bottom:16px;">
                 Пн–Пт: 9:00 – 20:00
             </p>
             <div class="contact-messengers">
