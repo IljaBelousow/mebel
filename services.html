@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги | Vintazh100</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0d0d0d;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+         :root {
+            --accent: #d4af37;
+            --dark: #0d0d0d;
+            --gray: #cccccc;
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --border: rgba(212, 175, 55, 0.15);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            --transition: 0.3s ease;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(13, 13, 13, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 0.3s;
+        }
+        
+        .header.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+        }
+        
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+        
+        .header-logo span {
+            color: var(--accent);
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .header-nav a {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s, border-bottom 0.3s;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .header-nav a:hover,
+        .header-nav a.active {
+            color: #fff;
+            border-bottom-color: var(--accent);
+        }
+        
+        .header-phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 8px 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        .header-phone:hover {
+            background: var(--accent);
+            color: #0d0d0d;
+        }
+        
+        .header-phone-dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+        }
+        
+        .section {
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+        
+        .section-dark {
+            background: #1a1a1a;
+        }
+        
+        .section-darker {
+            background: #0d0d0d;
+        }
+        
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        
+        .section-sub {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            padding: 34px 28px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .service-card .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            color: rgba(255, 255, 255, 0.08);
+            margin-bottom: 8px;
+        }
+        
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .service-card .desc {
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .service-card .details {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-block;
+            border-bottom: 1px solid transparent;
+            transition: 0.2s;
+        }
+        
+        .service-card .details:hover {
+            border-bottom-color: var(--accent);
+        }
+        
+        .info-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 50px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .info-banner h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .info-banner p {
+            color: var(--gray);
+            font-size: 17px;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            background: var(--accent);
+            color: #0d0d0d;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+        }
+        /* ===== CONTACT SECTION ===== */
+        
+        .contact-section {
+            padding: 60px 20px;
+            background: #1a1a1a;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .contact-section .section-title {
+            margin-bottom: 12px;
+            font-size: 38px;
+        }
+        
+        .contact-phone {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--accent);
+            display: inline-block;
+            margin: 16px 0 20px;
+            transition: color 0.3s;
+        }
+        
+        .contact-phone:hover {
+            color: #fff;
+        }
+        
+        .contact-messengers {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .messenger-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .messenger-btn:hover {
+            background: var(--accent);
+            color: #0d0d0d;
+            transform: translateY(-2px);
+        }
+        
+        .messenger-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .messenger-btn.telegram {
+            background: #0088cc;
+            color: #fff;
+            border-color: #0088cc;
+        }
+        
+        .messenger-btn.telegram:hover {
+            background: #0077b3;
+            border-color: #0077b3;
+        }
+        
+        .messenger-btn.instagram {
+            background: #E4405F;
+            color: #fff;
+            border-color: #E4405F;
+        }
+        
+        .messenger-btn.instagram:hover {
+            background: #d6304f;
+            border-color: #d6304f;
+        }
+        
+        .footer {
+            padding: 30px 20px;
+            background: #0a0a0a;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            font-size: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .header-nav {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+                flex-wrap: wrap;
+            }
+            .header-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            .header-nav a {
+                font-size: 10px;
+            }
+            .header-phone {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+            .section {
+                padding: 100px 16px 60px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-banner {
+                padding: 30px 20px;
+            }
+            .info-banner h3 {
+                font-size: 22px;
+            }
+            .contact-phone {
+                font-size: 30px;
+            }
+            .contact-section .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <a href="index.html" class="header-logo">Vintazh<span>100</span></a>
+        <nav class="header-nav">
+            <a href="index.html">Главная</a>
+            <a href="about.html">О компании</a>
+            <a href="services.html" class="active">Услуги</a>
+            <a href="mdf.html">Фасады МДФ</a>
+            <a href="technology.html">Технологии</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contacts.html">Контакты</a>
+        </nav>
+        <a href="tel:+375259929001" class="header-phone">
+            <span class="header-phone-dot"></span> +375 (25) 992-90-01
+        </a>
+    </header>
+
+    <!-- ===== SERVICES PAGE ===== -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-label">Услуги</div>
+            <h2 class="section-title">Что мы предлагаем</h2>
+            <p class="section-sub">Полный спектр услуг по производству и покраске мебельных фасадов из МДФ. Работаем с физическими и юридическими лицами.</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="num">01</div>
+                    <h3>Кухонные фасады</h3>
+                    <div class="desc">Изготовление фасадов для кухонь любых размеров и форм. Матовые, глянцевые, с патиной — на ваш выбор.</div>
+                    <a href="#contact" class="details">Узнать подробнее →</a>
+                </div>
+                <div class="service-card">
+                    <div class="num">02</div>
+                    <h3>Шкафы-купе</h3>
+                    <div class="desc">Фасады для встроенных и отдельно стоящих шкафов-купе. Любые размеры, цвета и системы открывания.</div>
+                    <a href="#contact" class="details">Узнать подробнее →</a>
+                </div>
+                <div class="service-card">
+                    <div class="num">03</div>
+                    <h3>Межкомнатные двери</h3>
+                    <div class="desc">Глянцевые, матовые, с патиной. Идеально гладкая поверхность, точная геометрия, широкий выбор оттенков.</div>
+                    <a href="#contact" class="details">Узнать подробнее →</a>
+                </div>
+                <div class="service-card">
+                    <div class="num">04</div>
+                    <h3>Мягкая мебель</h3>
+                    <div class="desc">Покраска каркасов и элементов диванов, кресел, пуфов. Восстановление цвета и обновление внешнего вида.</div>
+                    <a href="#contact" class="details">Узнать подробнее →</a>
+                </div>
+                <div class="service-card">
+                    <div class="num">05</div>
+                    <h3>Столы и стулья</h3>
+                    <div class="desc">Обеденные и рабочие группы. Покраска столешниц, ножек, спинок. Индивидуальный подход к каждому изделию.</div>
+                    <a href="#contact" class="details">Узнать подробнее →</a>
+                </div>
+                <div class="service-card">
+                    <div class="num">06</div>
+                    <h3>Детская мебель</h3>
+                    <div class="desc">Безопасные материалы, яркие цвета, износостойкое покрытие. Фасады для детских комнат по вашему дизайну.</div>
+                    <a href="#contact" class="details">Узнать подробнее →</a>
+                </div>
+            </div>
+
+            <div class="info-banner">
+                <h3>Не нашли нужную услугу?</h3>
+                <p>Мы работаем с любыми видами мебельных фасадов — свяжитесь с нами, чтобы обсудить ваш проект.</p>
+                <a href="contacts.html" class="btn-primary">Связаться с нами</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="section-label">Свяжитесь с нами</div>
+            <h2 class="section-title">Остались вопросы?</h2>
+            <p style="color:var(--gray); font-size:16px; max-width:500px; margin:0 auto 12px;">
+                Позвоните или напишите нам — мы поможем с выбором и рассчитаем стоимость
+            </p>
+            <a href="tel:+375259929001" class="contact-phone">+375 (25) 992-90-01</a>
+            <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:20px;">
+                Пн–Пт: 9:00 – 20:00
+            </p>
+            <div class="contact-messengers">
+                <a href="https://t.me/+375259929001" class="messenger-btn telegram" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.5L2.5 10.5L9.5 13.5L12.5 20.5L16.5 14.5L21.5 4.5Z"/><path d="M9.5 13.5L14.5 9.5"/></svg> Telegram
+                </a>
+                <a href="https://www.instagram.com/vintazh100" class="messenger-btn instagram" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>                    Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div>© 2025 Vintazh100</div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+
+</body>
+
+</html>
