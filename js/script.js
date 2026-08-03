@@ -170,29 +170,73 @@ if (slider) {
         });
     }
 
-    // ===== СВАЙПЫ (Pointer Events — телефон + ПК) =====
-    // ===== СВАЙПЫ В HERO-СЛАЙДЕРЕ (исправленная версия) =====
+    // ===== СВАЙПЫ ДЛЯ ТЕЛЕФОНА (Touch Events) =====
     if (wrapper) {
-        let pointerStartX = 0;
-        let pointerStartY = 0;
-        let isDragging = false;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isSwiping = false;
 
-        wrapper.addEventListener('pointerdown', (e) => {
-            pointerStartX = e.clientX;
-            pointerStartY = e.clientY;
-            isDragging = true;
+        wrapper.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            isSwiping = true;
             stopAutoPlay();
+        }, { passive: true });
+
+        wrapper.addEventListener('touchmove', function(e) {
+            if (!isSwiping) return;
+            const diffX = Math.abs(e.touches[0].clientX - touchStartX);
+            const diffY = Math.abs(e.touches[0].clientY - touchStartY);
+            if (diffX > diffY && diffX > 10) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        wrapper.addEventListener('touchend', function(e) {
+            if (!isSwiping) return;
+            isSwiping = false;
+
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffX = touchStartX - touchEndX;
+            const diffY = Math.abs(touchStartY - touchEndY);
+
+            if (Math.abs(diffX) > 40 && Math.abs(diffX) > diffY) {
+                if (diffX > 0) {
+                    goTo(idx + 1);
+                } else {
+                    goTo(idx - 1);
+                }
+            }
+
+            startAutoPlay();
+        }, { passive: true });
+    }
+
+    // ===== СВАЙПЫ ДЛЯ ПК (Mouse Events) =====
+    if (wrapper) {
+        let mouseStartX = 0;
+        let mouseStartY = 0;
+        let isMouseDragging = false;
+
+        wrapper.addEventListener('mousedown', function(e) {
+            mouseStartX = e.clientX;
+            mouseStartY = e.clientY;
+            isMouseDragging = true;
+            stopAutoPlay();
+            wrapper.style.cursor = 'grabbing';
+            e.preventDefault();
         });
 
-        wrapper.addEventListener('pointerup', (e) => {
-            if (!isDragging) return;
-            isDragging = false;
+        document.addEventListener('mouseup', function(e) {
+            if (!isMouseDragging) return;
+            isMouseDragging = false;
+            wrapper.style.cursor = '';
 
-            const diffX = pointerStartX - e.clientX;
-            const diffY = Math.abs(pointerStartY - e.clientY);
-            const threshold = 40;
+            const diffX = mouseStartX - e.clientX;
+            const diffY = Math.abs(mouseStartY - e.clientY);
 
-            if (Math.abs(diffX) > threshold && Math.abs(diffX) > diffY) {
+            if (Math.abs(diffX) > 40 && Math.abs(diffX) > diffY) {
                 if (diffX > 0) {
                     goTo(idx + 1);
                 } else {
@@ -203,21 +247,9 @@ if (slider) {
             startAutoPlay();
         });
 
-        wrapper.addEventListener('pointercancel', () => {
-            isDragging = false;
-            startAutoPlay();
+        wrapper.addEventListener('dragstart', function(e) {
+            e.preventDefault();
         });
-
-        wrapper.addEventListener('pointerleave', () => {
-            if (isDragging) {
-                isDragging = false;
-                startAutoPlay();
-            }
-        });
-
-        // Блокируем выделение текста и drag изображений
-        wrapper.addEventListener('dragstart', (e) => e.preventDefault());
-        wrapper.addEventListener('selectstart', (e) => e.preventDefault());
     }
 
     // Клавиатура
