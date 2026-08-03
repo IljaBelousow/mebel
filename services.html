@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Услуги | Vintazh100</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,7 @@
             background: #0d0d0d;
             color: #ffffff;
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
         
         a {
@@ -36,7 +37,7 @@
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 16px;
         }
         
          :root {
@@ -55,14 +56,16 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 16px 40px;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(13, 13, 13, 0.92);
+            background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             transition: box-shadow 0.3s;
+            flex-wrap: wrap;
+            gap: 6px;
         }
         
         .header.scrolled {
@@ -71,9 +74,9 @@
         
         .header-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
         }
         
         .header-logo span {
@@ -82,18 +85,24 @@
         
         .header-nav {
             display: flex;
-            gap: 32px;
+            gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            order: 3;
+            justify-content: center;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .header-nav a {
-            font-size: 12px;
+            font-size: 9px;
             font-weight: 600;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.7);
             transition: color 0.3s, border-bottom 0.3s;
-            padding-bottom: 4px;
+            padding-bottom: 3px;
             border-bottom: 2px solid transparent;
         }
         
@@ -106,13 +115,14 @@
         .header-phone {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             font-weight: 700;
-            font-size: 14px;
-            padding: 8px 20px;
+            font-size: 11px;
+            padding: 5px 12px;
             border: 2px solid var(--accent);
             border-radius: 50px;
             transition: background 0.3s, color 0.3s;
+            flex-shrink: 0;
         }
         
         .header-phone:hover {
@@ -121,11 +131,12 @@
         }
         
         .header-phone-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #4CAF50;
             border-radius: 50%;
             animation: pulse-dot 2s infinite;
+            flex-shrink: 0;
         }
         
         @keyframes pulse-dot {
@@ -134,12 +145,12 @@
                 box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
             }
             50% {
-                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+                box-shadow: 0 0 0 8px rgba(76, 175, 80, 0);
             }
         }
         
         .section {
-            padding: 120px 20px 80px;
+            padding: 100px 16px 50px;
             position: relative;
         }
         
@@ -152,44 +163,44 @@
         }
         
         .section-label {
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 44px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
         
         .section-sub {
-            font-size: 18px;
+            font-size: 15px;
             color: var(--gray);
             max-width: 700px;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
         
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 18px;
         }
         
         .service-card {
             background: var(--card-bg);
-            padding: 34px 28px;
+            padding: 24px 18px;
             border-radius: 10px;
             border: 1px solid var(--border);
             transition: var(--transition);
         }
         
         .service-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             border-color: var(--accent);
             box-shadow: var(--shadow);
             background: rgba(255, 255, 255, 0.08);
@@ -197,26 +208,26 @@
         
         .service-card .num {
             font-family: 'Playfair Display', serif;
-            font-size: 40px;
+            font-size: 32px;
             color: rgba(255, 255, 255, 0.08);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         
         .service-card h3 {
-            font-size: 20px;
+            font-size: 17px;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .service-card .desc {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--gray);
             line-height: 1.6;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         
         .service-card .details {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--accent);
             font-weight: 600;
             display: inline-block;
@@ -232,32 +243,32 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 40px 50px;
+            padding: 28px 20px;
             text-align: center;
-            margin-top: 60px;
+            margin-top: 40px;
         }
         
         .info-banner h3 {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .info-banner p {
             color: var(--gray);
-            font-size: 17px;
+            font-size: 15px;
             max-width: 600px;
-            margin: 0 auto 20px;
+            margin: 0 auto 16px;
         }
         
         .btn-primary {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 16px 40px;
-            font-size: 12px;
+            gap: 6px;
+            padding: 14px 32px;
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
             border-radius: 50px;
             background: var(--accent);
@@ -265,6 +276,7 @@
             border: none;
             cursor: pointer;
             transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .btn-primary:hover {
@@ -272,10 +284,10 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
         }
-        /* ===== CONTACT SECTION ===== */
+        /* ===== CONTACT ===== */
         
         .contact-section {
-            padding: 60px 20px;
+            padding: 40px 16px;
             background: #1a1a1a;
             text-align: center;
             border-top: 1px solid var(--border);
@@ -283,17 +295,17 @@
         }
         
         .contact-section .section-title {
-            margin-bottom: 12px;
-            font-size: 38px;
+            margin-bottom: 10px;
+            font-size: 26px;
         }
         
         .contact-phone {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: 28px;
             font-weight: 700;
             color: var(--accent);
             display: inline-block;
-            margin: 16px 0 20px;
+            margin: 12px 0 16px;
             transition: color 0.3s;
         }
         
@@ -303,7 +315,7 @@
         
         .contact-messengers {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -311,10 +323,10 @@
         .messenger-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 32px;
+            gap: 8px;
+            padding: 12px 22px;
             border-radius: 50px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             transition: var(--transition);
             background: rgba(255, 255, 255, 0.06);
@@ -328,8 +340,8 @@
         }
         
         .messenger-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
         }
         
         .messenger-btn.telegram {
@@ -355,62 +367,121 @@
         }
         
         .footer {
-            padding: 30px 20px;
+            padding: 24px 16px;
             background: #0a0a0a;
             color: rgba(255, 255, 255, 0.3);
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
         }
         
-        @media (max-width: 1024px) {
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .header-nav {
-                gap: 20px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header {
-                padding: 12px 16px;
-                flex-wrap: wrap;
-            }
-            .header-nav {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-            .header-nav a {
-                font-size: 10px;
-            }
-            .header-phone {
-                font-size: 12px;
-                padding: 6px 14px;
-            }
-            .section {
-                padding: 100px 16px 60px;
-            }
+        @media (min-width: 481px) {
             .section-title {
                 font-size: 32px;
             }
             .services-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .header {
+                padding: 16px 40px;
+                flex-wrap: nowrap;
+            }
+            .header-logo {
+                font-size: 24px;
+            }
+            .header-nav {
+                width: auto;
+                order: 0;
+                border-top: none;
+                padding-top: 0;
+                gap: 32px;
+            }
+            .header-nav a {
+                font-size: 12px;
+                letter-spacing: 1.2px;
+            }
+            .header-phone {
+                font-size: 14px;
+                padding: 8px 20px;
+            }
+            .section {
+                padding: 120px 20px 80px;
+            }
+            .section-title {
+                font-size: 44px;
+            }
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            .service-card {
+                padding: 34px 28px;
+            }
+            .service-card .num {
+                font-size: 40px;
+            }
+            .service-card h3 {
+                font-size: 20px;
             }
             .info-banner {
-                padding: 30px 20px;
+                padding: 40px 50px;
+                margin-top: 60px;
             }
             .info-banner h3 {
-                font-size: 22px;
+                font-size: 28px;
             }
             .contact-phone {
-                font-size: 30px;
+                font-size: 44px;
             }
-            .contact-section .section-title {
+            .btn-primary {
+                padding: 16px 40px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 24px;
+            }
+            .contact-phone {
+                font-size: 24px;
+            }
+            .messenger-btn {
+                font-size: 12px;
+                padding: 10px 18px;
+            }
+            .header-logo {
+                font-size: 17px;
+                letter-spacing: 2px;
+            }
+            .header-nav a {
+                font-size: 8px;
+                letter-spacing: 0.4px;
+            }
+            .header-phone {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .service-card {
+                padding: 18px 14px;
+            }
+            .service-card .num {
                 font-size: 28px;
+            }
+            .info-banner {
+                padding: 20px 16px;
+            }
+            .info-banner h3 {
+                font-size: 20px;
+            }
+            .btn-primary {
+                padding: 12px 24px;
+                font-size: 10px;
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -447,37 +518,37 @@
                     <div class="num">01</div>
                     <h3>Кухонные фасады</h3>
                     <div class="desc">Изготовление фасадов для кухонь любых размеров и форм. Матовые, глянцевые, с патиной — на ваш выбор.</div>
-                    <a href="#contact" class="details">Узнать подробнее →</a>
+                    <a href="contacts.html" class="details">Узнать подробнее →</a>
                 </div>
                 <div class="service-card">
                     <div class="num">02</div>
                     <h3>Шкафы-купе</h3>
                     <div class="desc">Фасады для встроенных и отдельно стоящих шкафов-купе. Любые размеры, цвета и системы открывания.</div>
-                    <a href="#contact" class="details">Узнать подробнее →</a>
+                    <a href="contacts.html" class="details">Узнать подробнее →</a>
                 </div>
                 <div class="service-card">
                     <div class="num">03</div>
                     <h3>Межкомнатные двери</h3>
                     <div class="desc">Глянцевые, матовые, с патиной. Идеально гладкая поверхность, точная геометрия, широкий выбор оттенков.</div>
-                    <a href="#contact" class="details">Узнать подробнее →</a>
+                    <a href="contacts.html" class="details">Узнать подробнее →</a>
                 </div>
                 <div class="service-card">
                     <div class="num">04</div>
                     <h3>Мягкая мебель</h3>
                     <div class="desc">Покраска каркасов и элементов диванов, кресел, пуфов. Восстановление цвета и обновление внешнего вида.</div>
-                    <a href="#contact" class="details">Узнать подробнее →</a>
+                    <a href="contacts.html" class="details">Узнать подробнее →</a>
                 </div>
                 <div class="service-card">
                     <div class="num">05</div>
                     <h3>Столы и стулья</h3>
                     <div class="desc">Обеденные и рабочие группы. Покраска столешниц, ножек, спинок. Индивидуальный подход к каждому изделию.</div>
-                    <a href="#contact" class="details">Узнать подробнее →</a>
+                    <a href="contacts.html" class="details">Узнать подробнее →</a>
                 </div>
                 <div class="service-card">
                     <div class="num">06</div>
                     <h3>Детская мебель</h3>
                     <div class="desc">Безопасные материалы, яркие цвета, износостойкое покрытие. Фасады для детских комнат по вашему дизайну.</div>
-                    <a href="#contact" class="details">Узнать подробнее →</a>
+                    <a href="contacts.html" class="details">Узнать подробнее →</a>
                 </div>
             </div>
 
@@ -489,16 +560,16 @@
         </div>
     </section>
 
-    <!-- ===== CONTACT SECTION ===== -->
+    <!-- ===== CONTACT ===== -->
     <section class="contact-section">
         <div class="container">
             <div class="section-label">Свяжитесь с нами</div>
             <h2 class="section-title">Остались вопросы?</h2>
-            <p style="color:var(--gray); font-size:16px; max-width:500px; margin:0 auto 12px;">
+            <p style="color:var(--gray); font-size:15px; max-width:500px; margin:0 auto 10px;">
                 Позвоните или напишите нам — мы поможем с выбором и рассчитаем стоимость
             </p>
             <a href="tel:+375259929001" class="contact-phone">+375 (25) 992-90-01</a>
-            <p style="color:rgba(255,255,255,0.3); font-size:13px; margin-bottom:20px;">
+            <p style="color:rgba(255,255,255,0.3); font-size:12px; margin-bottom:16px;">
                 Пн–Пт: 9:00 – 20:00
             </p>
             <div class="contact-messengers">
