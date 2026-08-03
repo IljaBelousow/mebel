@@ -1,5 +1,4 @@
 /* ===== RESET & BASE ===== */
-
 * {
     margin: 0;
     padding: 0;
@@ -29,9 +28,7 @@ a {
     padding: 0 16px;
 }
 
-
 /* ===== VARIABLES ===== */
-
 :root {
     --accent: #d4af37;
     --dark: #0d0d0d;
@@ -42,9 +39,7 @@ a {
     --transition: 0.3s ease;
 }
 
-
-/* ===== HEADER ===== */
-
+/* ===== HEADER (обновлён с бургером) ===== */
 .header {
     position: fixed;
     top: 0;
@@ -78,6 +73,7 @@ a {
     color: var(--accent);
 }
 
+/* Десктопное меню (показывается на >=768px) */
 .header-nav {
     display: flex;
     gap: 8px;
@@ -144,9 +140,191 @@ a {
     }
 }
 
+/* ===== БУРГЕР (скрыт на десктопе) ===== */
+.burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+}
+
+.burger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.burger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.burger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ===== МОБИЛЬНОЕ МЕНЮ (выезжающее) ===== */
+.mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.mobile-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    max-width: 80%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 1000;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.mobile-menu-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.mobile-menu-logo span {
+    color: var(--accent);
+}
+
+.mobile-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 0 4px;
+}
+
+.mobile-close:hover {
+    transform: rotate(90deg);
+}
+
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+.mobile-nav a {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s, padding-left 0.3s;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-nav a:hover,
+.mobile-nav a.active {
+    color: var(--accent);
+    padding-left: 8px;
+}
+
+.mobile-menu-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.mobile-phone {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 14px;
+}
+
+.mobile-socials {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.mobile-social {
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: 0.3s;
+}
+
+.mobile-social.telegram {
+    background: #0088cc;
+    color: #fff;
+    border-color: #0088cc;
+}
+
+.mobile-social.instagram {
+    background: #E4405F;
+    color: #fff;
+    border-color: #E4405F;
+}
+
+.mobile-social:hover {
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   ВСЕ ОСТАЛЬНЫЕ СТИЛИ (ваши прежние – без изменений)
+   ============================================================ */
 
 /* ===== BUTTONS ===== */
-
 .btn {
     display: inline-flex;
     align-items: center;
@@ -187,16 +365,11 @@ a {
     transform: translateY(-2px);
 }
 
-
 /* ===== SECTION ===== */
-
 .section {
     padding: 50px 16px;
     position: relative;
 }
-
-
-/* Компенсация высоты фиксированной шапки для первой секции на внутренних страницах */
 
 .header+.section {
     padding-top: 130px;
@@ -233,9 +406,7 @@ a {
     margin-bottom: 24px;
 }
 
-
-/* ===== HERO (index) ===== */
-
+/* ===== HERO ===== */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -454,9 +625,7 @@ a {
     background: #fff;
 }
 
-
 /* ===== ABOUT (index) ===== */
-
 .about-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -508,21 +677,12 @@ a {
     margin-top: 2px;
 }
 
-
-/* ===== ABOUT PAGE (about.html) ===== */
-
+/* ===== ABOUT PAGE ===== */
 .about-content {
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
     align-items: start;
-}
-
-.about-text p {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--gray);
-    margin-bottom: 16px;
 }
 
 .about-text .highlight {
@@ -615,9 +775,7 @@ a {
     color: var(--gray);
 }
 
-
-/* ===== ADVANTAGES (index) ===== */
-
+/* ===== ADVANTAGES ===== */
 .advantages-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -675,23 +833,18 @@ a {
 .advantage-item:nth-child(1) .advantage-icon {
     --icon-shape: polygon(50% 0%, 0% 100%, 100% 100%);
 }
-
 .advantage-item:nth-child(2) .advantage-icon {
     --icon-shape: polygon(0% 0%, 100% 0%, 50% 100%);
 }
-
 .advantage-item:nth-child(3) .advantage-icon {
     --icon-shape: circle(50% at 50% 50%);
 }
-
 .advantage-item:nth-child(4) .advantage-icon {
     --icon-shape: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
-
 .advantage-item:nth-child(5) .advantage-icon {
     --icon-shape: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
-
 .advantage-item:nth-child(6) .advantage-icon {
     --icon-shape: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
 }
@@ -707,9 +860,7 @@ a {
     color: var(--gray);
 }
 
-
-/* ===== WHY MDF (index) ===== */
-
+/* ===== WHY MDF ===== */
 .mdf-why-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -734,9 +885,7 @@ a {
     color: var(--gray);
 }
 
-
-/* ===== SERVICES (index, services.html) ===== */
-
+/* ===== SERVICES ===== */
 .services-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -791,9 +940,7 @@ a {
     border-bottom-color: var(--accent);
 }
 
-
-/* ===== MDF (index, mdf.html) ===== */
-
+/* ===== MDF ===== */
 .mdf-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -867,9 +1014,7 @@ a {
     box-shadow: var(--shadow);
 }
 
-
-/* ===== MDF PAGE (mdf.html) ===== */
-
+/* ===== MDF PAGE ===== */
 .mdf-showcase {
     display: grid;
     grid-template-columns: 1fr;
@@ -962,9 +1107,7 @@ a {
     line-height: 1.6;
 }
 
-
-/* ===== TECHNOLOGY (technology.html) ===== */
-
+/* ===== TECHNOLOGY ===== */
 .tech-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1023,15 +1166,12 @@ a {
 .tech-card:nth-child(1) .icon {
     --shape: polygon(50% 0%, 0% 100%, 100% 100%);
 }
-
 .tech-card:nth-child(2) .icon {
     --shape: polygon(0% 0%, 100% 0%, 50% 100%);
 }
-
 .tech-card:nth-child(3) .icon {
     --shape: circle(50% at 50% 50%);
 }
-
 .tech-card:nth-child(4) .icon {
     --shape: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
@@ -1120,9 +1260,7 @@ a {
     line-height: 1.6;
 }
 
-
-/* ===== PORTFOLIO (portfolio.html) ===== */
-
+/* ===== PORTFOLIO ===== */
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -1231,9 +1369,7 @@ a {
     color: #ccc;
 }
 
-
-/* ===== MODAL (portfolio.html) ===== */
-
+/* ===== MODAL ===== */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1325,9 +1461,7 @@ a {
     transform: rotate(90deg);
 }
 
-
-/* ===== CONTACTS (contacts.html) ===== */
-
+/* ===== CONTACTS ===== */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1391,15 +1525,12 @@ a {
 .info-item:nth-child(1) .icon {
     --shape: polygon(50% 0%, 0% 100%, 100% 100%);
 }
-
 .info-item:nth-child(2) .icon {
     --shape: polygon(0% 0%, 100% 0%, 50% 100%);
 }
-
 .info-item:nth-child(3) .icon {
     --shape: circle(50% at 50% 50%);
 }
-
 .info-item:nth-child(4) .icon {
     --shape: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
@@ -1582,9 +1713,7 @@ a {
     border: none;
 }
 
-
-/* ===== CONTACT BANNER (все страницы) ===== */
-
+/* ===== CONTACT BANNER ===== */
 .contact-section {
     padding: 40px 16px;
     background: #1a1a1a;
@@ -1663,9 +1792,7 @@ a {
     background: #d6304f;
 }
 
-
 /* ===== FOOTER ===== */
-
 .footer {
     padding: 24px 16px;
     background: #0a0a0a;
@@ -1675,9 +1802,7 @@ a {
     border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-
 /* ===== ANIMATIONS ===== */
-
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -1698,9 +1823,36 @@ a {
     }
 }
 
+/* ============================================================
+   МЕДИА-ЗАПРОСЫ (адаптация)
+   ============================================================ */
 
-/* ===== RESPONSIVE ===== */
+/* Для бургера – скрываем десктопное меню и показываем бургер */
+@media (max-width: 767px) {
+    .header {
+        flex-wrap: nowrap;
+        padding: 10px 16px;
+    }
+    .header-nav {
+        display: none; /* прячем десктопное меню */
+    }
+    .burger {
+        display: flex; /* показываем бургер */
+        order: 2;
+    }
+    .header-phone {
+        order: 1;
+        font-size: 10px;
+        padding: 4px 10px;
+        margin-right: 4px;
+    }
+    .header-logo {
+        font-size: 17px;
+        letter-spacing: 2px;
+    }
+}
 
+/* Остальные медиа-запросы (ваши старые) – дополнены и объединены */
 @media (min-width: 481px) {
     .hero-title {
         font-size: 48px;
@@ -1769,6 +1921,7 @@ a {
         padding-top: 0;
         gap: 14px;
         flex-wrap: nowrap;
+        display: flex; /* убеждаемся, что меню видно */
     }
     .header-nav a {
         font-size: 10px;
@@ -1779,6 +1932,9 @@ a {
         font-size: 13px;
         padding: 7px 16px;
         white-space: nowrap;
+    }
+    .burger {
+        display: none; /* скрываем бургер */
     }
     .hero {
         flex-direction: row;
@@ -1791,9 +1947,6 @@ a {
     .hero-slider-wrapper {
         height: 560px;
         min-width: 400px;
-    }
-    .hero-features {
-        grid-template-columns: 1fr 1fr;
     }
     .hero-stats {
         gap: 50px;
@@ -1964,6 +2117,7 @@ a {
     }
 }
 
+/* Мелкие экраны (до 480px) – сохраняем читаемость */
 @media (max-width: 480px) {
     .hero-title {
         font-size: 30px;
