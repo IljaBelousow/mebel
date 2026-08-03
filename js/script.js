@@ -171,6 +171,7 @@ if (slider) {
     }
 
     // ===== СВАЙПЫ (Pointer Events — телефон + ПК) =====
+    // ===== СВАЙПЫ В HERO-СЛАЙДЕРЕ (исправленная версия) =====
     if (wrapper) {
         let pointerStartX = 0;
         let pointerStartY = 0;
@@ -181,8 +182,7 @@ if (slider) {
             pointerStartY = e.clientY;
             isDragging = true;
             stopAutoPlay();
-            wrapper.setPointerCapture(e.pointerId);
-        }, { passive: true });
+        });
 
         wrapper.addEventListener('pointerup', (e) => {
             if (!isDragging) return;
@@ -190,11 +190,14 @@ if (slider) {
 
             const diffX = pointerStartX - e.clientX;
             const diffY = Math.abs(pointerStartY - e.clientY);
-            const threshold = 50;
+            const threshold = 40;
 
             if (Math.abs(diffX) > threshold && Math.abs(diffX) > diffY) {
-                if (diffX > 0) goTo(idx + 1);
-                else goTo(idx - 1);
+                if (diffX > 0) {
+                    goTo(idx + 1);
+                } else {
+                    goTo(idx - 1);
+                }
             }
 
             startAutoPlay();
@@ -205,7 +208,16 @@ if (slider) {
             startAutoPlay();
         });
 
+        wrapper.addEventListener('pointerleave', () => {
+            if (isDragging) {
+                isDragging = false;
+                startAutoPlay();
+            }
+        });
+
+        // Блокируем выделение текста и drag изображений
         wrapper.addEventListener('dragstart', (e) => e.preventDefault());
+        wrapper.addEventListener('selectstart', (e) => e.preventDefault());
     }
 
     // Клавиатура
