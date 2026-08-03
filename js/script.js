@@ -1,76 +1,240 @@
 // ============================================================
+// УТИЛИТЫ
+// ============================================================
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+function debounce(fn, wait = 20) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), wait);
+    };
+}
+
+const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+// ============================================================
+// 🔥 ФИКС СКРОЛЛА: принудительный сброс блокировки при загрузке
+// ============================================================
+function unlockScroll() {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+}
+unlockScroll(); // сброс сразу при загрузке скрипта
+
+
+// ============================================================
 // 1. HEADER SCROLL SHADOW
 // ============================================================
-window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (header) {
+const header = $('#header');
+if (header) {
+    const handleScroll = debounce(() => {
         header.classList.toggle('scrolled', window.scrollY > 50);
-    }
-});
+    }, 10);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+}
+
 
 // ============================================================
-// 2. ГЛАВНЫЙ СЛАЙДЕР (только на index.html)
+// 2. BURGER MENU
 // ============================================================
-const slider = document.getElementById('heroSlider');
-if (slider) {
-    const slides = slider.querySelectorAll('.hero-slider-slide');
-    const total = slides.length;
-    let idx = 0,
-        isMoving = false;
-    const dotsContainer = document.getElementById('sliderDots');
+const burger = $('#burger');
+const mobileMenu = $('#mobileMenu');
+const mobileOverlay = $('#mobileOverlay');
 
-    // Создаём точки
-    slides.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.classList.add('slider-dot');
-        if (i === 0) dot.classList.add('active');
-        dot.dataset.index = i;
-        dot.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(dot);
-    });
-    const dots = dotsContainer.querySelectorAll('.slider-dot');
+if (burger && mobileMenu && mobileOverlay) {
+    const body = document.body;
 
-    function goTo(index) {
-        if (isMoving || index === idx) return;
-        isMoving = true;
-        idx = index;
-        slider.style.transform = `translateX(-${idx * 100}%)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-        setTimeout(() => isMoving = false, 600);
+    function toggleMenu(forceState) {
+        const isOpen = typeof forceState === 'boolean' ?
+            forceState :
+            !mobileMenu.classList.contains('active');
+
+        burger.classList.toggle('active', isOpen);
+        mobileMenu.classList.toggle('active', isOpen);
+        mobileOverlay.classList.toggle('active', isOpen);
+
+        burger.setAttribute('aria-expanded', String(isOpen));
+        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+        mobileOverlay.setAttribute('aria-hidden', String(!isOpen));
+
+        // ✅ ФИКС: блокируем/разблокируем скролл надёжно
+        if (isOpen) {
+            body.style.overflow = 'hidden';
+            setTimeout(() => {
+                const firstLink = mobileMenu.querySelector('a');
+                if (firstLink) firstLink.focus();
+            }, 400);
+        } else {
+            unlockScroll(); // ✅ сброс через функцию
+            burger.focus();
+        }
     }
 
-    document.getElementById('sliderNext').addEventListener('click', () => {
-        goTo((idx + 1) % total);
-    });
-    document.getElementById('sliderPrev').addEventListener('click', () => {
-        goTo((idx - 1 + total) % total);
+    burger.addEventListener('click', () => toggleMenu());
+    mobileOverlay.addEventListener('click', () => toggleMenu(false));
+
+    $$('a', mobileMenu).forEach(link => {
+        link.addEventListener('click', () => toggleMenu(false));
     });
 
-    // Автоплей
-    let autoInterval = setInterval(() => {
-        goTo((idx + 1) % total);
-    }, 5000);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            toggleMenu(false);
+        }
+    });
 
-    // Остановка при наведении
-    const wrapper = slider.closest('.hero-slider-wrapper');
-    wrapper.addEventListener('mouseenter', () => clearInterval(autoInterval));
-    wrapper.addEventListener('mouseleave', () => {
-        autoInterval = setInterval(() => {
-            goTo((idx + 1) % total);
-        }, 5000);
+    // ✅ ФИКС: при ресайзе на ширину > 768 всегда разблокируем скролл
+    window.addEventListener('resize', debounce(() => {
+        if (window.innerWidth > 768) {
+            if (mobileMenu.classList.contains('active')) {
+                toggleMenu(false);
+            }
+            unlockScroll(); // ✅ принудительный сброс
+        }
+    }, 100));
+
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    $$('a', mobileMenu).forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage) {
+            link.classList.add('active');
+        }
     });
 }
 
+
 // ============================================================
-// 3. MDF АВТОПЛЕЙ (только на index.html)
+// 3. HERO SLIDER
 // ============================================================
-const mdfItems = document.querySelectorAll('.mdf-item');
+const slider = $('#heroSlider');
+if (slider) {
+    const slides = $$('.hero-slider-slide', slider);
+    const total = slides.length;
+    let idx = 0;
+    let isMoving = false;
+    let autoInterval = null;
+
+    const dotsContainer = $('#sliderDots');
+    const prevBtn = $('#sliderPrev');
+    const nextBtn = $('#sliderNext');
+    const wrapper = slider.closest('.hero-slider-wrapper');
+
+    if (dotsContainer) {
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+            dot.dataset.index = i;
+            dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+            dot.addEventListener('click', () => goTo(i));
+            dotsContainer.appendChild(dot);
+        });
+    }
+    const dots = dotsContainer ? $$('.slider-dot', dotsContainer) : [];
+
+    function goTo(index) {
+        if (isMoving || total === 0) return;
+        if (index === idx) return;
+
+        isMoving = true;
+        idx = ((index % total) + total) % total;
+        slider.style.transform = `translateX(-${idx * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+        setTimeout(() => isMoving = false, 600);
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(idx + 1));
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(idx - 1));
+
+    function startAutoPlay() {
+        stopAutoPlay();
+        autoInterval = setInterval(() => goTo(idx + 1), 5000);
+    }
+
+    function stopAutoPlay() {
+        if (autoInterval) {
+            clearInterval(autoInterval);
+            autoInterval = null;
+        }
+    }
+
+    if (wrapper) {
+        wrapper.addEventListener('mouseenter', stopAutoPlay);
+        wrapper.addEventListener('mouseleave', startAutoPlay);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stopAutoPlay();
+            else startAutoPlay();
+        });
+    }
+
+    if (isTouchDevice && wrapper) {
+        let touchStartX = 0,
+            touchEndX = 0;
+        let touchStartY = 0,
+            touchEndY = 0;
+
+        wrapper.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+            stopAutoPlay();
+        }, { passive: true });
+
+        wrapper.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+            startAutoPlay();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const diffX = touchStartX - touchEndX;
+            const diffY = Math.abs(touchStartY - touchEndY);
+            const threshold = 50;
+
+            if (Math.abs(diffX) > threshold && Math.abs(diffX) > diffY) {
+                if (diffX > 0) goTo(idx + 1);
+                else goTo(idx - 1);
+            }
+        }
+    }
+
+    if (wrapper) {
+        wrapper.setAttribute('tabindex', '0');
+        wrapper.setAttribute('role', 'region');
+        wrapper.setAttribute('aria-roledescription', 'carousel');
+
+        wrapper.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                goTo(idx + 1);
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                goTo(idx - 1);
+            }
+        });
+    }
+
+    startAutoPlay();
+}
+
+
+// ============================================================
+// 4. MDF AUTOPLAY
+// ============================================================
+const mdfItems = $$('.mdf-item');
 if (mdfItems.length) {
-    let mdfIdx = 0,
-        mdfInterval;
+    let mdfIdx = 0;
+    let mdfInterval = null;
+    const mdfGrid = $('#mdfGrid');
 
     function activateMdf(i) {
-        mdfItems.forEach((el, idx) => el.classList.toggle('active', idx === i));
+        mdfItems.forEach((el, index) => el.classList.toggle('active', index === i));
     }
 
     function nextMdf() {
@@ -79,53 +243,67 @@ if (mdfItems.length) {
     }
 
     function startMdf() {
+        if (mdfInterval) return;
         mdfInterval = setInterval(nextMdf, 4000);
     }
 
     function stopMdf() {
-        clearInterval(mdfInterval);
+        if (mdfInterval) {
+            clearInterval(mdfInterval);
+            mdfInterval = null;
+        }
     }
+
     startMdf();
-    const mdfGrid = document.getElementById('mdfGrid');
+
     if (mdfGrid) {
         mdfGrid.addEventListener('mouseenter', stopMdf);
         mdfGrid.addEventListener('mouseleave', startMdf);
+        mdfGrid.addEventListener('touchstart', stopMdf, { passive: true });
+        mdfGrid.addEventListener('touchend', () => {
+            setTimeout(startMdf, 2000);
+        }, { passive: true });
     }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopMdf();
+        else startMdf();
+    });
 }
 
-// ============================================================
-// 4. ФИЛЬТРЫ ПОРТФОЛИО + МОДАЛЬНОЕ ОКНО
-// ============================================================
-const filterBtns = document.querySelectorAll('.filter-btn');
-const galleryItems = document.querySelectorAll('.gallery-item');
 
-if (filterBtns.length) {
+// ============================================================
+// 5. PORTFOLIO FILTERS
+// ============================================================
+const filterBtns = $$('.filter-btn');
+const galleryItems = $$('.gallery-item');
+
+if (filterBtns.length && galleryItems.length) {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
+
             const filter = this.dataset.filter;
+
             galleryItems.forEach(item => {
-                if (filter === 'all' || item.dataset.category === filter) {
-                    item.style.display = 'block';
+                const show = filter === 'all' || item.dataset.category === filter;
+                item.style.display = show ? '' : 'none';
+
+                if (show) {
+                    item.style.animation = 'none';
+                    void item.offsetWidth;
                     item.style.animation = 'fadeUp 0.5s ease';
-                } else {
-                    item.style.display = 'none';
                 }
             });
         });
     });
 }
 
-// Модалка
-const modalOverlay = document.getElementById('modalOverlay');
-const modalClose = document.getElementById('modalClose');
-const modalImage = document.getElementById('modalImage');
-const modalTitle = document.getElementById('modalTitle');
-const modalCategory = document.getElementById('modalCategory');
-const modalDesc = document.getElementById('modalDesc');
 
-// Данные проектов (можно расширять)
+// ============================================================
+// 6. МОДАЛЬНОЕ ОКНО ПОРТФОЛИО
+// ============================================================
 const projectData = {
     'Кухонный гарнитур': {
         category: 'Кухня',
@@ -153,12 +331,29 @@ const projectData = {
     }
 };
 
+const modalOverlay = $('#modalOverlay');
 if (modalOverlay) {
+    const modalClose = $('#modalClose');
+    const modalImage = $('#modalImage');
+    const modalTitle = $('#modalTitle');
+    const modalCategory = $('#modalCategory');
+    const modalDesc = $('#modalDesc');
+
     galleryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const title = this.querySelector('.title').textContent;
-            const imgSrc = this.querySelector('img').getAttribute('src');
-            const badge = this.querySelector('.badge').textContent;
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('role', 'button');
+        item.setAttribute('aria-label', 'Открыть подробности проекта');
+
+        const openModal = () => {
+            // ✅ Безопасный вариант без optional chaining (форматтер не сломает)
+            const titleEl = $('.title', item);
+            const imgEl = $('img', item);
+            const badgeEl = $('.badge', item);
+
+            const title = titleEl ? titleEl.textContent : '';
+            const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
+            const badge = badgeEl ? badgeEl.textContent : '';
+
             const data = projectData[title] || {
                 category: badge,
                 desc: 'Подробности проекта уточняйте у менеджеров.'
@@ -170,61 +365,180 @@ if (modalOverlay) {
             modalDesc.textContent = data.desc;
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            if (modalClose) {
+                setTimeout(() => modalClose.focus(), 100);
+            }
+        };
+
+        item.addEventListener('click', openModal);
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal();
+            }
         });
     });
 
     function closeModal() {
         modalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
+        unlockScroll(); // ✅ сброс через функцию
     }
 
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
     });
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeModal();
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+            closeModal();
+        }
     });
 }
 
+
 // ============================================================
-// 5. ФОРМА ОБРАТНОЙ СВЯЗИ (contacts.html)
+// 7. ФОРМА ОБРАТНОЙ СВЯЗИ
 // ============================================================
-const contactForm = document.getElementById('contactForm');
+const contactForm = $('#contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
+
+        const name = $('#name', this);
+        const phone = $('#phone', this);
+
+        if (name && name.value.trim().length < 2) {
+            alert('Пожалуйста, введите ваше имя');
+            name.focus();
+            return;
+        }
+
+        if (phone && phone.value.replace(/\D/g, '').length < 10) {
+            alert('Пожалуйста, введите корректный номер телефона');
+            phone.focus();
+            return;
+        }
+
         alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
         this.reset();
     });
-    // ===== BURGER MENU =====
-    const burger = document.getElementById('burger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const overlay = document.getElementById('mobileOverlay');
 
-    if (burger) {
-        function toggleMenu() {
-            burger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
-        }
+    const phoneInput = $('#phone', contactForm);
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            let val = this.value.replace(/\D/g, '');
 
-        burger.addEventListener('click', toggleMenu);
+            if (val.length === 0) {
+                this.value = '';
+                return;
+            }
 
-        // Закрытие по клику на оверлей
-        overlay.addEventListener('click', toggleMenu);
+            if (val[0] === '8') val = '375' + val.slice(1);
+            if (val[0] === '7') val = '375' + val.slice(1);
+            if (!val.startsWith('375')) val = '375' + val;
+            val = val.slice(0, 12);
 
-        // Закрытие после выбора пункта
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', toggleMenu);
+            let formatted = '+375';
+            if (val.length > 3) formatted += ' (' + val.slice(3, 5);
+            if (val.length > 5) formatted += ') ' + val.slice(5, 8);
+            if (val.length > 8) formatted += '-' + val.slice(8, 10);
+            if (val.length > 10) formatted += '-' + val.slice(10, 12);
+
+            this.value = formatted;
         });
 
-        // Закрытие по Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                toggleMenu();
+        phoneInput.addEventListener('focus', function() {
+            if (!this.value) this.value = '+375 ';
+        });
+
+        phoneInput.addEventListener('blur', function() {
+            if (this.value === '+375 ' || this.value === '+375') {
+                this.value = '';
             }
         });
     }
 }
+
+
+// ============================================================
+// 8. SMOOTH SCROLL для якорных ссылок
+// ============================================================
+$$('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#' || targetId.length < 2) return;
+
+        const target = $(targetId);
+        if (target) {
+            e.preventDefault();
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPos = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+
+            window.scrollTo({
+                top: targetPos,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+
+// ============================================================
+// 9. LAZY LOADING
+// ============================================================
+if ('loading' in HTMLImageElement.prototype) {
+    $$('img[loading="lazy"]').forEach(img => {
+        if (img.dataset.src) img.src = img.dataset.src;
+    });
+} else {
+    const lazyImages = $$('img[data-src]');
+    if (lazyImages.length && 'IntersectionObserver' in window) {
+        const imgObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        }, { rootMargin: '50px 0px', threshold: 0.01 });
+
+        lazyImages.forEach(img => imgObserver.observe(img));
+    }
+}
+
+
+// ============================================================
+// 10. ПРЕДОТВРАЩЕНИЕ ЗУМА на iOS (БЕЗОПАСНАЯ ВЕРСИЯ)
+// ============================================================
+// ✅ ФИКС: убрали preventDefault, который мог блокировать скролл.
+// Вместо этого используем только CSS: touch-action: manipulation.
+// Ничего не делаем в JS — это безопаснее.
+
+
+// ============================================================
+// 11. АВТОПОДСТРОЙКА ВЫСОТЫ МОДАЛКИ на iOS
+// ============================================================
+function setVh() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+setVh();
+window.addEventListener('resize', debounce(setVh, 100));
+
+
+// ============================================================
+// ГОТОВО
+// ============================================================
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    unlockScroll(); // ✅ финальный сброс блокировки скролла
+    console.log('🚀 Vintazh100 website initialized');
+});
