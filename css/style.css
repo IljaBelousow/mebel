@@ -586,9 +586,7 @@ img {
     animation: fadeIn 1.2s ease;
     -webkit-user-select: none;
     user-select: none;
-    cursor: grab;
-    /* ✅ ДОБАВЬ ЭТУ СТРОКУ */
-    touch-action: pan-y pinch-zoom;
+    touch-action: pan-y;
 }
 
 .hero-slider-wrapper:active {
