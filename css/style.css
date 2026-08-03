@@ -201,65 +201,46 @@ img {
    ============================================================ */
 
 .burger {
-    display: block;
-    width: 40px;
-    height: 40px;
-    min-width: 44px;
-    min-height: 44px;
-    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    padding: 0;
+    padding: 12px;
     position: relative;
     z-index: 1001;
     touch-action: manipulation;
-    transition: border-color var(--transition);
-}
-
-.burger:hover,
-.burger:focus-visible {
-    border-color: var(--accent);
 }
 
 .burger span {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     display: block;
     width: 22px;
     height: 2px;
     background: #fff;
     border-radius: 2px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s, background 0.3s, top 0.3s;
-}
-
-.burger span:nth-child(1) {
-    top: 13px;
-}
-
-.burger span:nth-child(2) {
-    top: 19px;
-}
-
-.burger span:nth-child(3) {
-    top: 25px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s, background 0.3s;
 }
 
 .burger.active span:nth-child(1) {
-    top: 19px;
-    transform: translateX(-50%) rotate(45deg);
+    transform: translateY(7px) rotate(45deg);
     background: var(--accent);
 }
 
 .burger.active span:nth-child(2) {
     opacity: 0;
-    transform: translateX(-50%) translateX(10px);
+    transform: translateX(10px);
 }
 
 .burger.active span:nth-child(3) {
-    top: 19px;
-    transform: translateX(-50%) rotate(-45deg);
+    transform: translateY(-7px) rotate(-45deg);
     background: var(--accent);
 }
 
@@ -2057,7 +2038,15 @@ img {
         display: inline-flex;
     }
     .burger {
-        display: none;
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+    .mobile-menu,
+    .mobile-overlay {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
     }
     .hero {
         flex-direction: row;
@@ -2356,28 +2345,246 @@ img {
 
 /* Печать */
 
-@media print {
-    .header,
-    .burger,
-    .mobile-menu,
-    .mobile-overlay,
-    .contact-section,
-    .footer,
-    .slider-btn,
-    .slider-dots,
-    .hero-slider-wrapper {
-        display: none !important;
+
+/* ============================================================
+   ГАЛЕРЕЯ — МОБИЛЬНЫЙ ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ СО СВАЙПОМ
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-bottom: 12px;
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE */
     }
-    body {
-        background: #fff;
-        color: #000;
+    .gallery-grid::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari */
     }
-    .section {
-        padding: 20px 0;
-        page-break-inside: avoid;
+    .gallery-item {
+        flex: 0 0 85%;
+        min-width: 85%;
+        scroll-snap-align: center;
+        height: 260px;
     }
-    a {
-        color: #000;
-        text-decoration: underline;
+    .gallery-item .overlay {
+        opacity: 1;
+        /* Всегда показываем overlay на мобильных */
     }
+}
+
+
+/* Индикатор свайпа на мобильных */
+
+@media (max-width: 768px) {
+    .gallery-grid::after {
+        content: '← Свайпай →';
+        position: sticky;
+        right: 0;
+        bottom: 0;
+        display: block;
+        text-align: center;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+        padding: 8px 0;
+        width: 100%;
+        flex-shrink: 0;
+        pointer-events: none;
+    }
+}
+
+
+/* ============================================================
+   HERO SLIDER — КУРСОР ДЛЯ СВАЙПА НА ПК
+   ============================================================ */
+
+.hero-slider-wrapper {
+    cursor: grab;
+}
+
+.hero-slider-wrapper:active {
+    cursor: grabbing;
+}
+
+
+/* Галерея — курсор для drag на десктопе */
+
+@media (min-width: 769px) {
+    .gallery-grid {
+        cursor: default;
+    }
+}
+
+
+/* ============================================================
+   ГАЛЕРЕЯ — СЛАЙДЕР ВНУТРИ КАРТОЧКИ + СТРЕЛКИ
+   ============================================================ */
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+.gallery-slider:active {
+    cursor: grabbing;
+}
+
+.gallery-slider img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+.gallery-slider img.active {
+    opacity: 1;
+}
+
+
+/* Стрелки */
+
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s, background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    line-height: 1;
+    touch-action: manipulation;
+    padding: 0;
+}
+
+.gallery-item:hover .gallery-arrow,
+.gallery-item:focus-within .gallery-arrow {
+    opacity: 1;
+}
+
+.gallery-arrow:hover {
+    background: var(--accent);
+    color: #0d0d0d;
+}
+
+.gallery-arrow-prev {
+    left: 10px;
+}
+
+.gallery-arrow-next {
+    right: 10px;
+}
+
+
+/* На тач-устройствах стрелки всегда видны */
+
+@media (hover: none) {
+    .gallery-arrow {
+        opacity: 0.8;
+    }
+}
+
+
+/* Точки-индикаторы внутри карточки */
+
+.gallery-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+}
+
+.gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+}
+
+.gallery-dot.active {
+    background: var(--accent);
+    transform: scale(1.2);
+}
+
+
+/* ============================================================
+   ГАЛЕРЕЯ — МОБИЛЬНЫЙ ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-bottom: 12px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .gallery-grid::-webkit-scrollbar {
+        display: none;
+    }
+    .gallery-item {
+        flex: 0 0 85%;
+        min-width: 85%;
+        scroll-snap-align: center;
+        height: 260px;
+    }
+    .gallery-item .overlay {
+        opacity: 1;
+    }
+}
+
+
+/* ============================================================
+   HERO SLIDER — КУРСОР ДЛЯ СВАЙПА
+   ============================================================ */
+
+.hero-slider-wrapper {
+    cursor: grab;
+}
+
+.hero-slider-wrapper:active {
+    cursor: grabbing;
 }
