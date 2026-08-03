@@ -415,7 +415,7 @@
         .section-bg .section-title,
         .section-bg .services-grid,
         .section-bg .mdf-grid,
-        .section-bg .about-grid,
+        .section-bg .advantages-grid,
         .section-bg .gallery-grid,
         .section-bg .mdf-highlight {
             position: relative;
@@ -511,7 +511,7 @@
             font-size: 14px;
             color: var(--gray);
         }
-        /* ========== MDF ========== */
+        /* ========== MDF (автоплей с плавным переходом) ========== */
         
         .mdf-grid {
             display: grid;
@@ -521,18 +521,51 @@
         }
         
         .mdf-item {
-            background: var(--card-bg);
-            padding: 40px 35px;
+            position: relative;
+            overflow: hidden;
             border-radius: 10px;
+            padding: 40px 35px;
             text-align: center;
-            transition: var(--transition);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid var(--card-border);
+            background-size: cover;
+            background-position: center;
+            background-color: #1a1a1a;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
         }
+        /* Затемняющий слой с плавным переходом */
         
-        .mdf-item:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
+        .mdf-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            transition: opacity 0.6s ease;
+            z-index: 1;
+            border-radius: 10px;
+        }
+        /* При активном состоянии или наведении — затемнение исчезает */
+        
+        .mdf-item.active::before,
+        .mdf-item:hover::before {
+            opacity: 0;
+        }
+        /* Текст тоже плавно исчезает */
+        
+        .mdf-item h4,
+        .mdf-item p {
+            position: relative;
+            z-index: 2;
+            transition: opacity 0.6s ease;
+            margin: 0;
         }
         
         .mdf-item h4 {
@@ -547,6 +580,20 @@
             color: var(--gray);
         }
         
+        .mdf-item.active h4,
+        .mdf-item.active p,
+        .mdf-item:hover h4,
+        .mdf-item:hover p {
+            opacity: 0;
+        }
+        /* Эффект при наведении */
+        
+        .mdf-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
         .mdf-highlight {
             max-width: 800px;
             margin: 0 auto 40px;
@@ -558,6 +605,60 @@
         
         .mdf-highlight strong {
             color: var(--white);
+        }
+        /* ========== ADVANTAGES (расширенные описания) ========== */
+        
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+        }
+        
+        .advantage-card {
+            background: var(--card-bg);
+            padding: 30px 20px 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
+        .advantage-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .advantage-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        
+        .advantage-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        
+        .advantage-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            max-width: 200px;
         }
         /* ========== GALLERY ========== */
         
@@ -625,49 +726,6 @@
         .gallery-item-desc {
             font-size: 13px;
             color: #ccc;
-        }
-        /* ========== ABOUT (5 пунктов) ========== */
-        
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 25px;
-        }
-        
-        .about-card {
-            background: var(--card-bg);
-            padding: 35px 20px;
-            border-radius: 10px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid var(--card-border);
-        }
-        
-        .about-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
-        }
-        
-        .about-icon {
-            font-size: 40px;
-            margin-bottom: 12px;
-        }
-        
-        .about-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-        
-        .about-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--gray);
         }
         /* ========== CONTACT ========== */
         
@@ -782,7 +840,7 @@
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .about-grid {
+            .advantages-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
@@ -792,7 +850,7 @@
             .mdf-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .about-grid {
+            .advantages-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .hero-features {
@@ -872,7 +930,7 @@
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            .about-grid {
+            .advantages-grid {
                 grid-template-columns: 1fr 1fr;
             }
             .gallery-item {
@@ -927,8 +985,8 @@
         <nav class="header-nav">
             <a href="#services">Услуги</a>
             <a href="#mdf">Фасады МДФ</a>
+            <a href="#advantages">Преимущества</a>
             <a href="#gallery">Работы</a>
-            <a href="#about">О нас</a>
             <a href="#contact">Контакты</a>
         </nav>
         <a href="tel:+375259929001" class="header-phone">
@@ -947,8 +1005,8 @@
 
             <div class="hero-stats">
                 <div>
-                    <div class="hero-stat-number">500+</div>
-                    <div class="hero-stat-label">проектов</div>
+                    <div class="hero-stat-number">> 5 лет</div>
+                    <div class="hero-stat-label">в производстве</div>
                 </div>
                 <div>
                     <div class="hero-stat-number">10–15</div>
@@ -1042,25 +1100,66 @@
     <!-- РАЗДЕЛИТЕЛЬ -->
     <div class="divider"></div>
 
-    <!-- MDF -->
+    <!-- MDF (автоплей с плавным переходом) -->
     <section class="section-bg" id="mdf" style="background-image: url('image/slide-2.jpg');">
         <div class="section-label">Спецпредложение</div>
         <h2 class="section-title">Покраска фасадов из МДФ</h2>
         <div class="mdf-highlight">
             <strong>Высокое качество</strong> крашенных фасадов.<br> Различные типы фрезеровки.
         </div>
-        <div class="mdf-grid">
-            <div class="mdf-item">
+        <div class="mdf-grid" id="mdfGrid">
+            <div class="mdf-item active" style="background-image: url('image/slide-1.jpg');">
                 <h4>Глянцевое покрытие</h4>
                 <p>Зеркальный блеск, глубокий цвет</p>
             </div>
-            <div class="mdf-item">
+            <div class="mdf-item" style="background-image: url('image/slide-2.jpg');">
                 <h4>Матовое покрытие</h4>
                 <p>Благородная текстура, мягкое свечение</p>
             </div>
-            <div class="mdf-item">
+            <div class="mdf-item" style="background-image: url('image/slide-3.jpg');">
                 <h4>Патина и софт-тач</h4>
                 <p>Изысканное состаривание и бархат</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <div class="divider"></div>
+
+    <!-- ADVANTAGES (расширенные описания) -->
+    <section class="section-bg" id="advantages" style="background-image: url('image/slide-3.jpg');">
+        <div class="section-label">Преимущества</div>
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <div class="advantage-icon">🎨</div>
+                <div class="advantage-title">Мастерство</div>
+                <div class="advantage-label">Большой опыт</div>
+                <div class="advantage-description">Работаем с 2018 года, знаем все нюансы покраски МДФ и дерева.</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">⭐</div>
+                <div class="advantage-title">Надёжность</div>
+                <div class="advantage-label">Гарантия качества</div>
+                <div class="advantage-description">Даём гарантию на все виды работ — вы можете быть уверены в результате.</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">⚡</div>
+                <div class="advantage-title">Оперативность</div>
+                <div class="advantage-label">Соблюдение сроков</div>
+                <div class="advantage-description">Чёткое планирование и контроль на каждом этапе — без задержек.</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🎯</div>
+                <div class="advantage-title">Индивидуальность</div>
+                <div class="advantage-label">Внимание к деталям</div>
+                <div class="advantage-description">Учитываем все пожелания, создаём уникальный дизайн под ваш интерьер.</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">💰</div>
+                <div class="advantage-title">Доступность</div>
+                <div class="advantage-label">Лучшее соотношение цены и качества</div>
+                <div class="advantage-description">Прозрачные цены без скрытых платежей — получаете максимум за свои деньги.</div>
             </div>
         </div>
     </section>
@@ -1120,42 +1219,6 @@
                     <div class="gallery-item-title">Кухня в стиле лофт</div>
                     <div class="gallery-item-desc">Матовое покрытие · 6 дней</div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- РАЗДЕЛИТЕЛЬ -->
-    <div class="divider"></div>
-
-    <!-- ABOUT -->
-    <section class="section-bg" id="about" style="background-image: url('image/slide-3.jpg');">
-        <div class="section-label">О нас</div>
-        <h2 class="section-title">Почему выбирают нас</h2>
-        <div class="about-grid">
-            <div class="about-card">
-                <div class="about-icon">🎨</div>
-                <div class="about-title">Мастерство</div>
-                <div class="about-label">Большой опыт</div>
-            </div>
-            <div class="about-card">
-                <div class="about-icon">⭐</div>
-                <div class="about-title">Надёжность</div>
-                <div class="about-label">Гарантия качества</div>
-            </div>
-            <div class="about-card">
-                <div class="about-icon">⚡</div>
-                <div class="about-title">Оперативность</div>
-                <div class="about-label">Соблюдение сроков</div>
-            </div>
-            <div class="about-card">
-                <div class="about-icon">🎯</div>
-                <div class="about-title">Индивидуальность</div>
-                <div class="about-label">Внимание к деталям</div>
-            </div>
-            <div class="about-card">
-                <div class="about-icon">💰</div>
-                <div class="about-title">Доступность</div>
-                <div class="about-label">Лучшее соотношение цены и качества</div>
             </div>
         </div>
     </section>
@@ -1230,6 +1293,39 @@
 
         document.getElementById('sliderNext').addEventListener('click', nextSlide);
         document.getElementById('sliderPrev').addEventListener('click', prevSlide);
+
+        // ===== MDF AUTOPLAY (плавное переключение) =====
+        const mdfItems = document.querySelectorAll('.mdf-item');
+        let mdfIndex = 0;
+        let mdfInterval;
+
+        function activateMdf(index) {
+            mdfItems.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextMdf() {
+            mdfIndex = (mdfIndex + 1) % mdfItems.length;
+            activateMdf(mdfIndex);
+        }
+
+        function startMdfAutoplay() {
+            if (mdfInterval) clearInterval(mdfInterval);
+            mdfInterval = setInterval(nextMdf, 4000);
+        }
+
+        function stopMdfAutoplay() {
+            clearInterval(mdfInterval);
+        }
+
+        // запускаем
+        startMdfAutoplay();
+
+        // останавливаем при наведении на сетку
+        const mdfGrid = document.getElementById('mdfGrid');
+        mdfGrid.addEventListener('mouseenter', stopMdfAutoplay);
+        mdfGrid.addEventListener('mouseleave', startMdfAutoplay);
 
         // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
