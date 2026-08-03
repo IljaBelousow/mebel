@@ -15,13 +15,13 @@ function debounce(fn, wait = 20) {
 const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 // ============================================================
-// 🔥 ФИКС СКРОЛЛА: принудительный сброс блокировки при загрузке
+// ФИКС СКРОЛЛА
 // ============================================================
 function unlockScroll() {
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
 }
-unlockScroll(); // сброс сразу при загрузке скрипта
+unlockScroll();
 
 
 // ============================================================
@@ -61,7 +61,6 @@ if (burger && mobileMenu && mobileOverlay) {
         mobileMenu.setAttribute('aria-hidden', String(!isOpen));
         mobileOverlay.setAttribute('aria-hidden', String(!isOpen));
 
-        // ✅ ФИКС: блокируем/разблокируем скролл надёжно
         if (isOpen) {
             body.style.overflow = 'hidden';
             setTimeout(() => {
@@ -69,7 +68,7 @@ if (burger && mobileMenu && mobileOverlay) {
                 if (firstLink) firstLink.focus();
             }, 400);
         } else {
-            unlockScroll(); // ✅ сброс через функцию
+            unlockScroll();
             burger.focus();
         }
     }
@@ -87,13 +86,12 @@ if (burger && mobileMenu && mobileOverlay) {
         }
     });
 
-    // ✅ ФИКС: при ресайзе на ширину > 768 всегда разблокируем скролл
     window.addEventListener('resize', debounce(() => {
         if (window.innerWidth > 768) {
             if (mobileMenu.classList.contains('active')) {
                 toggleMenu(false);
             }
-            unlockScroll(); // ✅ принудительный сброс
+            unlockScroll();
         }
     }, 100));
 
@@ -108,7 +106,7 @@ if (burger && mobileMenu && mobileOverlay) {
 
 
 // ============================================================
-// 3. HERO SLIDER
+// 3. HERO SLIDER (свайпы через Pointer Events)
 // ============================================================
 const slider = $('#heroSlider');
 if (slider) {
@@ -172,37 +170,45 @@ if (slider) {
         });
     }
 
-    if (isTouchDevice && wrapper) {
-        let touchStartX = 0,
-            touchEndX = 0;
-        let touchStartY = 0,
-            touchEndY = 0;
+    // ===== СВАЙПЫ (Pointer Events — телефон + ПК) =====
+    if (wrapper) {
+        let pointerStartX = 0;
+        let pointerStartY = 0;
+        let isDragging = false;
 
-        wrapper.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
+        wrapper.addEventListener('pointerdown', (e) => {
+            pointerStartX = e.clientX;
+            pointerStartY = e.clientY;
+            isDragging = true;
             stopAutoPlay();
+            wrapper.setPointerCapture(e.pointerId);
         }, { passive: true });
 
-        wrapper.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-            startAutoPlay();
-        }, { passive: true });
+        wrapper.addEventListener('pointerup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
 
-        function handleSwipe() {
-            const diffX = touchStartX - touchEndX;
-            const diffY = Math.abs(touchStartY - touchEndY);
+            const diffX = pointerStartX - e.clientX;
+            const diffY = Math.abs(pointerStartY - e.clientY);
             const threshold = 50;
 
             if (Math.abs(diffX) > threshold && Math.abs(diffX) > diffY) {
                 if (diffX > 0) goTo(idx + 1);
                 else goTo(idx - 1);
             }
-        }
+
+            startAutoPlay();
+        });
+
+        wrapper.addEventListener('pointercancel', () => {
+            isDragging = false;
+            startAutoPlay();
+        });
+
+        wrapper.addEventListener('dragstart', (e) => e.preventDefault());
     }
 
+    // Клавиатура
     if (wrapper) {
         wrapper.setAttribute('tabindex', '0');
         wrapper.setAttribute('role', 'region');
@@ -302,7 +308,134 @@ if (filterBtns.length && galleryItems.length) {
 
 
 // ============================================================
-// 6. МОДАЛЬНОЕ ОКНО ПОРТФОЛИО
+// 6. СЛАЙДЕРЫ ВНУТРИ КАРТОЧЕК ГАЛЕРЕИ (свайпы + стрелки)
+// ============================================================
+function initGallerySliders() {
+    const items = $$('.gallery-item');
+
+    items.forEach(item => {
+        const sliderEl = $('.gallery-slider', item);
+        if (!sliderEl) return;
+
+        const images = $$('img', sliderEl);
+        if (images.length <= 1) return;
+
+        let currentIdx = 0;
+        let hasSwiped = false;
+
+        // Создаём стрелки если их нет
+        let prevArrow = $('.gallery-arrow-prev', item);
+        let nextArrow = $('.gallery-arrow-next', item);
+
+        if (!prevArrow) {
+            prevArrow = document.createElement('button');
+            prevArrow.className = 'gallery-arrow gallery-arrow-prev';
+            prevArrow.setAttribute('aria-label', 'Предыдущее фото');
+            prevArrow.innerHTML = '‹';
+            item.appendChild(prevArrow);
+        }
+
+        if (!nextArrow) {
+            nextArrow = document.createElement('button');
+            nextArrow.className = 'gallery-arrow gallery-arrow-next';
+            nextArrow.setAttribute('aria-label', 'Следующее фото');
+            nextArrow.innerHTML = '›';
+            item.appendChild(nextArrow);
+        }
+
+        // Создаём точки
+        let dotsWrap = $('.gallery-dots', item);
+        if (!dotsWrap) {
+            dotsWrap = document.createElement('div');
+            dotsWrap.className = 'gallery-dots';
+            item.appendChild(dotsWrap);
+        }
+
+        images.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Фото ${i + 1}`);
+            dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showImage(i);
+            });
+            dotsWrap.appendChild(dot);
+        });
+
+        const dots = $$('.gallery-dot', dotsWrap);
+
+        function showImage(index) {
+            currentIdx = ((index % images.length) + images.length) % images.length;
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === currentIdx);
+            });
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === currentIdx);
+            });
+        }
+
+        // Стрелки
+        prevArrow.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showImage(currentIdx - 1);
+        });
+
+        nextArrow.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showImage(currentIdx + 1);
+        });
+
+        // Свайпы через Pointer Events
+        let startX = 0;
+        let startY = 0;
+        let isDragging = false;
+
+        sliderEl.addEventListener('pointerdown', (e) => {
+            startX = e.clientX;
+            startY = e.clientY;
+            isDragging = true;
+            hasSwiped = false;
+            sliderEl.setPointerCapture(e.pointerId);
+        }, { passive: true });
+
+        sliderEl.addEventListener('pointerup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+
+            const diffX = startX - e.clientX;
+            const diffY = Math.abs(startY - e.clientY);
+            const threshold = 30;
+
+            if (Math.abs(diffX) > threshold && Math.abs(diffX) > diffY) {
+                hasSwiped = true;
+                if (diffX > 0) showImage(currentIdx + 1);
+                else showImage(currentIdx - 1);
+            }
+        });
+
+        sliderEl.addEventListener('pointercancel', () => {
+            isDragging = false;
+        });
+
+        // Предотвращаем открытие модалки после свайпа
+        item.addEventListener('click', (e) => {
+            if (hasSwiped) {
+                e.preventDefault();
+                e.stopPropagation();
+                hasSwiped = false;
+            }
+        }, true);
+
+        // Предотвращаем выделение текста
+        sliderEl.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+}
+
+initGallerySliders();
+
+
+// ============================================================
+// 7. МОДАЛЬНОЕ ОКНО ПОРТФОЛИО
 // ============================================================
 const projectData = {
     'Кухонный гарнитур': {
@@ -345,7 +478,6 @@ if (modalOverlay) {
         item.setAttribute('aria-label', 'Открыть подробности проекта');
 
         const openModal = () => {
-            // ✅ Безопасный вариант без optional chaining (форматтер не сломает)
             const titleEl = $('.title', item);
             const imgEl = $('img', item);
             const badgeEl = $('.badge', item);
@@ -382,7 +514,7 @@ if (modalOverlay) {
 
     function closeModal() {
         modalOverlay.classList.remove('active');
-        unlockScroll(); // ✅ сброс через функцию
+        unlockScroll();
     }
 
     if (modalClose) {
@@ -402,7 +534,7 @@ if (modalOverlay) {
 
 
 // ============================================================
-// 7. ФОРМА ОБРАТНОЙ СВЯЗИ
+// 8. ФОРМА ОБРАТНОЙ СВЯЗИ
 // ============================================================
 const contactForm = $('#contactForm');
 if (contactForm) {
@@ -466,7 +598,7 @@ if (contactForm) {
 
 
 // ============================================================
-// 8. SMOOTH SCROLL для якорных ссылок
+// 9. SMOOTH SCROLL
 // ============================================================
 $$('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -479,17 +611,14 @@ $$('a[href^="#"]').forEach(anchor => {
             const headerHeight = header ? header.offsetHeight : 0;
             const targetPos = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
 
-            window.scrollTo({
-                top: targetPos,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: targetPos, behavior: 'smooth' });
         }
     });
 });
 
 
 // ============================================================
-// 9. LAZY LOADING
+// 10. LAZY LOADING
 // ============================================================
 if ('loading' in HTMLImageElement.prototype) {
     $$('img[loading="lazy"]').forEach(img => {
@@ -515,15 +644,7 @@ if ('loading' in HTMLImageElement.prototype) {
 
 
 // ============================================================
-// 10. ПРЕДОТВРАЩЕНИЕ ЗУМА на iOS (БЕЗОПАСНАЯ ВЕРСИЯ)
-// ============================================================
-// ✅ ФИКС: убрали preventDefault, который мог блокировать скролл.
-// Вместо этого используем только CSS: touch-action: manipulation.
-// Ничего не делаем в JS — это безопаснее.
-
-
-// ============================================================
-// 11. АВТОПОДСТРОЙКА ВЫСОТЫ МОДАЛКИ на iOS
+// 11. АВТОПОДСТРОЙКА ВЫСОТЫ
 // ============================================================
 function setVh() {
     const vh = window.innerHeight * 0.01;
@@ -539,6 +660,6 @@ window.addEventListener('resize', debounce(setVh, 100));
 // ============================================================
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
-    unlockScroll(); // ✅ финальный сброс блокировки скролла
+    unlockScroll();
     console.log('🚀 Vintazh100 website initialized');
 });
