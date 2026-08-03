@@ -111,11 +111,32 @@ img {
 }
 
 .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-family: 'Playfair Display', serif;
     font-size: 18px;
     font-weight: 700;
     letter-spacing: 2px;
     flex-shrink: 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+.header-logo-img {
+    height: 40px;
+    width: auto;
+    border-radius: 8px;
+    object-fit: contain;
+    display: block;
+}
+
+.header-logo-text {
+    white-space: nowrap;
+}
+
+.header-logo-text span {
+    color: var(--accent);
 }
 
 .header-logo span {
@@ -404,8 +425,9 @@ img {
     position: relative;
 }
 
-.header+.section {
-    padding-top: 90px;
+.header+.section,
+.mobile-menu+.section {
+    padding-top: 100px;
 }
 
 .section-dark {
@@ -2031,9 +2053,14 @@ img {
     .header.scrolled {
         padding: 10px 40px;
     }
-    .header-logo {
-        font-size: 24px;
-        letter-spacing: 3px;
+    @media (min-width: 769px) {
+        .header-logo {
+            font-size: 24px;
+            letter-spacing: 3px;
+        }
+        .header-logo-img {
+            height: 48px;
+        }
     }
     /* Показываем desktop nav, скрываем burger */
     .header-nav {
@@ -2074,8 +2101,9 @@ img {
     .section {
         padding: 80px 20px;
     }
-    .header+.section {
-        padding-top: 120px;
+    .header+.section,
+    .mobile-menu+.section {
+        padding-top: 130px;
     }
     .section-title {
         font-size: 44px;
@@ -2257,8 +2285,13 @@ img {
         padding: 12px 16px;
         font-size: 10px;
     }
-    .header-logo {
-        font-size: 16px;
+    @media (max-width: 360px) {
+        .header-logo-img {
+            height: 32px;
+        }
+        .header-logo-text {
+            font-size: 16px;
+        }
     }
 }
 
