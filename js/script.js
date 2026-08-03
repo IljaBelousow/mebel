@@ -705,5 +705,5 @@ window.addEventListener('resize', debounce(setVh, 100));
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
     unlockScroll();
-    console.log('🚀 Vintazh100 website initialized');
+    console.log('🚀 ИП Наумович website initialized');
 });
