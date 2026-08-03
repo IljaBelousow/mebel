@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- ОБЩИЙ CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -16,9 +17,7 @@
     <!-- ===== HEADER ===== -->
     <header class="header" id="header">
         <a href="index.html" class="header-logo">Vintazh<span>100</span></a>
-
-        <!-- Десктопная навигация -->
-        <nav class="header-nav" id="desktopNav">
+        <nav class="header-nav">
             <a href="index.html" class="active">Главная</a>
             <a href="about.html">О компании</a>
             <a href="services.html">Услуги</a>
@@ -27,43 +26,12 @@
             <a href="portfolio.html">Портфолио</a>
             <a href="contacts.html">Контакты</a>
         </nav>
-
         <a href="tel:+375259929001" class="header-phone">
             <span class="header-phone-dot"></span> +375 (25) 992-90-01
         </a>
 
-        <!-- Бургер-кнопка -->
-        <button class="burger" id="burger" aria-label="Открыть меню" type="button">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </header>
 
-    <!-- ===== МОБИЛЬНОЕ МЕНЮ ===== -->
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-header">
-            <span class="mobile-menu-logo">Vintazh<span>100</span></span>
-            <button class="mobile-close" id="mobileClose" aria-label="Закрыть меню" type="button">✕</button>
-        </div>
-        <nav class="mobile-nav">
-            <a href="index.html" class="active">Главная</a>
-            <a href="about.html">О компании</a>
-            <a href="services.html">Услуги</a>
-            <a href="mdf.html">Фасады МДФ</a>
-            <a href="technology.html">Технологии</a>
-            <a href="portfolio.html">Портфолио</a>
-            <a href="contacts.html">Контакты</a>
-        </nav>
-        <div class="mobile-menu-footer">
-            <a href="tel:+375259929001" class="mobile-phone">+375 (25) 992-90-01</a>
-            <div class="mobile-socials">
-                <a href="https://t.me/+375259929001" target="_blank" class="mobile-social telegram">Telegram</a>
-                <a href="https://www.instagram.com/vintazh100" target="_blank" class="mobile-social instagram">Instagram</a>
-            </div>
-        </div>
-    </div>
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="top">
@@ -348,6 +316,7 @@
         <div>© 2025 Vintazh100</div>
     </footer>
 
+    <!-- ОБЩИЙ JS -->
     <script src="js/script.js"></script>
 
 </body>
