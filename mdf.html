@@ -375,73 +375,84 @@
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
     <script src="js/script.js"></script>
 
-    <!-- Скрипт загрузки каталога -->
+    <!-- Скрипт загрузки каталога (2 файла) -->
     <script>
         (function() {
             var container = document.getElementById('catalogContainer');
             if (!container) return;
 
-            fetch('Catalog.docx')
-                .then(function(response) {
-                    if (!response.ok) throw new Error('Файл не найден');
-                    return response.arrayBuffer();
-                })
-                .then(function(arrayBuffer) {
-                    return mammoth.convertToHtml({
-                        arrayBuffer: arrayBuffer
-                    });
-                })
-                .then(function(result) {
-                    var html = result.value;
+            // Файлы каталога по порядку
+            var files = ['catalog1.docx', 'catalog2.docx'];
 
-                    // Пробуем разбить на карточки по заголовкам h1-h3
-                    var tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = html;
-
-                    var headings = tempDiv.querySelectorAll('h1, h2, h3');
-
-                    if (headings.length >= 2) {
-                        // Разбиваем на карточки по заголовкам
-                        var cards = [];
-                        var currentCard = null;
-
-                        for (var i = 0; i < tempDiv.childNodes.length; i++) {
-                            var node = tempDiv.childNodes[i];
-                            var isHeading = node.nodeName && /^H[1-3]$/.test(node.nodeName);
-
-                            if (isHeading) {
-                                if (currentCard) cards.push(currentCard);
-                                currentCard = document.createElement('div');
-                                currentCard.className = 'catalog-card';
-                                currentCard.appendChild(node.cloneNode(true));
-                            } else {
-                                if (!currentCard) {
-                                    currentCard = document.createElement('div');
-                                    currentCard.className = 'catalog-card';
-                                }
-                                currentCard.appendChild(node.cloneNode(true));
-                            }
-                        }
-                        if (currentCard) cards.push(currentCard);
-
-                        // Рендерим в сетку 2 колонки
-                        var grid = document.createElement('div');
-                        grid.className = 'catalog-grid';
-                        cards.forEach(function(card) {
-                            grid.appendChild(card);
+            Promise.all(files.map(function(file) {
+                    return fetch(file)
+                        .then(function(response) {
+                            if (!response.ok) throw new Error('Файл не найден: ' + file);
+                            return response.arrayBuffer();
+                        })
+                        .then(function(arrayBuffer) {
+                            return mammoth.convertToHtml({
+                                arrayBuffer: arrayBuffer
+                            });
+                        })
+                        .then(function(result) {
+                            return result.value;
                         });
-                        container.innerHTML = '';
-                        container.appendChild(grid);
-
-                    } else {
-                        // Мало заголовков — показываем в 2 колонки через CSS columns
-                        container.innerHTML = '<div class="catalog-single">' + html + '</div>';
-                    }
+                }))
+                .then(function(htmlParts) {
+                    // Склеиваем обе части в один документ
+                    var html = htmlParts.join('');
+                    renderCatalog(container, html);
                 })
                 .catch(function(error) {
-                    container.innerHTML = '<div class="catalog-error">Ошибка загрузки каталога. Убедитесь что файл Catalog.docx лежит в корне сайта.</div>';
+                    container.innerHTML = '<div class="catalog-error">Ошибка загрузки каталога. Убедитесь что файлы catalog1.docx и catalog2.docx лежат в корне сайта.</div>';
                     console.error('Catalog load error:', error);
                 });
+
+            function renderCatalog(container, html) {
+                var tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+
+                var headings = tempDiv.querySelectorAll('h1, h2, h3');
+
+                if (headings.length >= 2) {
+                    // Разбиваем на карточки по заголовкам
+                    var cards = [];
+                    var currentCard = null;
+
+                    for (var i = 0; i < tempDiv.childNodes.length; i++) {
+                        var node = tempDiv.childNodes[i];
+                        var isHeading = node.nodeName && /^H[1-3]$/.test(node.nodeName);
+
+                        if (isHeading) {
+                            if (currentCard) cards.push(currentCard);
+                            currentCard = document.createElement('div');
+                            currentCard.className = 'catalog-card';
+                            currentCard.appendChild(node.cloneNode(true));
+                        } else {
+                            if (!currentCard) {
+                                currentCard = document.createElement('div');
+                                currentCard.className = 'catalog-card';
+                            }
+                            currentCard.appendChild(node.cloneNode(true));
+                        }
+                    }
+                    if (currentCard) cards.push(currentCard);
+
+                    // Сетка в 2 колонки
+                    var grid = document.createElement('div');
+                    grid.className = 'catalog-grid';
+                    cards.forEach(function(card) {
+                        grid.appendChild(card);
+                    });
+                    container.innerHTML = '';
+                    container.appendChild(grid);
+
+                } else {
+                    // Мало заголовков — 2 колонки через CSS
+                    container.innerHTML = '<div class="catalog-single">' + html + '</div>';
+                }
+            }
         })();
     </script>
 </body>
