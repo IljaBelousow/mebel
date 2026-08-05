@@ -2626,3 +2626,273 @@ img {
 .hero-slider-wrapper:active {
     cursor: grabbing;
 }
+
+
+/* Картинки в каталоге — всем одинаковый белый фон */
+
+.catalog-card img,
+.catalog-single img {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+
+/* ============================================================
+   LIGHT THEME — МЯГКИЙ БЕЖЕВЫЙ
+   ============================================================ */
+
+body.light-theme {
+    --dark: #f5f0e8;
+    --gray: #6b6358;
+    --card-bg: rgba(107, 99, 88, 0.06);
+    --border: rgba(212, 175, 55, 0.2);
+    --shadow: 0 10px 40px rgba(107, 99, 88, 0.08);
+    background: #f5f0e8;
+    color: #3d3830;
+}
+
+body.light-theme .header {
+    background: rgba(245, 240, 232, 0.95);
+}
+
+body.light-theme .header-nav a {
+    color: rgba(61, 56, 48, 0.6);
+}
+
+body.light-theme .header-nav a:hover,
+body.light-theme .header-nav a.active {
+    color: #2d2820;
+}
+
+body.light-theme .burger {
+    background: rgba(107, 99, 88, 0.08);
+}
+
+body.light-theme .burger span {
+    background: #3d3830;
+}
+
+body.light-theme .mobile-menu {
+    background: #faf6f0;
+}
+
+body.light-theme .mobile-menu a {
+    color: rgba(61, 56, 48, 0.8);
+}
+
+body.light-theme .mobile-menu a:hover,
+body.light-theme .mobile-menu a.active {
+    background: var(--card-bg);
+    color: var(--accent);
+}
+
+body.light-theme .section-dark {
+    background: #faf6f0;
+}
+
+body.light-theme .section-darker {
+    background: #f5f0e8;
+}
+
+body.light-theme .hero {
+    background: radial-gradient(ellipse at 30% 50%, #faf6f0 0%, #f5f0e8 70%);
+}
+
+body.light-theme .hero-features li {
+    color: rgba(61, 56, 48, 0.7);
+}
+
+body.light-theme .hero-features li strong {
+    color: #2d2820;
+}
+
+body.light-theme .about-text p {
+    color: var(--gray);
+}
+
+body.light-theme .about-text p strong {
+    color: #2d2820;
+}
+
+body.light-theme .service-card {
+    background: var(--card-bg);
+}
+
+body.light-theme .service-card:hover {
+    background: rgba(107, 99, 88, 0.08);
+}
+
+body.light-theme .service-card .num {
+    color: rgba(107, 99, 88, 0.1);
+}
+
+body.light-theme .gallery-item {
+    background: #e8e2d8;
+}
+
+body.light-theme .modal-content {
+    background: #faf6f0;
+}
+
+body.light-theme .modal-content .modal-body p {
+    color: var(--gray);
+}
+
+body.light-theme .contact-section {
+    background: #faf6f0;
+}
+
+body.light-theme .footer {
+    background: #ede8df;
+    color: rgba(61, 56, 48, 0.4);
+}
+
+body.light-theme .form-group input,
+body.light-theme .form-group textarea,
+body.light-theme .form-group select {
+    background: rgba(107, 99, 88, 0.05);
+    color: #3d3830;
+}
+
+body.light-theme .form-group input:focus,
+body.light-theme .form-group textarea:focus,
+body.light-theme .form-group select:focus {
+    background: rgba(107, 99, 88, 0.08);
+}
+
+body.light-theme .form-group label {
+    color: rgba(61, 56, 48, 0.6);
+}
+
+body.light-theme .form-group select option {
+    background: #faf6f0;
+    color: #3d3830;
+}
+
+body.light-theme .info-item {
+    background: var(--card-bg);
+}
+
+body.light-theme .info-item .text p {
+    color: var(--gray);
+}
+
+body.light-theme .info-item .text a {
+    color: #2d2820;
+}
+
+body.light-theme .social-link {
+    background: rgba(107, 99, 88, 0.05);
+    border-color: rgba(107, 99, 88, 0.1);
+}
+
+body.light-theme .catalog-card,
+body.light-theme .catalog-single {
+    background: #faf6f0;
+    color: #3d3830;
+}
+
+body.light-theme .catalog-card p,
+body.light-theme .catalog-card li,
+body.light-theme .catalog-single p,
+body.light-theme .catalog-single li {
+    color: var(--gray);
+}
+
+body.light-theme .catalog-card strong,
+body.light-theme .catalog-card b,
+body.light-theme .catalog-single strong,
+body.light-theme .catalog-single b {
+    color: #2d2820;
+}
+
+body.light-theme .mdf-item {
+    background-color: #e8e2d8;
+}
+
+body.light-theme .team-card,
+body.light-theme .advantage-item,
+body.light-theme .tech-card,
+body.light-theme .equipment-item,
+body.light-theme .process-item,
+body.light-theme .faq-item,
+body.light-theme .about-stat,
+body.light-theme .stat-block {
+    background: var(--card-bg);
+}
+
+body.light-theme .filter-btn {
+    background: var(--card-bg);
+    color: var(--gray);
+}
+
+body.light-theme .slider-btn {
+    background: rgba(245, 240, 232, 0.85);
+    color: #3d3830;
+}
+
+body.light-theme .modal-overlay {
+    background: rgba(245, 240, 232, 0.92);
+}
+
+body.light-theme .modal-close {
+    background: rgba(245, 240, 232, 0.85);
+    color: #3d3830;
+}
+
+body.light-theme .theme-toggle {
+    background: rgba(107, 99, 88, 0.08);
+}
+
+body.light-theme .theme-toggle:hover {
+    background: var(--accent);
+}
+
+
+/* ============================================================
+   КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ (базовые стили)
+   ============================================================ */
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+    touch-action: manipulation;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.theme-toggle:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+
+/* ============================================================
+   MDF КАРТОЧКИ — БЕЛЫЙ ТЕКСТ ПОВЕРХ ФОТО (в светлой теме)
+   ============================================================ */
+
+body.light-theme .mdf-item h4,
+body.light-theme .mdf-item p,
+body.light-theme .mdf-showcase-item h3,
+body.light-theme .mdf-showcase-item p {
+    color: #ffffff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .mdf-item::before,
+body.light-theme .mdf-showcase-item::before {
+    background: rgba(0, 0, 0, 0.7);
+}
