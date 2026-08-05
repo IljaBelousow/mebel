@@ -375,48 +375,56 @@
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
     <script src="js/script.js"></script>
 
-    <!-- Скрипт загрузки каталога (2 файла) -->
+    <!-- Скрипт загрузки каталога (2 папки) -->
     <script>
         (function() {
             var container = document.getElementById('catalogContainer');
             if (!container) return;
 
-            // Файлы каталога по порядку
-            var files = ['catalog1.docx', 'catalog2.docx'];
+            // Файлы каталога с путями к папкам
+            var files = [{
+                url: 'Catalog1/Catalog1.html',
+                base: 'Catalog1/'
+            }, {
+                url: 'Catalog2/Catalog2.html',
+                base: 'Catalog2/'
+            }];
 
             Promise.all(files.map(function(file) {
-                    return fetch(file)
+                    return fetch(file.url)
                         .then(function(response) {
-                            if (!response.ok) throw new Error('Файл не найден: ' + file);
-                            return response.arrayBuffer();
+                            if (!response.ok) throw new Error('Файл не найден: ' + file.url);
+                            return response.text();
                         })
-                        .then(function(arrayBuffer) {
-                            return mammoth.convertToHtml({
-                                arrayBuffer: arrayBuffer
-                            });
-                        })
-                        .then(function(result) {
-                            return result.value;
+                        .then(function(html) {
+                            // Исправляем пути к картинкам: images/ → Catalog1/images/
+                            html = html.replace(/src="images\//g, 'src="' + file.base + 'images/');
+                            html = html.replace(/src="\.\//g, 'src="' + file.base);
+                            return html;
                         });
                 }))
                 .then(function(htmlParts) {
-                    // Склеиваем обе части в один документ
                     var html = htmlParts.join('');
                     renderCatalog(container, html);
                 })
                 .catch(function(error) {
-                    container.innerHTML = '<div class="catalog-error">Ошибка загрузки каталога. Убедитесь что файлы catalog1.docx и catalog2.docx лежат в корне сайта.</div>';
+                    container.innerHTML = '<div class="catalog-error">Ошибка загрузки каталога. Проверьте что папки Catalog1 и Catalog2 лежат в корне сайта.</div>';
                     console.error('Catalog load error:', error);
                 });
 
             function renderCatalog(container, html) {
+                // Извлекаем только <body> если это полный HTML-документ
+                var bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+                if (bodyMatch) {
+                    html = bodyMatch[1];
+                }
+
                 var tempDiv = document.createElement('div');
                 tempDiv.innerHTML = html;
 
                 var headings = tempDiv.querySelectorAll('h1, h2, h3');
 
                 if (headings.length >= 2) {
-                    // Разбиваем на карточки по заголовкам
                     var cards = [];
                     var currentCard = null;
 
@@ -439,7 +447,6 @@
                     }
                     if (currentCard) cards.push(currentCard);
 
-                    // Сетка в 2 колонки
                     var grid = document.createElement('div');
                     grid.className = 'catalog-grid';
                     cards.forEach(function(card) {
@@ -449,7 +456,6 @@
                     container.appendChild(grid);
 
                 } else {
-                    // Мало заголовков — 2 колонки через CSS
                     container.innerHTML = '<div class="catalog-single">' + html + '</div>';
                 }
             }
