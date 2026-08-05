@@ -707,3 +707,34 @@ window.addEventListener('load', () => {
     unlockScroll();
     console.log('🚀 ИП Наумович website initialized');
 });
+
+// ============================================================
+// 12. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ (тёмная / светлая)
+// ============================================================
+(function() {
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+
+    const body = document.body;
+    const STORAGE_KEY = 'vintazh100-theme';
+
+    const savedTheme = localStorage.getItem(STORAGE_KEY);
+    if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        toggle.textContent = '☀️';
+    } else {
+        toggle.textContent = '🌙';
+    }
+
+    toggle.addEventListener('click', function() {
+        body.classList.toggle('light-theme');
+
+        if (body.classList.contains('light-theme')) {
+            localStorage.setItem(STORAGE_KEY, 'light');
+            toggle.textContent = '☀️';
+        } else {
+            localStorage.setItem(STORAGE_KEY, 'dark');
+            toggle.textContent = '🌙';
+        }
+    });
+})();
