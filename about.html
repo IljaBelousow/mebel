@@ -18,6 +18,11 @@
     <link rel="icon" type="image/jpeg" href="image/logo.jpg">
     <link rel="shortcut icon" type="image/jpeg" href="image/logo.jpg">
     <link rel="apple-touch-icon" href="image/logo.jpg">
+    <script>
+        if (localStorage.getItem('vintazh100-theme') === 'light') {
+            document.body.classList.add('light-theme')
+        }
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -45,6 +50,7 @@
                 <span class="header-phone-dot" aria-hidden="true"></span>
                 <span>+375 (25) 992-90-01</span>
             </a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
             <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
                 <span></span><span></span><span></span>
             </button>
