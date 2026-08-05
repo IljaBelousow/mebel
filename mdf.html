@@ -18,7 +18,250 @@
     <link rel="icon" type="image/jpeg" href="image/logo.jpg">
     <link rel="shortcut icon" type="image/jpeg" href="image/logo.jpg">
     <link rel="apple-touch-icon" href="image/logo.jpg">
+    <script>
+        if (localStorage.getItem('vintazh100-theme') === 'light') {
+            document.body.classList.add('light-theme')
+        }
+    </script>
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Стили для контента из Catalog.docx -->
+    <style>
+        /* Обёртка каталога */
+        
+        .catalog-wrapper {
+            margin-top: 30px;
+        }
+        /* Сетка в 2 колонки */
+        
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Каждая карточка каталога */
+        
+        .catalog-card {
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 20px;
+            color: #fff;
+            line-height: 1.7;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        
+        .catalog-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        /* Заголовки внутри карточек */
+        
+        .catalog-card h1,
+        .catalog-card h2,
+        .catalog-card h3,
+        .catalog-card h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            margin: 0 0 12px;
+            line-height: 1.3;
+        }
+        
+        .catalog-card h1 {
+            font-size: 20px;
+        }
+        
+        .catalog-card h2 {
+            font-size: 18px;
+        }
+        
+        .catalog-card h3 {
+            font-size: 16px;
+        }
+        
+        .catalog-card h4 {
+            font-size: 15px;
+        }
+        /* Текст */
+        
+        .catalog-card p {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        /* Списки */
+        
+        .catalog-card ul,
+        .catalog-card ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .catalog-card li {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 4px;
+        }
+        /* Таблицы */
+        
+        .catalog-card table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+        }
+        
+        .catalog-card th,
+        .catalog-card td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 13px;
+            color: var(--gray);
+        }
+        
+        .catalog-card th {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        /* Жирный текст */
+        
+        .catalog-card strong,
+        .catalog-card b {
+            color: #fff;
+        }
+        /* Ссылки */
+        
+        .catalog-card a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        /* Картинки */
+        
+        .catalog-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 8px 0;
+        }
+        /* Если контент не разбился на блоки — показываем в 2 колонки через CSS columns */
+        
+        .catalog-single {
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px 24px;
+            color: #fff;
+            line-height: 1.8;
+            column-count: 2;
+            column-gap: 30px;
+            column-rule: 1px solid var(--border);
+        }
+        
+        @media (max-width: 768px) {
+            .catalog-single {
+                column-count: 1;
+                padding: 20px 16px;
+            }
+        }
+        
+        .catalog-single h1,
+        .catalog-single h2,
+        .catalog-single h3,
+        .catalog-single h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            margin: 20px 0 10px;
+            line-height: 1.3;
+            break-after: avoid;
+        }
+        
+        .catalog-single h1 {
+            font-size: 22px;
+        }
+        
+        .catalog-single h2 {
+            font-size: 18px;
+        }
+        
+        .catalog-single h3 {
+            font-size: 16px;
+        }
+        
+        .catalog-single p {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .catalog-single ul,
+        .catalog-single ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .catalog-single li {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 4px;
+        }
+        
+        .catalog-single table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            break-inside: avoid;
+        }
+        
+        .catalog-single th,
+        .catalog-single td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 13px;
+            color: var(--gray);
+        }
+        
+        .catalog-single th {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .catalog-single strong,
+        .catalog-single b {
+            color: #fff;
+        }
+        
+        .catalog-single a {
+            color: var(--accent);
+        }
+        
+        .catalog-single img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        /* Загрузка и ошибка */
+        
+        .catalog-loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+            font-size: 15px;
+        }
+        
+        .catalog-error {
+            text-align: center;
+            padding: 40px;
+            color: #ff6b6b;
+            font-size: 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,7 +270,7 @@
     <header class="header" id="header">
         <a href="index.html" class="header-logo" aria-label="ИП Наумович — на главную">
             <img src="image/logo.jpg" alt="Логотип ИП Наумович" class="header-logo-img">
-            <span class="header-logo-text">ИП<span> Наумович</span></span>
+            <span class="header-logo-text">ИП<span>Наумович</span></span>
         </a>
 
         <nav class="header-nav" aria-label="Основная навигация">
@@ -45,6 +288,7 @@
                 <span class="header-phone-dot" aria-hidden="true"></span>
                 <span>+375 (25) 992-90-01</span>
             </a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
             <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
                 <span></span><span></span><span></span>
             </button>
@@ -89,42 +333,10 @@
                 </div>
             </div>
 
-            <!-- Виды фрезеровки -->
-            <h3 style="font-size:20px; margin-bottom:14px; color:var(--accent);">Типы фрезеровки</h3>
-            <div style="display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:32px;">
-                <div style="background:var(--card-bg); padding:14px 16px; border-radius:8px; border:1px solid var(--border); text-align:center;">
-                    <strong style="color:var(--accent);">Прямая</strong>
-                    <p style="font-size:13px; color:var(--gray);">Чёткие линии, минимализм</p>
-                </div>
-                <div style="background:var(--card-bg); padding:14px 16px; border-radius:8px; border:1px solid var(--border); text-align:center;">
-                    <strong style="color:var(--accent);">Радиусная</strong>
-                    <p style="font-size:13px; color:var(--gray);">Плавные изгибы, мягкость</p>
-                </div>
-                <div style="background:var(--card-bg); padding:14px 16px; border-radius:8px; border:1px solid var(--border); text-align:center;">
-                    <strong style="color:var(--accent);">Сложная</strong>
-                    <p style="font-size:13px; color:var(--gray);">Индивидуальный дизайн, резные элементы</p>
-                </div>
-            </div>
-
-            <!-- FAQ -->
-            <h3 style="font-size:20px; margin-bottom:14px; color:var(--accent);">Часто задаваемые вопросы</h3>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h4>Какие размеры фасадов вы изготавливаете?</h4>
-                    <p>Любые размеры — от 100×100 мм до 3000×1200 мм. Возможна резка по вашему чертежу.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>Сколько времени занимает покраска?</h4>
-                    <p>Стандартный срок — 10–15 дней. Зависит от сложности фрезеровки и типа покрытия.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>Какая гарантия на фасады?</h4>
-                    <p>Мы даём гарантию 2 года на все виды работ и материалов.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>Можно ли заказать индивидуальный цвет?</h4>
-                    <p>Да, мы подбираем цвет по каталогу RAL или по вашему образцу.</p>
-                </div>
+            <!-- Каталог из Catalog.docx -->
+            <h3 style="font-size:20px; margin-bottom:14px; color:var(--accent);">Каталог продукции</h3>
+            <div id="catalogContainer">
+                <div class="catalog-loading">Загрузка каталога...</div>
             </div>
 
             <div style="text-align:center; margin-top:32px;">
@@ -145,7 +357,7 @@
                 <a href="https://t.me/+375259929001" class="messenger-btn telegram" target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.5 4.5L2.5 10.5L9.5 13.5L12.5 20.5L16.5 14.5L21.5 4.5Z"/><path d="M9.5 13.5L14.5 9.5"/></svg> Telegram
                 </a>
-                <a href="https://www.instagram.com/ИП Наумович" class="messenger-btn instagram" target="_blank" rel="noopener">
+                <a href="https://www.instagram.com/" class="messenger-btn instagram" target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>                    Instagram
                 </a>
             </div>
@@ -154,10 +366,84 @@
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
-        <div>© 2025 ИП Наумович. Все права защищены.</div>
+        <div class="footer-inner">
+            <div>© 2025 ИП Наумович. Все права защищены.</div>
+        </div>
     </footer>
 
+    <!-- Библиотека mammoth.js для конвертации docx → HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
     <script src="js/script.js"></script>
+
+    <!-- Скрипт загрузки каталога -->
+    <script>
+        (function() {
+            var container = document.getElementById('catalogContainer');
+            if (!container) return;
+
+            fetch('Catalog.docx')
+                .then(function(response) {
+                    if (!response.ok) throw new Error('Файл не найден');
+                    return response.arrayBuffer();
+                })
+                .then(function(arrayBuffer) {
+                    return mammoth.convertToHtml({
+                        arrayBuffer: arrayBuffer
+                    });
+                })
+                .then(function(result) {
+                    var html = result.value;
+
+                    // Пробуем разбить на карточки по заголовкам h1-h3
+                    var tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+
+                    var headings = tempDiv.querySelectorAll('h1, h2, h3');
+
+                    if (headings.length >= 2) {
+                        // Разбиваем на карточки по заголовкам
+                        var cards = [];
+                        var currentCard = null;
+
+                        for (var i = 0; i < tempDiv.childNodes.length; i++) {
+                            var node = tempDiv.childNodes[i];
+                            var isHeading = node.nodeName && /^H[1-3]$/.test(node.nodeName);
+
+                            if (isHeading) {
+                                if (currentCard) cards.push(currentCard);
+                                currentCard = document.createElement('div');
+                                currentCard.className = 'catalog-card';
+                                currentCard.appendChild(node.cloneNode(true));
+                            } else {
+                                if (!currentCard) {
+                                    currentCard = document.createElement('div');
+                                    currentCard.className = 'catalog-card';
+                                }
+                                currentCard.appendChild(node.cloneNode(true));
+                            }
+                        }
+                        if (currentCard) cards.push(currentCard);
+
+                        // Рендерим в сетку 2 колонки
+                        var grid = document.createElement('div');
+                        grid.className = 'catalog-grid';
+                        cards.forEach(function(card) {
+                            grid.appendChild(card);
+                        });
+                        container.innerHTML = '';
+                        container.appendChild(grid);
+
+                    } else {
+                        // Мало заголовков — показываем в 2 колонки через CSS columns
+                        container.innerHTML = '<div class="catalog-single">' + html + '</div>';
+                    }
+                })
+                .catch(function(error) {
+                    container.innerHTML = '<div class="catalog-error">Ошибка загрузки каталога. Убедитесь что файл Catalog.docx лежит в корне сайта.</div>';
+                    console.error('Catalog load error:', error);
+                });
+        })();
+    </script>
 </body>
 
 </html>
