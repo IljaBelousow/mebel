@@ -261,6 +261,64 @@
             color: #ff6b6b;
             font-size: 15px;
         }
+        /* ============================================================
+   ФИКС КАРТИНОК КАТАЛОГА — НЕ ВЫЛЕЗАТЬ ЗА ЭКРАН
+   ============================================================ */
+        
+        #catalogContainer,
+        #catalogContainer * {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        
+        #catalogContainer img {
+            max-width: 100% !important;
+            width: 100% !important;
+            height: auto !important;
+            object-fit: contain !important;
+            display: block !important;
+            margin: 8px auto !important;
+            border-radius: 8px !important;
+            background: #fff !important;
+            padding: 8px !important;
+        }
+        
+        #catalogContainer table {
+            max-width: 100% !important;
+            width: 100% !important;
+            table-layout: fixed !important;
+            word-wrap: break-word !important;
+        }
+        
+        #catalogContainer .catalog-card,
+        #catalogContainer .catalog-single {
+            overflow: hidden !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+        }
+        
+        #catalogContainer .catalog-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 20px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        #catalogContainer .catalog-grid>* {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            overflow: hidden !important;
+        }
+        
+        @media (max-width: 768px) {
+            #catalogContainer .catalog-grid {
+                grid-template-columns: 1fr !important;
+            }
+            #catalogContainer img {
+                padding: 4px !important;
+            }
+        }
     </style>
 </head>
 
