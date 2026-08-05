@@ -2630,12 +2630,71 @@ img {
 
 /* Картинки в каталоге — всем одинаковый белый фон */
 
+
+/* Картинки в карточках — фикс переполнения */
+
 .catalog-card img,
 .catalog-single img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 8px 0;
     background: #ffffff;
     padding: 10px;
-    border-radius: 8px;
     border: 1px solid var(--border);
+    display: block;
+}
+
+
+/* Фикс для таблиц — не вылезать за пределы */
+
+.catalog-card table,
+.catalog-single table {
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+}
+
+@media (min-width: 769px) {
+    .catalog-card table,
+    .catalog-single table {
+        display: table;
+    }
+}
+
+
+/* Фикс для карточек — не вылезать за пределы */
+
+.catalog-card {
+    overflow: hidden;
+    min-width: 0;
+}
+
+.catalog-single {
+    overflow: hidden;
+    min-width: 0;
+}
+
+
+/* Фикс для grid — колонки не сжимаются меньше контента */
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    min-width: 0;
+}
+
+.catalog-grid>* {
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+    .catalog-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -2895,4 +2954,9 @@ body.light-theme .mdf-showcase-item p {
 body.light-theme .mdf-item::before,
 body.light-theme .mdf-showcase-item::before {
     background: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .catalog-card img,
+body.light-theme .catalog-single img {
+    background: #ffffff;
 }
