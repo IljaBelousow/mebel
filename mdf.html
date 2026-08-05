@@ -262,7 +262,7 @@
             font-size: 15px;
         }
         /* ============================================================
-   ФИКС КАРТИНОК КАТАЛОГА — НЕ ВЫЛЕЗАТЬ ЗА ЭКРАН
+   ФИКС КАРТИНОК КАТАЛОГА
    ============================================================ */
         
         #catalogContainer,
@@ -273,28 +273,28 @@
         
         #catalogContainer img {
             max-width: 100% !important;
-            width: 100% !important;
+            width: auto !important;
             height: auto !important;
-            object-fit: contain !important;
             display: block !important;
-            margin: 8px auto !important;
+            margin: 10px auto !important;
             border-radius: 8px !important;
             background: #fff !important;
-            padding: 8px !important;
+            padding: 0 !important;
+            border: none !important;
+            object-fit: initial !important;
         }
         
         #catalogContainer table {
             max-width: 100% !important;
             width: 100% !important;
-            table-layout: fixed !important;
             word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
         }
         
         #catalogContainer .catalog-card,
         #catalogContainer .catalog-single {
             overflow: hidden !important;
             min-width: 0 !important;
-            max-width: 100% !important;
         }
         
         #catalogContainer .catalog-grid {
@@ -302,22 +302,70 @@
             grid-template-columns: 1fr 1fr !important;
             gap: 20px !important;
             width: 100% !important;
-            max-width: 100% !important;
         }
         
         #catalogContainer .catalog-grid>* {
             min-width: 0 !important;
-            max-width: 100% !important;
             overflow: hidden !important;
+        }
+        /* Убираем пустые параграфы и br между картинками */
+        
+        #catalogContainer p:empty,
+        #catalogContainer br {
+            display: none !important;
         }
         
         @media (max-width: 768px) {
             #catalogContainer .catalog-grid {
                 grid-template-columns: 1fr !important;
             }
-            #catalogContainer img {
-                padding: 4px !important;
-            }
+        }
+        /* Кнопки переключения каталогов */
+        
+        .catalog-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .catalog-tab {
+            padding: 12px 28px;
+            min-height: 44px;
+            border-radius: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--gray);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            touch-action: manipulation;
+        }
+        
+        .catalog-tab:hover {
+            border-color: var(--accent);
+            color: #fff;
+        }
+        
+        .catalog-tab.active {
+            background: var(--accent);
+            color: #0d0d0d;
+            border-color: var(--accent);
+        }
+        /* Окно каталога */
+        
+        #catalogFrame {
+            width: 100%;
+            height: 75vh;
+            min-height: 500px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #ffffff;
+            display: block;
+            transition: height 0.3s ease;
         }
     </style>
 </head>
@@ -391,10 +439,21 @@
                 </div>
             </div>
 
-            <!-- Каталог из Catalog.docx -->
+            <!-- Каталог продукции -->
             <h3 style="font-size:20px; margin-bottom:14px; color:var(--accent);">Каталог продукции</h3>
-            <div id="catalogContainer">
-                <div class="catalog-loading">Загрузка каталога...</div>
+
+            <!-- Кнопки СВЕРХУ -->
+            <div class="catalog-tabs">
+                <button class="catalog-tab active" data-catalog="1">Каталог 1</button>
+                <button class="catalog-tab" data-catalog="2">Каталог 2</button>
+            </div>
+
+            <iframe id="catalogFrame" src="Catalog1/Catalog1.html" title="Каталог продукции"></iframe>
+
+            <!-- Кнопки СНИЗУ -->
+            <div class="catalog-tabs">
+                <button class="catalog-tab active" data-catalog="1">Каталог 1</button>
+                <button class="catalog-tab" data-catalog="2">Каталог 2</button>
             </div>
 
             <div style="text-align:center; margin-top:32px;">
@@ -429,94 +488,122 @@
         </div>
     </footer>
 
-    <!-- Библиотека mammoth.js для конвертации docx → HTML -->
-    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
-    <script src="js/script.js"></script>
-
-    <!-- Скрипт загрузки каталога (2 папки) -->
+    <!-- Скрипт переключения каталогов -->
     <script>
         (function() {
-            var container = document.getElementById('catalogContainer');
-            if (!container) return;
+            var frame = document.getElementById('catalogFrame');
+            if (!frame) return;
 
-            // Файлы каталога с путями к папкам
-            var files = [{
-                url: 'Catalog1/Catalog1.html',
-                base: 'Catalog1/'
-            }, {
-                url: 'Catalog2/Catalog2.html',
-                base: 'Catalog2/'
-            }];
+            var tabs = document.querySelectorAll('.catalog-tab');
 
-            Promise.all(files.map(function(file) {
-                    return fetch(file.url)
-                        .then(function(response) {
-                            if (!response.ok) throw new Error('Файл не найден: ' + file.url);
-                            return response.text();
-                        })
-                        .then(function(html) {
-                            // Исправляем пути к картинкам: images/ → Catalog1/images/
-                            html = html.replace(/src="images\//g, 'src="' + file.base + 'images/');
-                            html = html.replace(/src="\.\//g, 'src="' + file.base);
-                            return html;
-                        });
-                }))
-                .then(function(htmlParts) {
-                    var html = htmlParts.join('');
-                    renderCatalog(container, html);
-                })
-                .catch(function(error) {
-                    container.innerHTML = '<div class="catalog-error">Ошибка загрузки каталога. Проверьте что папки Catalog1 и Catalog2 лежат в корне сайта.</div>';
-                    console.error('Catalog load error:', error);
-                });
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    var num = tab.getAttribute('data-catalog');
+                    frame.src = 'Catalog' + num + '/Catalog' + num + '.html';
 
-            function renderCatalog(container, html) {
-                // Извлекаем только <body> если это полный HTML-документ
-                var bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-                if (bodyMatch) {
-                    html = bodyMatch[1];
-                }
-
-                var tempDiv = document.createElement('div');
-                tempDiv.innerHTML = html;
-
-                var headings = tempDiv.querySelectorAll('h1, h2, h3');
-
-                if (headings.length >= 2) {
-                    var cards = [];
-                    var currentCard = null;
-
-                    for (var i = 0; i < tempDiv.childNodes.length; i++) {
-                        var node = tempDiv.childNodes[i];
-                        var isHeading = node.nodeName && /^H[1-3]$/.test(node.nodeName);
-
-                        if (isHeading) {
-                            if (currentCard) cards.push(currentCard);
-                            currentCard = document.createElement('div');
-                            currentCard.className = 'catalog-card';
-                            currentCard.appendChild(node.cloneNode(true));
-                        } else {
-                            if (!currentCard) {
-                                currentCard = document.createElement('div');
-                                currentCard.className = 'catalog-card';
-                            }
-                            currentCard.appendChild(node.cloneNode(true));
-                        }
-                    }
-                    if (currentCard) cards.push(currentCard);
-
-                    var grid = document.createElement('div');
-                    grid.className = 'catalog-grid';
-                    cards.forEach(function(card) {
-                        grid.appendChild(card);
+                    // Подсветка кнопок (и сверху, и снизу)
+                    tabs.forEach(function(t) {
+                        t.classList.remove('active');
                     });
-                    container.innerHTML = '';
-                    container.appendChild(grid);
+                    document.querySelectorAll('.catalog-tab[data-catalog="' + num + '"]').forEach(function(t) {
+                        t.classList.add('active');
+                    });
+                });
+            });
 
-                } else {
-                    container.innerHTML = '<div class="catalog-single">' + html + '</div>';
+            // ===== ПОЛНЫЙ ФИКС КАТАЛОГА =====
+            frame.addEventListener('load', function() {
+                try {
+                    var doc = frame.contentDocument || frame.contentWindow.document;
+                    if (!doc) return;
+
+                    // Удаляем старый фикс если был
+                    var oldStyle = doc.getElementById('catalogFixStyle');
+                    if (oldStyle) oldStyle.remove();
+
+                    // Добавляем мощный CSS-фикс
+                    var style = doc.createElement('style');
+                    style.id = 'catalogFixStyle';
+                    style.textContent = `
+                    /* УБИРАЕМ все ограничения Word */
+                    html, body {
+                        max-width: 100% !important;
+                        width: 100% !important;
+                        margin: 0 !important;
+                        padding: 10px !important;
+                        background: #fff !important;
+                        box-sizing: border-box !important;
+                        overflow-x: hidden !important;
+                    }
+
+                    * {
+                        box-sizing: border-box !important;
+                    }
+
+                    /* УБИРАЕМ отрицательные отступы параграфов */
+                    p, div {
+                        margin-left: 0 !important;
+                        margin-right: 0 !important;
+                        max-width: 100% !important;
+                        padding: 0 !important;
+                    }
+
+                    /* УБИРАЕМ фиксированные размеры span */
+                    span {
+                        display: block !important;
+                        width: 100% !important;
+                        height: auto !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        overflow: visible !important;
+                        border: none !important;
+                        transform: none !important;
+                    }
+
+                    /* Картинки — во всю ширину, адаптивные */
+                    img {
+                        max-width: 100% !important;
+                        width: 100% !important;
+                        height: auto !important;
+                        display: block !important;
+                        margin: 15px 0 !important;
+                        padding: 0 !important;
+                        border: none !important;
+                        transform: none !important;
+                        page-break-inside: avoid !important;
+                    }
+
+                    /* Убираем разрывы страниц */
+                    hr {
+                        display: none !important;
+                    }
+
+                    /* Текст */
+                    h1, h2, h3, h4, h5, h6, p, li, span.c2, span.c5 {
+                        word-wrap: break-word !important;
+                        overflow-wrap: break-word !important;
+                        max-width: 100% !important;
+                    }
+                `;
+                    (doc.head || doc.documentElement).appendChild(style);
+
+                    // УДАЛЯЕМ inline-стили у всех элементов
+                    var allElements = doc.querySelectorAll('*');
+                    allElements.forEach(function(el) {
+                        // Сохраняем только нужные стили
+                        el.style.cssText = '';
+                    });
+
+                    // Автоподстройка высоты iframe под содержимое
+                    setTimeout(function() {
+                        var bodyHeight = doc.body.scrollHeight || doc.documentElement.scrollHeight;
+                        frame.style.height = (bodyHeight + 40) + 'px';
+                    }, 200);
+
+                } catch (e) {
+                    console.log('Cannot access iframe content:', e);
                 }
-            }
+            });
         })();
     </script>
 </body>
